@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stacks Marketplace | Buy & Sell Local & Online</title>
+  <title>Stacks Collectibles & Goods | Buy, Sell & Trade</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -56,13 +56,14 @@
     }
 
     .logo {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: var(--primary);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      white-space: nowrap;
     }
 
     .logo span {
@@ -116,6 +117,7 @@
       gap: 0.4rem;
       transition: all 0.15s ease;
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .btn-primary {
@@ -125,16 +127,6 @@
 
     .btn-primary:hover {
       background: var(--primary-hover);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      background: white;
-      color: var(--text);
-    }
-
-    .btn-outline:hover {
-      background: #f8fafc;
     }
 
     /* Subheader & Filters */
@@ -183,6 +175,7 @@
       background: #f1f5f9;
       padding: 0.2rem;
       border-radius: 8px;
+      white-space: nowrap;
     }
 
     .view-toggle-btn {
@@ -316,4 +309,317 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: white;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 550px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      border: none;
+      background: transparent;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Stacks <strong>Collectibles &amp; Goods</strong></span>
+      </a>
+
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search cards, coins, collectibles, goods..." oninput="handleSearch()">
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-primary" onclick="openModal('listingModal')">
+          <i class="fa-solid fa-plus"></i> List Item
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="filter-container">
+      <div class="categories" id="categoryTabs">
+        <div class="cat-pill active" onclick="filterCategory('All')">All Categories</div>
+        <div class="cat-pill" onclick="filterCategory('Coins & Currency')">Coins &amp; Currency</div>
+        <div class="cat-pill" onclick="filterCategory('Trading Cards')">Trading Cards</div>
+        <div class="cat-pill" onclick="filterCategory('Collectibles & Toys')">Collectibles &amp; Toys</div>
+        <div class="cat-pill" onclick="filterCategory('Electronics & Audio')">Electronics &amp; Audio</div>
+        <div class="cat-pill" onclick="filterCategory('General Goods')">General Goods</div>
+      </div>
+
+      <div class="view-toggles">
+        <button class="view-toggle-btn active" id="btnAll" onclick="filterType('all')">All</button>
+        <button class="view-toggle-btn" id="btnAuctions" onclick="filterType('auction')">Auctions</button>
+        <button class="view-toggle-btn" id="btnDirect" onclick="filterType('direct')">Buy Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listings Grid -->
+  <main>
+    <div class="items-grid" id="itemsFeed"></div>
+  </main>
+
+  <!-- Create Listing Modal -->
+  <div class="modal-overlay" id="listingModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('listingModal')">&times;</button>
+      <h2 style="margin-bottom: 1rem; font-size: 1.3rem;">Post to Stacks Collectibles &amp; Goods</h2>
+      
+      <form id="createListingForm" onsubmit="handleCreateListing(event)">
+        <div class="form-group">
+          <label>Item Title</label>
+          <input type="text" id="itemTitle" placeholder="e.g. 1884-CC Morgan Silver Dollar" required>
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <select id="itemCategory" required>
+            <option value="Coins & Currency">Coins &amp; Currency</option>
+            <option value="Trading Cards">Trading Cards</option>
+            <option value="Collectibles & Toys">Collectibles &amp; Toys</option>
+            <option value="Electronics & Audio">Electronics &amp; Audio</option>
+            <option value="General Goods">General Goods</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Listing Type</label>
+          <select id="itemType" required>
+            <option value="direct">Buy It Now</option>
+            <option value="auction">Live Auction</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Price ($ USD)</label>
+          <input type="number" step="0.01" id="itemPrice" placeholder="45.00" required>
+        </div>
+
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="url" id="itemImage" placeholder="https://images.unsplash.com/..." required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;">
+          Publish Listing
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Stacks Collectibles and Goods. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let inventory = [
+      {
+        id: 1,
+        title: "1884-CC Morgan Silver Dollar - Carson City Mint State",
+        category: "Coins & Currency",
+        price: 310.00,
+        type: "auction",
+        bids: 19,
+        location: "Tempe, AZ",
+        image: "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 2,
+        title: "Charizard Holographic Rare Vintage TCG Card",
+        category: "Trading Cards",
+        price: 249.99,
+        type: "direct",
+        location: "Tempe, AZ",
+        image: "https://images.unsplash.com/photo-1613771404784-3a5686aa2be3?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 3,
+        title: "Hot Wheels Vintage Muscle Car Diecast Unopened Pack",
+        category: "Collectibles & Toys",
+        price: 35.00,
+        type: "direct",
+        location: "Mesa, AZ",
+        image: "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 4,
+        title: "Kicker Solo-Baric 12-Inch Subwoofer Enclosure",
+        category: "Electronics & Audio",
+        price: 185.00,
+        type: "auction",
+        bids: 8,
+        location: "Tempe, AZ",
+        image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=600&q=80"
+      }
+    ];
+
+    let activeCategory = "All";
+    let activeType = "all";
+    let searchQuery = "";
+
+    function renderFeed() {
+      const feed = document.getElementById("itemsFeed");
+      feed.innerHTML = "";
+
+      const filtered = inventory.filter(item => {
+        const matchCat = activeCategory === "All" || item.category === activeCategory;
+        const matchType = activeType === "all" || item.type === activeType;
+        const matchSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCat && matchType && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        feed.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">No items found matching your criteria.</p>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-img-wrap">
+            <span class="badge-tag ${item.type === 'auction' ? 'badge-auction' : 'badge-bin'}">
+              ${item.type === 'auction' ? 'Live Auction' : 'Buy Now'}
+            </span>
+            <img src="${item.image}" alt="${item.title}">
+          </div>
+          <div class="card-body">
+            <div class="card-title">${item.title}</div>
+            <div class="card-price">$${item.price.toFixed(2)}</div>
+            <div class="card-meta">
+              <span><i class="fa-solid fa-location-dot"></i> ${item.location}</span>
+              ${item.type === 'auction' ? `<span>${item.bids} bids</span>` : '<span>Available</span>'}
+            </div>
+          </div>
+        `;
+        feed.appendChild(card);
+      });
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll(".cat-pill").forEach(el => {
+        el.classList.toggle("active", el.innerText.trim() === (cat === "All" ? "All Categories" : cat));
+      });
+      renderFeed();
+    }
+
+    function filterType(type) {
+      activeType = type;
+      document.getElementById("btnAll").classList.toggle("active", type === "all");
+      document.getElementById("btnAuctions").classList.toggle("active", type === "auction");
+      document.getElementById("btnDirect").classList.toggle("active", type === "direct");
+      renderFeed();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById("searchInput").value;
+      renderFeed();
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add("active");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("active");
+    }
+
+    function handleCreateListing(e) {
+      e.preventDefault();
+      const title = document.getElementById("itemTitle").value;
+      const category = document.getElementById("itemCategory").value;
+      const type = document.getElementById("itemType").value;
+      const price = parseFloat(document.getElementById("itemPrice").value);
+      const image = document.getElementById("itemImage").value;
+
+      inventory.unshift({
+        id: Date.now(),
+        title,
+        category,
+        price,
+        type,
+        bids: type === "auction" ? 0 : undefined,
+        location: "Local Pickup",
+        image
+      });
+
+      document.getElementById("createListingForm").reset();
+      closeModal("listingModal");
+      renderFeed();
+    }
+
+    renderFeed();
+  </script>
+</body>
+</html>
