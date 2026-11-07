@@ -2,320 +2,177 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Stacks Collectibles and Goods | Marketplace</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,sans-serif; }
-    body { background:#f8fafc; color:#1e293b; padding-bottom:70px; }
-    header { background:#fff; border-bottom:1px solid #e2e8f0; position:sticky; top:0; z-index:40; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; }
-    .brand-btn { display:flex; align-items:center; gap:8px; background:none; border:none; cursor:pointer; }
-    .logo-badge { width:36px; height:36px; border-radius:50%; background:#0f172a; color:#fbbf24; display:flex; align-items:center; justify-content:center; font-weight:900; border:2px solid #fbbf24; }
-    .hero { max-width:1100px; margin:12px auto; padding:0 16px; }
-    .hero-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:14px; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
-    .hero-top { display:flex; gap:12px; align-items:center; }
-    .hero-avatar { width:46px; height:46px; border-radius:50%; background:#0f172a; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; }
-    .hero-stats { display:flex; gap:16px; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:8px; font-size:13px; font-weight:600; }
-    .filters { max-width:1100px; margin:10px auto; padding:0 16px; display:flex; gap:6px; overflow-x:auto; }
-    .pill { background:#fff; border:1px solid #cbd5e1; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap; }
-    .pill.active { background:#0f172a; color:#fff; border-color:#0f172a; }
-    .grid { max-width:1100px; margin:0 auto; padding:0 16px; display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:12px; }
-    .card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; cursor:pointer; }
-    .card img { width:100%; height:140px; object-fit:cover; display:block; }
-    .card-body { padding:10px; }
-    .price { font-size:18px; font-weight:800; color:#0f172a; }
-    .title { font-size:13px; font-weight:600; margin:4px 0; color:#334155; line-height:1.2; }
-    .bottom-bar { position:fixed; bottom:0; left:0; width:100%; background:#fff; border-top:1px solid #e2e8f0; display:flex; justify-content:space-around; align-items:center; height:58px; z-index:35; }
-    .b-item { background:none; border:none; color:#64748b; font-size:12px; font-weight:600; display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer; }
-    .b-fab { width:46px; height:46px; border-radius:50%; background:#0284c7; color:#fff; display:flex; align-items:center; justify-content:center; border:none; font-size:20px; transform:translateY(-10px); box-shadow:0 4px 10px rgba(2,132,199,0.3); cursor:pointer; }
-    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:100; align-items:center; justify-content:center; padding:16px; }
-    .modal-overlay.active { display:flex; }
-    .modal-box { background:#fff; border-radius:12px; width:100%; max-width:440px; max-height:85vh; overflow-y:auto; padding:18px; position:relative; }
-    .modal-close { position:absolute; top:12px; right:14px; background:none; border:none; font-size:22px; color:#64748b; cursor:pointer; }
-    .form-group { margin-bottom:12px; }
-    .form-group label { display:block; font-size:12px; font-weight:700; margin-bottom:4px; color:#334155; }
-    .form-group input, .form-group select, .form-group textarea { width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; font-size:14px; }
-    .btn-submit { width:100%; padding:10px; background:#0284c7; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; margin-top:8px; font-size:14px; }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
+    body{background:#f8fafc;color:#1e293b;padding-bottom:70px;}
+    header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:40;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
+    .brand-btn{display:flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;text-align:left;}
+    .logo-badge{width:36px;height:36px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #fbbf24;font-size:15px;overflow:hidden;}
+    .logo-badge img{width:100%;height:100%;object-fit:cover;}
+    .hero{max-width:1100px;margin:12px auto;padding:0 16px;}
+    .hero-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+    .hero-top{display:flex;gap:12px;align-items:center;}
+    .hero-avatar{width:48px;height:48px;border-radius:50%;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;overflow:hidden;border:2px solid #e2e8f0;}
+    .hero-avatar img{width:100%;height:100%;object-fit:cover;}
+    .hero-stats{display:flex;gap:16px;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:8px;font-size:13px;font-weight:600;}
+    .filters{max-width:1100px;margin:10px auto;padding:0 16px;display:flex;gap:6px;overflow-x:auto;}
+    .pill{background:#fff;border:1px solid #cbd5e1;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
+    .pill.active{background:#0f172a;color:#fff;border-color:#0f172a;}
+    .grid{max-width:1100px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+    .card img{width:100%;height:140px;object-fit:cover;display:block;background:#e2e8f0;}
+    .card-body{padding:10px;}
+    .price-row{display:flex;justify-content:space-between;align-items:center;}
+    .price{font-size:17px;font-weight:800;color:#0f172a;}
+    .nego-tag{font-size:10px;background:#e0f2fe;color:#0284c7;padding:2px 6px;border-radius:4px;font-weight:700;}
+    .title{font-size:13px;font-weight:600;margin:4px 0;color:#334155;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:58px;z-index:35;}
+    .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;}
+    .b-fab{width:48px;height:48px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;border:none;font-size:20px;transform:translateY(-12px);box-shadow:0 4px 10px rgba(2,132,199,0.35);cursor:pointer;}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:100;align-items:center;justify-content:center;padding:16px;}
+    .modal-overlay.active{display:flex;}
+    .modal-box{background:#fff;border-radius:12px;width:100%;max-width:440px;max-height:88vh;overflow-y:auto;padding:18px;position:relative;}
+    .modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:#64748b;cursor:pointer;}
+    .form-group{margin-bottom:12px;}
+    .form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:#334155;}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:6px;font-size:14px;outline:none;}
+    .btn-submit{width:100%;padding:12px;background:#0284c7;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:8px;font-size:15px;}
+    .photo-upload-box{border:2px dashed #94a3b8;border-radius:8px;padding:16px;text-align:center;background:#f8fafc;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:10px;}
+    .photo-preview{width:100%;height:150px;object-fit:cover;border-radius:6px;display:none;margin-bottom:10px;border:1px solid #e2e8f0;}
+    .menu-row{display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid #e2e8f0;cursor:pointer;font-size:14px;font-weight:600;}
   </style>
 </head>
 <body>
 
   <header>
     <button class="brand-btn" type="button" onclick="openM('menuModal')">
-      <div class="logo-badge">DS</div>
-      <div style="text-align:left;">
-        <div style="font-size:15px; font-weight:800; color:#0f172a;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#fee2e2; color:#dc2626; font-size:10px; padding:2px 5px; border-radius:4px;" id="roleBadge">OWNER</span></div>
-        <div style="font-size:11px; color:#64748b;"><i class="fa-solid fa-bars"></i> Tap Menu &bull; Tempe, AZ</div>
+      <div class="logo-badge" id="navAvatar">DS</div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:#0f172a;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">OWNER</span></div>
+        <div style="font-size:11px;color:#64748b;"><i class="fa-solid fa-bars"></i> Menu &bull; <span id="navCity">Tempe, AZ</span></div>
       </div>
     </button>
-    <button class="pill" type="button" onclick="openM('joinModal')"><i class="fa-solid fa-user-plus"></i> Join Site</button>
+    <button class="pill" type="button" onclick="openM('profileModal')"><i class="fa-solid fa-user"></i> My Profile</button>
   </header>
 
   <div class="hero">
     <div class="hero-card">
       <div class="hero-top">
-        <div class="hero-avatar">DS</div>
-        <div>
-          <h1 style="font-size:16px; color:#0f172a;">Stacks Collectibles and Goods</h1>
-          <p style="font-size:12px; color:#64748b;">Founder: Dustin Stacks &bull; Tempe, AZ</p>
-          <span style="font-size:11px; color:#0284c7; font-weight:700;"><i class="fa-solid fa-shield-check"></i> Verified Founder &amp; Moderator</span>
+        <div class="hero-avatar" id="heroAvatar">DS</div>
+        <div style="flex:1;">
+          <h1 style="font-size:16px;color:#0f172a;">Stacks Collectibles and Goods</h1>
+          <p style="font-size:12px;color:#64748b;">Founder: <span id="heroName">Dustin Stacks</span> &bull; <span id="heroCity">Tempe, AZ</span></p>
+          <div style="font-size:11px;color:#f59e0b;margin-top:2px;">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> 
+            <span style="color:#0284c7;font-weight:700;margin-left:4px;"><i class="fa-solid fa-shield-halved"></i> Verified Founder</span>
+          </div>
         </div>
       </div>
       <div class="hero-stats">
-        <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Site Likes</div>
-        <div><button class="pill" type="button" style="padding:2px 8px; font-size:11px;" onclick="addSiteLike()"><i class="fa-regular fa-thumbs-up"></i> Like Us</button></div>
-        <div><i class="fa-solid fa-box-open"></i> <span id="inventoryCount">2</span> Active Items</div>
+        <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Likes</div>
+        <div><button class="pill" type="button" style="padding:2px 8px;font-size:11px;" onclick="addLike()"><i class="fa-regular fa-thumbs-up"></i> Like Us</button></div>
+        <div><i class="fa-solid fa-box-open"></i> <span id="invCount">2</span> Listings</div>
       </div>
     </div>
   </div>
 
   <div class="filters">
-    <button class="pill active" type="button" onclick="setCategory(this, 'All')">All Items</button>
-    <button class="pill" type="button" onclick="setCategory(this, 'Coins & Currency')">Coins</button>
-    <button class="pill" type="button" onclick="setCategory(this, 'Trading Cards')">Cards</button>
-    <button class="pill" type="button" onclick="setCategory(this, 'Collectibles & Toys')">Collectibles</button>
-    <button class="pill" type="button" onclick="setCategory(this, 'Electronics & Audio')">Car Audio</button>
+    <button class="pill active" type="button" onclick="setCat(this, 'All')">All Items</button>
+    <button class="pill" type="button" onclick="setCat(this, 'Coins & Currency')">Coins</button>
+    <button class="pill" type="button" onclick="setCat(this, 'Trading Cards')">Cards</button>
+    <button class="pill" type="button" onclick="setCat(this, 'Collectibles & Toys')">Collectibles</button>
+    <button class="pill" type="button" onclick="setCat(this, 'Electronics & Audio')">Car Audio</button>
   </div>
 
   <main class="grid" id="itemsGrid"></main>
 
   <nav class="bottom-bar">
-    <button class="b-item" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-store"></i>Store</button>
+    <button class="b-item" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-store"></i>Market</button>
+    <button class="b-item" type="button" onclick="openM('inboxModal')"><i class="fa-solid fa-message"></i>Inbox</button>
     <button class="b-fab" type="button" onclick="clickPost()"><i class="fa-solid fa-plus"></i></button>
-    <button class="b-item" type="button" onclick="openM('menuModal')"><i class="fa-solid fa-sliders"></i>Admin / Menu</button>
+    <button class="b-item" type="button" onclick="openM('savedModal')"><i class="fa-solid fa-bookmark"></i>Saved</button>
+    <button class="b-item" type="button" onclick="openM('menuModal')"><i class="fa-solid fa-sliders"></i>Menu</button>
   </nav>
 
-  <!-- Modal: Post Selector -->
-  <div class="modal-overlay" id="choosePostModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('choosePostModal')">&times;</button>
-      <h2 style="font-size:17px; margin-bottom:6px;"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Choose Posting Method</h2>
-      <p style="font-size:12px; color:#64748b; margin-bottom:14px;">Select how you want to list today:</p>
-      
-      <div style="border:1px solid #e2e8f0; border-radius:8px; padding:12px; margin-bottom:10px; cursor:pointer;" onclick="closeM('choosePostModal'); openM('fastPostModal');">
-        <h3 style="font-size:14px; color:#0284c7;"><i class="fa-solid fa-stopwatch"></i> Option 1: Fast List (Under 30 Seconds)</h3>
-        <p style="font-size:12px; color:#64748b;">Requires photo URL, item name, contact, and price.</p>
-      </div>
-
-      <div style="border:1px solid #e2e8f0; border-radius:8px; padding:12px; cursor:pointer;" onclick="closeM('choosePostModal'); openM('detailPostModal');">
-        <h3 style="font-size:14px; color:#0f172a;"><i class="fa-solid fa-file-pen"></i> Option 2: Full Detailed Listing</h3>
-        <p style="font-size:12px; color:#64748b;">Includes extra photos, condition notes, and offer negotiation.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal: Fast Post -->
-  <div class="modal-overlay" id="fastPostModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('fastPostModal')">&times;</button>
-      <h2 style="font-size:17px; margin-bottom:12px;"><i class="fa-solid fa-bolt"></i> Fast List Item</h2>
-      <form onsubmit="submitFast(event)">
-        <div class="form-group"><label>Your Name</label><input type="text" id="fastName" value="Dustin Stacks" required></div>
-        <div class="form-group"><label>Contact Email / Phone</label><input type="text" id="fastContact" value="dustinstack8181@gmail.com" required></div>
-        <div class="form-group"><label>Item Title</label><input type="text" id="fastTitle" placeholder="e.g. 1921 Morgan Silver Dollar" required></div>
-        <div class="form-group"><label>Category</label>
-          <select id="fastCat">
-            <option value="Coins & Currency">Coins &amp; Currency</option>
-            <option value="Trading Cards">Trading Cards</option>
-            <option value="Collectibles & Toys">Collectibles &amp; Toys</option>
-            <option value="Electronics & Audio">Electronics &amp; Audio</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Price ($)</label><input type="number" id="fastPrice" placeholder="48" required></div>
-        <div class="form-group"><label>Photo URL</label><input type="url" id="fastImg" placeholder="https://..." required></div>
-        <button type="submit" class="btn-submit">Publish Fast Listing</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal: Detailed Post -->
-  <div class="modal-overlay" id="detailPostModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('detailPostModal')">&times;</button>
-      <h2 style="font-size:17px; margin-bottom:12px;"><i class="fa-solid fa-file-pen"></i> Detailed Listing</h2>
-      <form onsubmit="submitDetail(event)">
-        <div class="form-group"><label>Item Title</label><input type="text" id="detTitle" required></div>
-        <div class="form-group"><label>Category</label>
-          <select id="detCat">
-            <option value="Coins & Currency">Coins &amp; Currency</option>
-            <option value="Trading Cards">Trading Cards</option>
-            <option value="Collectibles & Toys">Collectibles &amp; Toys</option>
-            <option value="Electronics & Audio">Electronics &amp; Audio</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Price ($)</label><input type="number" id="detPrice" required></div>
-        <div class="form-group" style="display:flex; align-items:center; gap:8px;">
-          <input type="checkbox" id="detNego" style="width:18px; height:18px;">
-          <label for="detNego" style="margin:0;">Open to Offers / Negotiable</label>
-        </div>
-        <div class="form-group"><label>Photo URL</label><input type="url" id="detImg" required></div>
-        <div class="form-group"><label>Description</label><textarea id="detDesc" rows="2"></textarea></div>
-        <div class="form-group"><label>Seller Contact</label><input type="text" id="detContact" value="dustinstack8181@gmail.com" required></div>
-        <button type="submit" class="btn-submit">Publish Detailed Listing</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal: Item Detail -->
-  <div class="modal-overlay" id="itemDetailModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('itemDetailModal')">&times;</button>
-      <img id="detailImg" src="" style="width:100%; height:200px; object-fit:contain; background:#0f172a; border-radius:8px; margin-bottom:10px;">
-      <div style="font-size:22px; font-weight:800; color:#0f172a;" id="detailPrice">$0</div>
-      <h2 style="font-size:16px; margin:4px 0;" id="detailTitle">Item</h2>
-      <p style="font-size:12px; color:#64748b; margin-bottom:8px;" id="detailMeta"></p>
-      <p style="font-size:13px; color:#334155; margin-bottom:12px;" id="detailDesc"></p>
-      <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:10px; border-radius:8px; font-size:13px;" id="contactBox"></div>
-      <button class="pill" type="button" style="margin-top:10px; width:100%; background:#fee2e2; color:#dc2626; border:none; padding:8px;" onclick="deleteActiveItem()"><i class="fa-solid fa-trash"></i> Delete Listing (Founder Access)</button>
-    </div>
-  </div>
-
-  <!-- Modal: Menu -->
+  <!-- Modal: OfferUp Menu -->
   <div class="modal-overlay" id="menuModal">
     <div class="modal-box">
       <button class="modal-close" type="button" onclick="closeM('menuModal')">&times;</button>
-      <h2 style="font-size:18px; margin-bottom:6px;"><i class="fa-solid fa-sliders"></i> Platform Controls</h2>
-      <p style="font-size:12px; color:#64748b; margin-bottom:12px;">Founder: <strong>Dustin Stacks</strong></p>
-      <div class="form-group">
-        <label>Active Mode</label>
-        <select id="roleSelect" onchange="setRole(this.value)">
-          <option value="owner">Owner / Founder (Full Access)</option>
-          <option value="member">Approved Member (Can Post)</option>
+      <h2 style="font-size:17px;margin-bottom:12px;"><i class="fa-solid fa-bars-staggered" style="color:#0284c7;"></i> Marketplace Menu</h2>
+      <div class="menu-row" onclick="closeM('menuModal');openM('profileModal');"><span><i class="fa-solid fa-circle-user" style="color:#0284c7;width:24px;"></i> Profile Studio</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="closeM('menuModal');filterMine();"><span><i class="fa-solid fa-boxes-stacked" style="color:#6366f1;width:24px;"></i> My Active Listings</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="closeM('menuModal');openM('savedModal');"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved / Watchlist</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="closeM('menuModal');openM('inboxModal');"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Buyer Messages</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="closeM('menuModal');openM('safeModal');"><span><i class="fa-solid fa-shield-heart" style="color:#f59e0b;width:24px;"></i> Safe Meetup Spots</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div style="margin-top:14px;">
+        <label style="font-size:12px;font-weight:700;">Role Mode</label>
+        <select onchange="setRole(this.value)" style="width:100%;padding:8px;margin-top:4px;border:1px solid #cbd5e1;border-radius:6px;">
+          <option value="owner">Owner / Founder</option>
+          <option value="member">Approved Member</option>
           <option value="guest">Guest (Browse Only)</option>
         </select>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Join -->
-  <div class="modal-overlay" id="joinModal">
+  <!-- Modal: Profile Studio -->
+  <div class="modal-overlay" id="profileModal">
     <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('joinModal')">&times;</button>
-      <h2 style="font-size:18px; margin-bottom:6px;"><i class="fa-solid fa-id-card"></i> Join Stacks Collectibles</h2>
-      <p style="font-size:12px; color:#64748b; margin-bottom:12px;">Founder approves all accounts.</p>
-      <form onsubmit="submitJoin(event)">
-        <div class="form-group"><label>Full Legal Name</label><input type="text" id="joinName" required></div>
-        <div class="form-group"><label>Email Address</label><input type="email" id="joinEmail" required></div>
-        <button type="submit" class="btn-submit">Submit Application</button>
+      <button class="modal-close" type="button" onclick="closeM('profileModal')">&times;</button>
+      <h2 style="font-size:17px;margin-bottom:12px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Profile Settings</h2>
+      <form onsubmit="saveProf(event)">
+        <div style="text-align:center;margin-bottom:12px;">
+          <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleImg(this,'profPreview')">
+          <div style="width:72px;height:72px;border-radius:50%;background:#0f172a;margin:0 auto 6px;overflow:hidden;border:2px solid #0284c7;cursor:pointer;" onclick="document.getElementById('avatarFile').click()">
+            <img id="profPreview" class="photo-preview" style="width:100%;height:100%;margin:0;border:none;">
+            <div id="profInitial" style="color:#fff;font-size:24px;font-weight:800;line-height:72px;">DS</div>
+          </div>
+          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i> Change Photo</span>
+        </div>
+        <div class="form-group"><label>Display Name</label><input type="text" id="pName" value="Dustin Stacks" required></div>
+        <div class="form-group"><label>City / Location</label><input type="text" id="pCity" value="Tempe, AZ" required></div>
+        <div class="form-group"><label>Contact</label><input type="text" id="pContact" value="dustinstack8181@gmail.com" required></div>
+        <button type="submit" class="btn-submit">Save Profile</button>
       </form>
     </div>
   </div>
 
-  <script>
-    var sb = (typeof window.supabase !== 'undefined') ? window.supabase.createClient("https://rxjueszszoggbdhichhq.supabase.co", "sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB") : null;
-    var currentRole = "owner";
-    var currentCat = "All";
-    var activeItem = null;
-    var items = [
-      { id: 1, title: "1921 Morgan Silver Dollar", cat: "Coins & Currency", price: 48, img: "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80", seller: "Dustin Stacks", contact: "dustinstack8181@gmail.com", desc: "Sharp strike, original mint luster." },
-      { id: 2, title: "Kicker Solo-Baric L7 Subwoofer", cat: "Electronics & Audio", price: 250, img: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=400&q=80", seller: "Dustin Stacks", contact: "dustinstack8181@gmail.com", desc: "Custom tuned port enclosure. Tested and working." }
-    ];
+  <!-- Modal: Post Choice -->
+  <div class="modal-overlay" id="chooseModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeM('chooseModal')">&times;</button>
+      <h2 style="font-size:17px;margin-bottom:10px;"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Choose Posting Method</h2>
+      <div style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:10px;cursor:pointer;" onclick="closeM('chooseModal');openM('fastModal');">
+        <h3 style="font-size:14px;color:#0284c7;"><i class="fa-solid fa-stopwatch"></i> Option 1: Fast List (Under 30 Seconds)</h3>
+        <p style="font-size:12px;color:#64748b;margin-top:2px;">Snap photo or pick from gallery, add title, and price.</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;cursor:pointer;" onclick="closeM('chooseModal');openM('detailModal');">
+        <h3 style="font-size:14px;color:#0f172a;"><i class="fa-solid fa-file-pen"></i> Option 2: Full Detailed Listing</h3>
+        <p style="font-size:12px;color:#64748b;margin-top:2px;">OfferUp options: Offers negotiable, condition, and details.</p>
+      </div>
+    </div>
+  </div>
 
-    function openM(id) { document.getElementById(id).classList.add('active'); }
-    function closeM(id) { document.getElementById(id).classList.remove('active'); }
-
-    function clickPost() {
-      if (currentRole === 'guest') { alert("Posting locked to approved members. Tap Join Site."); openM('joinModal'); }
-      else { openM('choosePostModal'); }
-    }
-
-    function setRole(r) {
-      currentRole = r;
-      document.getElementById('roleBadge').innerText = r.toUpperCase();
-      closeM('menuModal');
-    }
-
-    function addSiteLike() {
-      var el = document.getElementById('siteLikes');
-      el.innerText = parseInt(el.innerText) + 1;
-    }
-
-    function setCategory(btn, cat) {
-      currentCat = cat;
-      var pills = document.querySelectorAll('.filters .pill');
-      for (var i = 0; i < pills.length; i++) pills[i].classList.remove('active');
-      btn.classList.add('active');
-      render();
-    }
-
-    function render() {
-      var g = document.getElementById('itemsGrid');
-      g.innerHTML = "";
-      var list = (currentCat === "All") ? items : items.filter(function(x) { return x.cat === currentCat; });
-      document.getElementById('inventoryCount').innerText = items.length;
-
-      list.forEach(function(item) {
-        var c = document.createElement('div');
-        c.className = "card";
-        c.onclick = function() { showDetail(item); };
-        c.innerHTML = '<img src="' + item.img + '" onerror="this.src=\'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80\'"><div class="card-body"><div class="price">$' + item.price + '</div><div class="title">' + item.title + '</div><div style="font-size:11px; color:#64748b;">Tempe, AZ &bull; ' + item.seller + '</div></div>';
-        g.appendChild(c);
-      });
-    }
-
-    function showDetail(item) {
-      activeItem = item;
-      document.getElementById('detailImg').src = item.img;
-      document.getElementById('detailPrice').innerText = '$' + item.price;
-      document.getElementById('detailTitle').innerText = item.title;
-      document.getElementById('detailMeta').innerText = 'Listed by ' + item.seller + ' • Tempe, AZ';
-      document.getElementById('detailDesc').innerText = item.desc || "Verified listing.";
-      document.getElementById('contactBox').innerHTML = '<strong><i class="fa-solid fa-circle-check" style="color:#16a34a;"></i> Approved Member Access</strong><br>Seller Contact: <strong>' + item.contact + '</strong>';
-      openM('itemDetailModal');
-    }
-
-    function deleteActiveItem() {
-      if (!activeItem || !confirm("Delete this listing?")) return;
-      items = items.filter(function(x) { return x.id !== activeItem.id; });
-      closeM('itemDetailModal');
-      render();
-    }
-
-    function submitFast(e) {
-      e.preventDefault();
-      var ni = {
-        id: Date.now(),
-        title: document.getElementById('fastTitle').value,
-        cat: document.getElementById('fastCat').value,
-        price: parseInt(document.getElementById('fastPrice').value),
-        img: document.getElementById('fastImg').value,
-        seller: document.getElementById('fastName').value,
-        contact: document.getElementById('fastContact').value,
-        desc: "Fast-listed item."
-      };
-      items.unshift(ni);
-      closeM('fastPostModal');
-      e.target.reset();
-      render();
-    }
-
-    function submitDetail(e) {
-      e.preventDefault();
-      var ni = {
-        id: Date.now(),
-        title: document.getElementById('detTitle').value,
-        cat: document.getElementById('detCat').value,
-        price: parseInt(document.getElementById('detPrice').value),
-        img: document.getElementById('detImg').value,
-        seller: "Dustin Stacks",
-        contact: document.getElementById('detContact').value,
-        desc: document.getElementById('detDesc').value
-      };
-      items.unshift(ni);
-      closeM('detailPostModal');
-      e.target.reset();
-      render();
-    }
-
-    function submitJoin(e) {
-      e.preventDefault();
-      alert("Application submitted! Founder Dustin Stacks will review and approve.");
-      closeM('joinModal');
-      e.target.reset();
-    }
-
-    render();
-  </script>
-</body>
-</html>
+  <!-- Modal: Fast Post -->
+  <div class="modal-overlay" id="fastModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeM('fastModal')">&times;</button>
+      <h2 style="font-size:17px;margin-bottom:12px;"><i class="fa-solid fa-bolt"></i> Fast List Item</h2>
+      <form onsubmit="subFast(event)">
+        <div class="form-group">
+          <label>Photo (Camera or Gallery)</label>
+          <input type="file" id="fastFile" accept="image/*" style="display:none;" onchange="handleImg(this,'fastPrev')">
+          <div class="photo-upload-box" onclick="document.getElementById('fastFile').click()">
+            <i class="fa-solid fa-camera" style="font-size:22px;color:#0284c7;"></i>
+            <span style="font-size:13px;font-weight:700;">Take Photo or Pick Gallery</span>
+          </div>
+          <img id="fastPrev" class="photo-preview">
+        </div>
+        <div class="form-group"><label>Title</label><input type="text" id="fTitle" placeholder="e.g. 1884 CC Morgan Dollar" required></div>
+        <div class="form-group"><label>Category</label>
+          <select id="fCat">
+            <option>Coins &amp; Currency</option><option>Trading Cards</option><option>Collectibles &amp; Toys</option><option>Electronics &amp; Audio</option>
+          </
