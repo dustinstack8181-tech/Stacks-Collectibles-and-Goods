@@ -3,32 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Stacks Collectibles and Goods | Marketplace</title>
+  <title>Stacks Collectibles and Goods</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif;-webkit-tap-highlight-color:transparent;}
     body{background:#f8fafc;color:#1e293b;padding-bottom:70px;}
     header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:40;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
     .brand-btn{display:flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;text-align:left;}
     .logo-badge{width:36px;height:36px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #fbbf24;font-size:15px;overflow:hidden;}
-    .logo-badge img{width:100%;height:100%;object-fit:cover;}
     .hero{max-width:1100px;margin:12px auto;padding:0 16px;}
     .hero-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
     .hero-top{display:flex;gap:12px;align-items:center;}
-    .hero-avatar{width:48px;height:48px;border-radius:50%;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;overflow:hidden;border:2px solid #e2e8f0;}
+    .hero-avatar{width:48px;height:48px;border-radius:50%;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;overflow:hidden;}
     .hero-avatar img{width:100%;height:100%;object-fit:cover;}
-    .hero-stats{display:flex;gap:16px;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:8px;font-size:13px;font-weight:600;}
     .filters{max-width:1100px;margin:10px auto;padding:0 16px;display:flex;gap:6px;overflow-x:auto;}
     .pill{background:#fff;border:1px solid #cbd5e1;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
     .pill.active{background:#0f172a;color:#fff;border-color:#0f172a;}
     .grid{max-width:1100px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
-    .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;cursor:pointer;}
     .card img{width:100%;height:140px;object-fit:cover;display:block;background:#e2e8f0;}
     .card-body{padding:10px;}
-    .price-row{display:flex;justify-content:space-between;align-items:center;}
     .price{font-size:17px;font-weight:800;color:#0f172a;}
-    .nego-tag{font-size:10px;background:#e0f2fe;color:#0284c7;padding:2px 6px;border-radius:4px;font-weight:700;}
-    .title{font-size:13px;font-weight:600;margin:4px 0;color:#334155;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:58px;z-index:35;}
     .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;}
     .b-fab{width:48px;height:48px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;border:none;font-size:20px;transform:translateY(-12px);box-shadow:0 4px 10px rgba(2,132,199,0.35);cursor:pointer;}
@@ -38,11 +33,11 @@
     .modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:#64748b;cursor:pointer;}
     .form-group{margin-bottom:12px;}
     .form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:#334155;}
-    .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:6px;font-size:14px;outline:none;}
-    .btn-submit{width:100%;padding:12px;background:#0284c7;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:8px;font-size:15px;}
-    .photo-upload-box{border:2px dashed #94a3b8;border-radius:8px;padding:16px;text-align:center;background:#f8fafc;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:10px;}
-    .photo-preview{width:100%;height:150px;object-fit:cover;border-radius:6px;display:none;margin-bottom:10px;border:1px solid #e2e8f0;}
-    .menu-row{display:flex;align-items:center;justify-content:space-between;padding:12px 4px;border-bottom:1px solid #e2e8f0;cursor:pointer;font-size:14px;font-weight:600;}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:6px;font-size:14px;}
+    .btn-submit{width:100%;padding:12px;background:#0284c7;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:8px;}
+    .photo-upload-box{border:2px dashed #94a3b8;border-radius:8px;padding:16px;text-align:center;background:#f8fafc;cursor:pointer;margin-bottom:10px;}
+    .photo-preview{width:100%;height:150px;object-fit:cover;border-radius:6px;display:none;margin-bottom:10px;}
+    .menu-row{display:flex;justify-content:space-between;padding:12px 4px;border-bottom:1px solid #e2e8f0;cursor:pointer;font-size:14px;font-weight:600;}
   </style>
 </head>
 <body>
@@ -51,7 +46,7 @@
     <button class="brand-btn" type="button" onclick="openM('menuModal')">
       <div class="logo-badge" id="navAvatar">DS</div>
       <div>
-        <div style="font-size:15px;font-weight:800;color:#0f172a;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">OWNER</span></div>
+        <div style="font-size:15px;font-weight:800;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">OWNER</span></div>
         <div style="font-size:11px;color:#64748b;"><i class="fa-solid fa-bars"></i> Menu &bull; <span id="navCity">Tempe, AZ</span></div>
       </div>
     </button>
@@ -62,19 +57,16 @@
     <div class="hero-card">
       <div class="hero-top">
         <div class="hero-avatar" id="heroAvatar">DS</div>
-        <div style="flex:1;">
-          <h1 style="font-size:16px;color:#0f172a;">Stacks Collectibles and Goods</h1>
+        <div>
+          <h1 style="font-size:16px;">Stacks Collectibles and Goods</h1>
           <p style="font-size:12px;color:#64748b;">Founder: <span id="heroName">Dustin Stacks</span> &bull; <span id="heroCity">Tempe, AZ</span></p>
-          <div style="font-size:11px;color:#f59e0b;margin-top:2px;">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> 
-            <span style="color:#0284c7;font-weight:700;margin-left:4px;"><i class="fa-solid fa-shield-halved"></i> Verified Founder</span>
-          </div>
+          <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#0284c7;font-weight:700;"><i class="fa-solid fa-shield-halved"></i> Verified Founder</span></div>
         </div>
       </div>
-      <div class="hero-stats">
+      <div style="display:flex;gap:16px;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:8px;font-size:13px;font-weight:600;">
         <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Likes</div>
         <div><button class="pill" type="button" style="padding:2px 8px;font-size:11px;" onclick="addLike()"><i class="fa-regular fa-thumbs-up"></i> Like Us</button></div>
-        <div><i class="fa-solid fa-box-open"></i> <span id="invCount">2</span> Listings</div>
+        <div><i class="fa-solid fa-box-open"></i> <span id="invCount">2</span> Active Listings</div>
       </div>
     </div>
   </div>
@@ -127,7 +119,7 @@
         <div style="text-align:center;margin-bottom:12px;">
           <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleImg(this,'profPreview')">
           <div style="width:72px;height:72px;border-radius:50%;background:#0f172a;margin:0 auto 6px;overflow:hidden;border:2px solid #0284c7;cursor:pointer;" onclick="document.getElementById('avatarFile').click()">
-            <img id="profPreview" class="photo-preview" style="width:100%;height:100%;margin:0;border:none;">
+            <img id="profPreview" class="photo-preview" style="width:100%;height:100%;margin:0;">
             <div id="profInitial" style="color:#fff;font-size:24px;font-weight:800;line-height:72px;">DS</div>
           </div>
           <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i> Change Photo</span>
@@ -144,14 +136,14 @@
   <div class="modal-overlay" id="chooseModal">
     <div class="modal-box">
       <button class="modal-close" type="button" onclick="closeM('chooseModal')">&times;</button>
-      <h2 style="font-size:17px;margin-bottom:10px;"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Choose Posting Method</h2>
+      <h2 style="font-size:17px;margin-bottom:10px;"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Choose Listing Method</h2>
       <div style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:10px;cursor:pointer;" onclick="closeM('chooseModal');openM('fastModal');">
         <h3 style="font-size:14px;color:#0284c7;"><i class="fa-solid fa-stopwatch"></i> Option 1: Fast List (Under 30 Seconds)</h3>
         <p style="font-size:12px;color:#64748b;margin-top:2px;">Snap photo or pick from gallery, add title, and price.</p>
       </div>
       <div style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;cursor:pointer;" onclick="closeM('chooseModal');openM('detailModal');">
         <h3 style="font-size:14px;color:#0f172a;"><i class="fa-solid fa-file-pen"></i> Option 2: Full Detailed Listing</h3>
-        <p style="font-size:12px;color:#64748b;margin-top:2px;">OfferUp options: Offers negotiable, condition, and details.</p>
+        <p style="font-size:12px;color:#64748b;margin-top:2px;">Negotiable offers, item conditions, and notes.</p>
       </div>
     </div>
   </div>
@@ -175,4 +167,214 @@
         <div class="form-group"><label>Category</label>
           <select id="fCat">
             <option>Coins &amp; Currency</option><option>Trading Cards</option><option>Collectibles &amp; Toys</option><option>Electronics &amp; Audio</option>
-          </
+          </select>
+        </div>
+        <div class="form-group"><label>Price ($)</label><input type="number" id="fPrice" placeholder="400" required></div>
+        <button type="submit" class="btn-submit">Publish Fast Listing</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Detailed Post -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeM('detailModal')">&times;</button>
+      <h2 style="font-size:17px;margin-bottom:12px;"><i class="fa-solid fa-file-pen"></i> Full Detailed Listing</h2>
+      <form onsubmit="subDet(event)">
+        <div class="form-group">
+          <label>Photo (Camera or Gallery)</label>
+          <input type="file" id="detFile" accept="image/*" style="display:none;" onchange="handleImg(this,'detPrev')">
+          <div class="photo-upload-box" onclick="document.getElementById('detFile').click()">
+            <i class="fa-solid fa-camera-retro" style="font-size:22px;color:#0284c7;"></i>
+            <span style="font-size:13px;font-weight:700;">Take Photo or Pick Gallery</span>
+          </div>
+          <img id="detPrev" class="photo-preview">
+        </div>
+        <div class="form-group"><label>Title</label><input type="text" id="dTitle" required></div>
+        <div class="form-group"><label>Category</label>
+          <select id="dCat">
+            <option>Coins &amp; Currency</option><option>Trading Cards</option><option>Collectibles &amp; Toys</option><option>Electronics &amp; Audio</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Price ($)</label><input type="number" id="dPrice" required></div>
+        <div class="form-group" style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="dNego" style="width:18px;height:18px;">
+          <label for="dNego" style="margin:0;font-size:13px;">Allow Offers / Negotiable</label>
+        </div>
+        <div class="form-group"><label>Description</label><textarea id="dDesc" rows="3"></textarea></div>
+        <button type="submit" class="btn-submit">Publish Detailed Listing</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Item Detail & Make Offer -->
+  <div class="modal-overlay" id="itemModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeM('itemModal')">&times;</button>
+      <img id="itemImg" src="" style="width:100%;height:200px;object-fit:contain;background:#0f172a;border-radius:8px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:22px;font-weight:800;" id="itemPrice">$0</div>
+        <span style="font-size:10px;background:#e0f2fe;color:#0284c7;padding:2px 6px;border-radius:4px;font-weight:700;" id="itemNego">Firm Price</span>
+      </div>
+      <h2 style="font-size:16px;margin:4px 0;" id="itemTitle"></h2>
+      <div style="font-size:12px;color:#64748b;margin-bottom:8px;" id="itemMeta"></div>
+      <p style="font-size:13px;color:#334155;line-height:1.4;margin-bottom:12px;" id="itemDesc"></p>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <button class="pill" type="button" onclick="toggleSave()"><i class="fa-regular fa-bookmark" id="saveIcon"></i> Save</button>
+        <button class="pill" type="button" style="background:#0f172a;color:#fff;" onclick="openOffer()"><i class="fa-solid fa-handshake"></i> Make Offer</button>
+      </div>
+
+      <div id="offerBox" style="display:none;background:#f8fafc;border:1px solid #e2e8f0;padding:8px;border-radius:6px;margin-bottom:10px;">
+        <input type="number" id="offerAmt" placeholder="Enter offer amount ($)" style="padding:6px;width:70%;border:1px solid #cbd5e1;border-radius:4px;">
+        <button class="pill" type="button" style="background:#16a34a;color:#fff;border:none;" onclick="sendOffer()">Send</button>
+      </div>
+
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:10px;border-radius:8px;font-size:13px;" id="itemContact"></div>
+      <button class="pill" type="button" style="margin-top:12px;width:100%;background:#fee2e2;color:#dc2626;border:none;padding:10px;font-weight:700;" onclick="delItem()"><i class="fa-solid fa-trash"></i> Delete (Founder Access)</button>
+    </div>
+  </div>
+
+  <!-- Modal: Inbox Messages -->
+  <div class="modal-overlay" id="inboxModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeM('inboxModal')">&times;</button>
+      <h2 style="font-size:17px;margin-bottom:10px;"><i class="fa-solid fa-message" style="color:#0284c7;"></i> Messages &amp; Offers</h2>
+      <div style="border:1px solid #e2e8f0;border-radius:8px;padding:10px;background:#f8fafc;">
+        <div style="font-size:12px;font-weight:700;">Inquiry on Morgan Dollar</div>
+        <p style="font-size:12px;color:#475569;margin-top:4px;">"Available for cash meetup in Tempe?"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Saved Watchlist -->
+  <div class="modal-overlay" id="savedModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeM('savedModal')">&times;</button>
+      <h2 style="font-size:17px;margin-bottom:10px;"><i class="fa-solid fa-bookmark" style="color:#0284c7;"></i> Saved Watchlist</h2>
+      <div id="savedList" style="font-size:12px;color:#64748b;text-align:center;padding:12px;">No items saved yet.</div>
+    </div>
+  </div>
+
+  <!-- Modal: Safe Meetup Guide -->
+  <div class="modal-overlay" id="safeModal">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeM('safeModal')">&times;</button>
+      <h2 style="font-size:17px;margin-bottom:8px;"><i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i> Safe Inspection Spots</h2>
+      <p style="font-size:13px;line-height:1.5;color:#334155;">Meet during daylight in public parking lots or police substations. Inspect coins and car audio gear before payment.</p>
+    </div>
+  </div>
+    <script>
+    var role = "owner", curCat = "All", active = null, fImg = "", dImg = "", pImg = "", saved = [];
+    var profile = { name: "Dustin Stacks", city: "Tempe, AZ", contact: "dustinstack8181@gmail.com" };
+    var items = [
+      { id: 1, title: "1921 Morgan Silver Dollar", cat: "Coins & Currency", price: 48, img: "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80", seller: "Dustin Stacks", desc: "Sharp strike, original mint luster.", nego: true },
+      { id: 2, title: "Kicker Solo-Baric L7 Subwoofer", cat: "Electronics & Audio", price: 250, img: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=400&q=80", seller: "Dustin Stacks", desc: "Custom port enclosure, tested clean.", nego: false }
+    ];
+
+    function openM(id){document.getElementById(id).classList.add('active');}
+    function closeM(id){document.getElementById(id).classList.remove('active');}
+
+    function clickPost(){if(role==='guest'){alert("Posting locked to approved members.");openM('profileModal');}else openM('chooseModal');}
+    function setRole(r){role=r;document.getElementById('roleBadge').innerText=r.toUpperCase();closeM('menuModal');}
+    function addLike(){var el=document.getElementById('siteLikes');el.innerText=parseInt(el.innerText)+1;}
+
+    function setCat(b,c){
+      curCat=c;document.querySelectorAll('.filters .pill').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');render();
+    }
+    function filterMine(){curCat="Mine";document.querySelectorAll('.filters .pill').forEach(function(x){x.classList.remove('active');});render();}
+
+    function handleImg(inp, prevId){
+      if(inp.files && inp.files[0]){
+        var r = new FileReader();
+        r.onload = function(e){
+          var p = document.getElementById(prevId);p.src=e.target.result;p.style.display='block';
+          if(prevId==='fastPrev') fImg=e.target.result;
+          if(prevId==='detPrev') dImg=e.target.result;
+          if(prevId==='profPreview'){pImg=e.target.result;document.getElementById('profInitial').style.display='none';}
+        };
+        r.readAsDataURL(inp.files[0]);
+      }
+    }
+
+    function saveProf(e){
+      e.preventDefault();
+      profile.name = document.getElementById('pName').value;
+      profile.city = document.getElementById('pCity').value;
+      profile.contact = document.getElementById('pContact').value;
+      document.getElementById('heroName').innerText = profile.name;
+      document.getElementById('heroCity').innerText = profile.city;
+      document.getElementById('navCity').innerText = profile.city;
+      if(pImg){
+        document.getElementById('heroAvatar').innerHTML = '<img src="'+pImg+'">';
+        document.getElementById('navAvatar').innerHTML = '<img src="'+pImg+'">';
+      }
+      alert("Profile updated!");closeM('profileModal');
+    }
+
+    function render(){
+      var g = document.getElementById('itemsGrid');g.innerHTML = "";
+      var list = items;
+      if(curCat==="Mine") list = items.filter(function(x){return x.seller===profile.name;});
+      else if(curCat!=="All") list = items.filter(function(x){return x.cat===curCat;});
+      document.getElementById('invCount').innerText = items.length;
+
+      list.forEach(function(item){
+        var c = document.createElement('div');c.className = "card";
+        c.onclick = function(){show(item);};
+        c.innerHTML = '<img src="'+item.img+'"><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center;"><div class="price">$'+item.price+'</div>'+(item.nego?'<span style="font-size:10px;background:#e0f2fe;color:#0284c7;padding:2px 6px;border-radius:4px;font-weight:700;">Negotiable</span>':'')+'</div><div style="font-size:13px;font-weight:600;margin:4px 0;line-height:1.2;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">Tempe, AZ &bull; '+item.seller+'</div></div>';
+        g.appendChild(c);
+      });
+    }
+
+    function show(item){
+      active = item;
+      document.getElementById('itemImg').src = item.img;
+      document.getElementById('itemPrice').innerText = '$'+item.price;
+      document.getElementById('itemTitle').innerText = item.title;
+      document.getElementById('itemMeta').innerText = 'Listed by '+item.seller+' • Tempe, AZ';
+      document.getElementById('itemDesc').innerText = item.desc || "Verified marketplace listing.";
+      document.getElementById('itemNego').innerText = item.nego ? "Negotiable" : "Firm Price";
+      document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
+      document.getElementById('itemContact').innerHTML = '<strong style="color:#16a34a;"><i class="fa-solid fa-circle-check"></i> Verified Member Contact:</strong><br>'+profile.contact;
+      openM('itemModal');
+    }
+
+    function openOffer(){var b=document.getElementById('offerBox');b.style.display=b.style.display==='block'?'none':'block';}
+    function sendOffer(){var a=document.getElementById('offerAmt').value;if(!a)return;alert("Offer of $"+a+" sent to "+active.seller+"!");document.getElementById('offerBox').style.display='none';}
+
+    function toggleSave(){
+      if(!active) return;
+      var i = saved.indexOf(active.id);
+      if(i>-1){saved.splice(i,1);document.getElementById('saveIcon').className="fa-regular fa-bookmark";alert("Removed from saved.");}
+      else{saved.push(active.id);document.getElementById('saveIcon').className="fa-solid fa-bookmark";alert("Saved to Watchlist!");}
+      renderSaved();
+    }
+
+    function renderSaved(){
+      var b = document.getElementById('savedList');
+      var s = items.filter(function(x){return saved.includes(x.id);});
+      if(!s.length){b.innerHTML="No items saved yet.";return;}
+      b.innerHTML="";
+      s.forEach(function(x){b.innerHTML+='<div style="display:flex;gap:8px;padding:6px;border-bottom:1px solid #e2e8f0;align-items:center;"><img src="'+x.img+'" style="width:40px;height:40px;border-radius:4px;object-fit:cover;"><div><div style="font-weight:700;">'+x.title+'</div><div style="color:#0284c7;">$'+x.price+'</div></div></div>';});
+    }
+
+    function delItem(){if(!active||!confirm("Delete listing?"))return;items=items.filter(function(x){return x.id!==active.id;});closeM('itemModal');render();}
+
+    function subFast(e){
+      e.preventDefault();
+      items.unshift({id:Date.now(),title:document.getElementById('fTitle').value,cat:document.getElementById('fCat').value,price:parseInt(document.getElementById('fPrice').value),img:fImg||"https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80",seller:profile.name,desc:"Fast listing.",nego:false});
+      closeM('fastModal');e.target.reset();document.getElementById('fastPrev').style.display='none';fImg="";render();
+    }
+
+    function subDet(e){
+      e.preventDefault();
+      items.unshift({id:Date.now(),title:document.getElementById('dTitle').value,cat:document.getElementById('dCat').value,price:parseInt(document.getElementById('dPrice').value),img:dImg||"https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80",seller:profile.name,desc:document.getElementById('dDesc').value,nego:document.getElementById('dNego').checked});
+      closeM('detailModal');e.target.reset();document.getElementById('detPrev').style.display='none';dImg="";render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
