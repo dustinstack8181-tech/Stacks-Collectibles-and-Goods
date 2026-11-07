@@ -265,7 +265,6 @@
   </div>
 
   <script>
-    // Robust client init
     let sb = null;
     try {
       if (window.supabase) {
@@ -309,7 +308,6 @@
     ];
     let selectedItem = null;
 
-    // Direct Modal Open/Close
     function openM(id) {
       const el = document.getElementById(id);
       if (el) el.classList.add('active');
@@ -319,9 +317,7 @@
       if (el) el.classList.remove('active');
     }
 
-    // Attach all click events immediately after DOM is loaded
     document.addEventListener("DOMContentLoaded", () => {
-      // Modal Open Buttons
       document.getElementById('openMenuBtn').onclick = () => openM('menuModal');
       document.getElementById('btnAdminMenu').onclick = () => openM('menuModal');
       document.getElementById('openJoinBtn').onclick = () => openM('joinModal');
@@ -345,202 +341,4 @@
         openM('detailPostModal');
       };
 
-      // Modal Close Buttons
-      document.querySelectorAll('[data-close]').forEach(btn => {
-        btn.onclick = () => closeM(btn.getAttribute('data-close'));
-      });
-
-      // Category Switching
-      document.querySelectorAll('#catBar .pill').forEach(btn => {
-        btn.onclick = () => {
-          document.querySelectorAll('#catBar .pill').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentCategory = btn.getAttribute('data-cat');
-          renderGrid();
-        };
-      });
-
-      // Role Switcher
-      document.getElementById('roleSelector').onchange = (e) => {
-        currentRole = e.target.value;
-        document.getElementById('userRoleBadge').innerText = currentRole.toUpperCase();
-        document.getElementById('ownerSettingsSection').style.display = (currentRole === 'owner') ? 'block' : 'none';
-        closeM('menuModal');
-      };
-
-      // Like Site Button
-      document.getElementById('likeSiteBtn').onclick = () => {
-        const el = document.getElementById('siteLikes');
-        el.innerText = parseInt(el.innerText) + 1;
-      };
-
-      // Forms
-      document.getElementById('fastPostForm').onsubmit = (e) => {
-        e.preventDefault();
-        const newItem = {
-          id: Date.now(),
-          title: document.getElementById('fastTitle').value,
-          category: document.getElementById('fastCat').value,
-          price: parseInt(document.getElementById('fastPrice').value),
-          image: document.getElementById('fastImg').value,
-          seller: document.getElementById('fastName').value,
-          contact_phone: document.getElementById('fastContact').value,
-          location: "Tempe, AZ",
-          likes_count: 0,
-          dislikes_count: 0,
-          is_negotiable: false,
-          description: "Fast-listed item."
-        };
-        inventory.unshift(newItem);
-        if (sb) sb.from('listings').insert([newItem]).then();
-        closeM('fastPostModal');
-        e.target.reset();
-        renderGrid();
-      };
-
-      document.getElementById('detailPostForm').onsubmit = (e) => {
-        e.preventDefault();
-        const newItem = {
-          id: Date.now(),
-          title: document.getElementById('detTitle').value,
-          category: document.getElementById('detCat').value,
-          price: parseInt(document.getElementById('detPrice').value),
-          image: document.getElementById('detImg1').value,
-          seller: "Dustin Stacks",
-          contact_phone: document.getElementById('detContact').value,
-          location: "Tempe, AZ",
-          likes_count: 0,
-          dislikes_count: 0,
-          is_negotiable: document.getElementById('detNego').checked,
-          description: document.getElementById('detDesc').value
-        };
-        inventory.unshift(newItem);
-        if (sb) sb.from('listings').insert([newItem]).then();
-        closeM('detailPostModal');
-        e.target.reset();
-        renderGrid();
-      };
-
-      document.getElementById('joinForm').onsubmit = (e) => {
-        e.preventDefault();
-        alert("Application submitted! Founder Dustin Stacks will review and approve your account.");
-        closeM('joinModal');
-        e.target.reset();
-      };
-
-      document.getElementById('itemLikeBtn').onclick = () => {
-        if (!selectedItem) return;
-        selectedItem.likes_count = (selectedItem.likes_count || 0) + 1;
-        document.getElementById('likeCount').innerText = selectedItem.likes_count;
-        renderGrid();
-      };
-
-      document.getElementById('itemDislikeBtn').onclick = () => {
-        if (!selectedItem) return;
-        selectedItem.dislikes_count = (selectedItem.dislikes_count || 0) + 1;
-        document.getElementById('dislikeCount').innerText = selectedItem.dislikes_count;
-        renderGrid();
-      };
-
-      // Initial Render & Supabase Sync
-      renderGrid();
-      fetchSupabaseData();
-    });
-
-    function renderGrid() {
-      const g = document.getElementById('itemsGrid');
-      g.innerHTML = "";
-      const filtered = currentCategory === "All" ? inventory : inventory.filter(i => i.category === currentCategory);
-      document.getElementById('inventoryCount').innerText = inventory.length;
-
-      if (!filtered.length) {
-        g.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#64748b; padding:2rem;">No items currently in this category. Tap + to add one!</p>`;
-        return;
-      }
-
-      filtered.forEach(item => {
-        const card = document.createElement('div');
-        card.className = "card";
-        card.onclick = () => openItemDetail(item);
-        card.innerHTML = `
-          <div class="card-img-wrap">
-            <img src="${item.image}" onerror="this.src='https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80'">
-            ${item.is_negotiable ? '<span class="negotiable-tag">Negotiable</span>' : ''}
-          </div>
-          <div class="card-body">
-            <div class="price-row">
-              <div class="price">$${item.price}</div>
-              <div class="card-likes"><i class="fa-solid fa-heart" style="color:#ef4444;"></i> ${item.likes_count || 0}</div>
-            </div>
-            <div class="title">${item.title}</div>
-            <div class="meta">
-              <span><i class="fa-solid fa-location-dot"></i> ${item.location || 'Tempe, AZ'}</span>
-              <span>${item.seller || 'Dustin S.'}</span>
-            </div>
-          </div>
-        `;
-        g.appendChild(card);
-      });
-    }
-
-    function openItemDetail(item) {
-      selectedItem = item;
-      document.getElementById('detailMainImg').src = item.image;
-      document.getElementById('detailPriceDisplay').innerText = `$${item.price}`;
-      document.getElementById('detailTitleDisplay').innerText = item.title;
-      document.getElementById('detailSellerMeta').innerText = `Listed by ${item.seller || 'Dustin Stacks'} • ${item.location || 'Tempe, AZ'}`;
-      document.getElementById('detailDescDisplay').innerText = item.description || "Verified listed item.";
-      document.getElementById('detailNegoBadge').innerText = item.is_negotiable ? "Open to Offers / Negotiable" : "Price is Firm";
-      document.getElementById('likeCount').innerText = item.likes_count || 0;
-      document.getElementById('dislikeCount').innerText = item.dislikes_count || 0;
-
-      const contactArea = document.getElementById('contactGatedArea');
-      if (currentRole === 'guest') {
-        contactArea.innerHTML = `
-          <div style="background:#fef3c7; border:1px solid #fde68a; padding:0.75rem; border-radius:8px; font-size:0.8rem; color:#92400e; margin:0.8rem 0;">
-            <strong><i class="fa-solid fa-lock"></i> Contact Info Locked</strong><br>
-            Direct contact numbers and messaging are reserved for approved members.
-          </div>
-        `;
-      } else {
-        contactArea.innerHTML = `
-          <div style="background:#f0fdf4; border:1px solid #bbf7d0; padding:0.75rem; border-radius:8px; font-size:0.8rem; margin:0.8rem 0;">
-            <strong style="color:#16a34a;"><i class="fa-solid fa-circle-check"></i> Approved Member Access</strong>
-            <p style="margin-top:0.25rem;">Direct Contact: <strong>${item.contact_phone || 'dustinstack8181@gmail.com'}</strong></p>
-          </div>
-        `;
-      }
-
-      const adminCtrl = document.getElementById('adminListingControls');
-      if (currentRole === 'owner') {
-        adminCtrl.innerHTML = `<button class="reaction-btn" style="background:#fee2e2; color:var(--danger); border:none; width:100%; justify-content:center;" onclick="deleteCurrentListing()"><i class="fa-solid fa-trash"></i> Delete Listing (Founder Access)</button>`;
-      } else {
-        adminCtrl.innerHTML = "";
-      }
-
-      openM('itemDetailModal');
-    }
-
-    function deleteCurrentListing() {
-      if (!selectedItem || !confirm("Delete this listing?")) return;
-      inventory = inventory.filter(i => i.id !== selectedItem.id);
-      if (sb) sb.from('listings').delete().eq('id', selectedItem.id).then();
-      closeM('itemDetailModal');
-      renderGrid();
-    }
-
-    async function fetchSupabaseData() {
-      if (!sb) return;
-      try {
-        const { data } = await sb.from('listings').select('*').order('id', { ascending: false });
-        if (data && data.length > 0) {
-          inventory = data;
-          renderGrid();
-        }
-      } catch(e) {
-        console.warn("Using offline inventory:", e);
-      }
-    }
-  </script>
-</body>
-</html>
+      document.querySelectorAll('[data-close]').forEach
