@@ -259,7 +259,6 @@
   </div>
 
   <!-- Founder & Admin Dashboard Modal -->
-    <!-- Founder & Admin Dashboard Modal -->
   <div class="modal-overlay" id="adminModal">
     <div class="modal-box">
       <button class="modal-close" type="button" onclick="closeM('adminModal')">&times;</button>
@@ -445,6 +444,7 @@
       render();
     }
 
+    // Auto-compressor engine for camera and gallery photos
     function handleIncomingFiles(files){
       if(!files) return;
       for(var i=0; i<files.length; i++){
@@ -452,12 +452,31 @@
           alert("Maximum 12 photos reached per listing.");
           break;
         }
+        var file = files[i];
         var reader = new FileReader();
         reader.onload = function(e){
-          uploadPhotos.push(e.target.result);
-          renderUploadThumbs();
+          var img = new Image();
+          img.onload = function(){
+            var canvas = document.createElement('canvas');
+            var maxDim = 800;
+            var width = img.width;
+            var height = img.height;
+            if(width > height){
+              if(width > maxDim){ height *= maxDim / width; width = maxDim; }
+            } else {
+              if(height > maxDim){ width *= maxDim / height; height = maxDim; }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            var compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+            uploadPhotos.push(compressedDataUrl);
+            renderUploadThumbs();
+          };
+          img.src = e.target.result;
         };
-        reader.readAsDataURL(files[i]);
+        reader.readAsDataURL(file);
       }
     }
 
@@ -482,9 +501,18 @@
       if(inp.files && inp.files[0]){
         var r = new FileReader();
         r.onload = function(e){
-          profile.avatar = e.target.result;
-          saveState();
-          updateProfileDisplay();
+          var img = new Image();
+          img.onload = function(){
+            var canvas = document.createElement('canvas');
+            canvas.width = 160;
+            canvas.height = 160;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, 160, 160);
+            profile.avatar = canvas.toDataURL('image/jpeg', 0.8);
+            saveState();
+            updateProfileDisplay();
+          };
+          img.src = e.target.result;
         };
         r.readAsDataURL(inp.files[0]);
       }
@@ -553,7 +581,7 @@
       document.getElementById('itemMeta').innerText = 'Listed by ' + item.seller + ' • ' + (item.condition || 'Like New') + (item.sold ? ' • [SOLD]' : '');
       document.getElementById('itemDesc').innerText = item.desc || "Verified marketplace listing.";
       document.getElementById('itemNego').innerText = item.sold ? "SOLD" : (item.nego ? "Negotiable" : "Firm Price");
-            document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
+      document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
 
       var hasAdminControl = (profile.role === 'owner' || item.seller === profile.name);
       document.getElementById('sellerControlBox').style.display = hasAdminControl ? 'block' : 'none';
@@ -756,5 +784,3 @@
   </script>
 </body>
 </html>
-
-
