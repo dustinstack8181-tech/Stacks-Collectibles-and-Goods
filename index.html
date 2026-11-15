@@ -60,9 +60,9 @@
 
   <header>
     <button class="brand-btn" type="button" onclick="openM('menuModal')">
-      <div class="logo-badge" id="navAvatar">DS</div>
+      <div class="logo-badge" id="navAvatar">SC</div>
       <div>
-        <div style="font-size:14px;font-weight:800;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#fee2e2;color:#dc2626;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">FOUNDER</span></div>
+        <div style="font-size:14px;font-weight:800;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#e0f2fe;color:#0284c7;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">MEMBER</span></div>
         <div style="font-size:11px;color:#64748b;"><i class="fa-solid fa-bars"></i> Menu &bull; <span id="navCity">Tempe, AZ</span></div>
       </div>
     </button>
@@ -78,7 +78,7 @@
         <div class="hero-avatar" id="heroAvatar">DS</div>
         <div>
           <h1 style="font-size:15px;" id="brandTitle">Stacks Collectibles and Goods</h1>
-          <p style="font-size:12px;color:#64748b;">Founder: <span id="heroName">Dustin Stacks</span> &bull; <span id="heroCity">Tempe, AZ</span></p>
+          <p style="font-size:12px;color:#64748b;">Founder: Dustin Stacks &bull; <span id="heroCity">Tempe, AZ</span></p>
           <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#16a34a;font-weight:700;" id="syncStatus"><i class="fa-solid fa-cloud"></i> Live Cloud Sync</span></div>
         </div>
       </div>
@@ -280,14 +280,14 @@
       <div class="menu-row" onclick="closeM('menuModal');filterMine();"><span><i class="fa-solid fa-boxes-stacked" style="color:#6366f1;width:24px;"></i> My Active Listings</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="closeM('menuModal');openM('savedModal');"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved / Watchlist</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="closeM('menuModal');loadChats();openM('inboxModal');"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Messages &amp; Offers</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="closeM('menuModal');openM('adminModal');"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> Founder Admin Tools</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" id="adminMenuBtn" style="display:none;" onclick="closeM('menuModal');openM('adminModal');"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> Founder Admin Tools</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="closeM('menuModal');openM('safeModal');"><span><i class="fa-solid fa-hand-holding-heart" style="color:#06b6d4;width:24px;"></i> Safe Meetup Spots</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div style="margin-top:14px;">
-        <label style="font-size:12px;font-weight:700;">Switch Persona / Testing Role</label>
+        <label style="font-size:12px;font-weight:700;">Account Mode / Founder Unlock</label>
         <select id="roleSelector" onchange="setRole(this.value)" style="width:100%;padding:8px;margin-top:4px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;">
-          <option value="owner">Founder / Owner (Dustin Stacks)</option>
-          <option value="member">Approved Member / Buyer</option>
+          <option value="member">Buyer / Member (Standard)</option>
           <option value="guest">Guest (Browse Only)</option>
+          <option value="owner">Founder / Owner (PIN Required)</option>
         </select>
       </div>
     </div>
@@ -303,7 +303,7 @@
           <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleProfileAvatar(this)">
           <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;cursor:pointer;" onclick="document.getElementById('avatarFile').click()">
             <img id="profPreview" style="width:100%;height:100%;object-fit:cover;display:none;">
-            <div id="profInitial" style="color:#fff;font-size:22px;font-weight:800;line-height:68px;">DS</div>
+            <div id="profInitial" style="color:#fff;font-size:22px;font-weight:800;line-height:68px;">BM</div>
           </div>
           <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i> Change Photo</span>
         </div>
@@ -338,10 +338,12 @@
   <script>
     var SUPABASE_URL = 'https://rxjueszszoggbdhichhq.supabase.co';
     var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
+    var FOUNDER_PIN = '8181';
     var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     var items = [];
-    var profile = JSON.parse(localStorage.getItem('stacks_profile')) || { name: "Dustin Stacks", city: "Tempe, AZ", contact: "dustinstack8181@gmail.com", avatar: "", role: "owner" };
+    var defaultVisitor = { name: "Buyer / Member", city: "Tempe, AZ", contact: "", avatar: "", role: "member" };
+    var profile = JSON.parse(localStorage.getItem('stacks_profile')) || defaultVisitor;
     var chatLog = [];
     var saved = JSON.parse(localStorage.getItem('stacks_saved')) || [];
     var uploadPhotos = [];
@@ -409,10 +411,28 @@
         openM('authModal');
         return;
       }
+      if(profile.name === "Buyer / Member"){
+        var customName = prompt("Enter your display name before posting:", "");
+        if(customName && customName.trim()){
+          profile.name = customName.trim();
+          saveLocalProfile();
+          updateProfileDisplay();
+        }
+      }
       openM('createPostModal');
     }
 
     function setRole(r){
+      if(r === 'owner'){
+        var entered = prompt("Enter Founder Security PIN:");
+        if(entered !== FOUNDER_PIN){
+          alert("Incorrect PIN. Staying in Buyer / Member mode.");
+          document.getElementById('roleSelector').value = profile.role;
+          return;
+        }
+        profile.name = "Dustin Stacks";
+        profile.contact = "dustinstack8181@gmail.com";
+      }
       profile.role = r;
       saveLocalProfile();
       updateProfileDisplay();
@@ -420,8 +440,25 @@
     }
 
     function updateProfileDisplay(){
-      document.getElementById('roleBadge').innerText = profile.role.toUpperCase();
-      document.getElementById('heroName').innerText = profile.name;
+      var badge = document.getElementById('roleBadge');
+      var adminMenuBtn = document.getElementById('adminMenuBtn');
+      if(profile.role === 'owner'){
+        badge.innerText = 'FOUNDER';
+        badge.style.background = '#fee2e2';
+        badge.style.color = '#dc2626';
+        adminMenuBtn.style.display = 'flex';
+      } else if(profile.role === 'guest'){
+        badge.innerText = 'GUEST';
+        badge.style.background = '#f1f5f9';
+        badge.style.color = '#64748b';
+        adminMenuBtn.style.display = 'none';
+      } else {
+        badge.innerText = 'MEMBER';
+        badge.style.background = '#e0f2fe';
+        badge.style.color = '#0284c7';
+        adminMenuBtn.style.display = 'none';
+      }
+
       document.getElementById('heroCity').innerText = profile.city;
       document.getElementById('navCity').innerText = profile.city;
       document.getElementById('pName').value = profile.name;
@@ -430,15 +467,13 @@
       document.getElementById('roleSelector').value = profile.role;
 
       if(profile.avatar){
-        document.getElementById('heroAvatar').innerHTML = '<img src="'+profile.avatar+'">';
         document.getElementById('navAvatar').innerHTML = '<img src="'+profile.avatar+'">';
         var prev = document.getElementById('profPreview');
         prev.src = profile.avatar;
         prev.style.display = 'block';
         document.getElementById('profInitial').style.display = 'none';
       } else {
-        var initial = (profile.name[0]||'D') + ((profile.name.split(' ')[1]||'S')[0]||'');
-        document.getElementById('heroAvatar').innerText = initial;
+        var initial = (profile.name[0]||'B') + ((profile.name.split(' ')[1]||'M')[0]||'');
         document.getElementById('navAvatar').innerText = initial;
         document.getElementById('profInitial').innerText = initial;
       }
@@ -551,7 +586,7 @@
       profile.name = document.getElementById('joinName').value;
       profile.contact = document.getElementById('joinContact').value;
       profile.city = document.getElementById('joinCity').value;
-      profile.role = "member";
+      if(profile.role !== 'owner') profile.role = "member";
       saveLocalProfile();
       updateProfileDisplay();
       alert("Welcome to Stacks Marketplace, " + profile.name + "!");
@@ -600,8 +635,8 @@
       document.getElementById('itemNego').innerText = item.sold ? "SOLD" : (item.nego ? "Negotiable" : "Firm Price");
       document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
 
-      var hasAdminControl = (profile.role === 'owner' || item.seller === profile.name);
-      document.getElementById('sellerControlBox').style.display = hasAdminControl ? 'block' : 'none';
+      var canManageItem = (profile.role === 'owner' || (profile.name !== 'Buyer / Member' && item.seller === profile.name));
+      document.getElementById('sellerControlBox').style.display = canManageItem ? 'block' : 'none';
 
       renderComments();
       openM('itemModal');
@@ -795,7 +830,7 @@
       btn.disabled = false;
 
       if(res.error){
-        alert("Cloud error: " + res.error.message + "\nMake sure you ran Step 1 in Supabase SQL Editor!");
+        alert("Cloud error: " + res.error.message);
         return;
       }
 
