@@ -19,7 +19,7 @@
     .hero-avatar{width:46px;height:46px;border-radius:50%;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;overflow:hidden;}
     .hero-avatar img{width:100%;height:100%;object-fit:cover;}
     .filters{max-width:1100px;margin:8px auto;padding:0 14px;display:flex;gap:6px;overflow-x:auto;}
-    .pill{background:#fff;border:1px solid #cbd5e1;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
+    .pill{background:#fff;border:1px solid #cbd5e1;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;position:relative;}
     .pill.active{background:#0f172a;color:#fff;border-color:#0f172a;}
     .grid{max-width:1100px;margin:0 auto;padding:0 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
     .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;}
@@ -28,13 +28,16 @@
     .price{font-size:16px;font-weight:800;color:#0f172a;}
     .sold-badge{position:absolute;top:8px;left:8px;background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px;text-transform:uppercase;}
     .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:60px;z-index:35;}
-    .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;}
+    .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;padding:4px 10px;}
     .b-fab{width:46px;height:46px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;border:none;font-size:20px;transform:translateY(-10px);box-shadow:0 4px 10px rgba(2,132,199,0.35);cursor:pointer;}
-    .badge-dot{position:absolute;top:-2px;right:14px;background:#dc2626;color:#fff;font-size:10px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;}
+    .num-badge{position:absolute;top:-4px;right:2px;background:#dc2626;color:#fff;font-size:10px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:none;align-items:center;justify-content:center;font-weight:800;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+    .inline-badge{background:#dc2626;color:#fff;font-size:11px;padding:1px 7px;border-radius:999px;font-weight:800;margin-left:6px;display:none;}
     .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:100;align-items:center;justify-content:center;padding:14px;}
     .modal-overlay.active{display:flex;}
     .modal-box{background:#fff;border-radius:12px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:16px;position:relative;}
-    .modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:#64748b;cursor:pointer;}
+    .modal-nav-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;}
+    .back-arrow-btn{background:#f1f5f9;border:1px solid #cbd5e1;color:#0f172a;padding:5px 11px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+    .modal-close{background:none;border:none;font-size:22px;color:#64748b;cursor:pointer;line-height:1;}
     .form-group{margin-bottom:10px;}
     .form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:#334155;}
     .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:6px;font-size:14px;}
@@ -50,10 +53,11 @@
     .caro-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);color:#fff;border:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
     .caro-count{position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;font-weight:700;}
     .comment-bubble{background:#f1f5f9;border-radius:8px;padding:8px;margin-bottom:6px;font-size:12px;}
-    .menu-row{display:flex;justify-content:space-between;padding:12px 4px;border-bottom:1px solid #e2e8f0;cursor:pointer;font-size:14px;font-weight:600;}
+    .menu-row{display:flex;justify-content:space-between;align-items:center;padding:12px 4px;border-bottom:1px solid #e2e8f0;cursor:pointer;font-size:14px;font-weight:600;}
     .chat-bubble{max-width:80%;padding:8px 12px;border-radius:12px;margin-bottom:6px;font-size:13px;line-height:1.3;}
     .chat-me{background:#0284c7;color:#fff;margin-left:auto;border-bottom-right-radius:2px;}
     .chat-them{background:#e2e8f0;color:#0f172a;margin-right:auto;border-bottom-left-radius:2px;}
+    .member-req-card{background:#fff;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
   </style>
 </head>
 <body>
@@ -62,12 +66,15 @@
     <button class="brand-btn" type="button" onclick="openM('menuModal')">
       <div class="logo-badge" id="navAvatar">SC</div>
       <div>
-        <div style="font-size:14px;font-weight:800;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#e0f2fe;color:#0284c7;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">MEMBER</span></div>
+        <div style="font-size:14px;font-weight:800;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#f1f5f9;color:#64748b;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">GUEST</span></div>
         <div style="font-size:11px;color:#64748b;"><i class="fa-solid fa-bars"></i> Menu &bull; <span id="navCity">Tempe, AZ</span></div>
       </div>
     </button>
     <div style="display:flex;gap:6px;">
-      <button class="pill" type="button" onclick="openM('authModal')" id="authTopBtn"><i class="fa-solid fa-user-plus"></i> Join / Sign In</button>
+      <button class="pill" type="button" onclick="openM('authModal')" id="authTopBtn">
+        <i class="fa-solid fa-user-plus"></i> Join / Sign In
+        <span class="num-badge" id="topJoinBadge">0</span>
+      </button>
       <button class="pill" type="button" onclick="openM('profileModal')"><i class="fa-solid fa-gear"></i></button>
     </div>
   </header>
@@ -85,7 +92,7 @@
       <div style="display:flex;justify-content:space-between;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:8px;font-size:12px;font-weight:600;">
         <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Likes <button class="pill" type="button" style="padding:2px 6px;font-size:10px;margin-left:4px;" onclick="addLike()">+1</button></div>
         <div><i class="fa-solid fa-boxes-stacked"></i> <span id="invCount">0</span> Active</div>
-        <div><i class="fa-solid fa-user-check" style="color:#10b981;"></i> <span id="userCount">1</span> Members</div>
+        <div><i class="fa-solid fa-user-check" style="color:#10b981;"></i> <span id="userCount">1</span> Approved</div>
       </div>
     </div>
   </div>
@@ -103,14 +110,23 @@
   </main>
 
   <nav class="bottom-bar">
-    <button class="b-item" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-store"></i>Market</button>
-    <button class="b-item" type="button" onclick="loadChats();openM('inboxModal')">
+    <button class="b-item" type="button" onclick="goHomeMarket()">
+      <i class="fa-solid fa-store"></i>Market
+      <span class="num-badge" id="marketBadge">0</span>
+    </button>
+    <button class="b-item" type="button" onclick="openInboxAndMarkRead()">
       <i class="fa-solid fa-message"></i>Inbox
-      <span class="badge-dot" id="msgDot" style="display:none;">!</span>
+      <span class="num-badge" id="inboxBadge">0</span>
     </button>
     <button class="b-fab" type="button" onclick="openCreateListing()"><i class="fa-solid fa-plus"></i></button>
-    <button class="b-item" type="button" onclick="openM('savedModal')"><i class="fa-solid fa-bookmark"></i>Saved</button>
-    <button class="b-item" type="button" onclick="openM('menuModal')"><i class="fa-solid fa-bars"></i>Menu</button>
+    <button class="b-item" type="button" onclick="openM('savedModal')">
+      <i class="fa-solid fa-bookmark"></i>Saved
+      <span class="num-badge" id="savedBadge">0</span>
+    </button>
+    <button class="b-item" type="button" onclick="openM('menuModal')">
+      <i class="fa-solid fa-bars"></i>Menu
+      <span class="num-badge" id="menuBadge">0</span>
+    </button>
   </nav>
 
   <input type="file" id="cameraShootInput" accept="image/*" capture="environment" style="display:none;" onchange="handleIncomingFiles(this.files)">
@@ -119,7 +135,10 @@
   <!-- Create Listing Modal -->
   <div class="modal-overlay" id="createPostModal">
     <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('createPostModal')">&times;</button>
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
       <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-cloud-arrow-up" style="color:#0284c7;"></i> Create Marketplace Listing</h2>
       <form onsubmit="subPost(event)">
         <div class="form-group">
@@ -161,7 +180,10 @@
   <!-- Item Detail Modal -->
   <div class="modal-overlay" id="itemModal">
     <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('itemModal')">&times;</button>
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back to Market</button>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
       <div class="carousel-wrap">
         <img id="detailCaroImg" src="">
         <button class="caro-nav" style="left:6px;" type="button" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
@@ -215,7 +237,10 @@
   <!-- Edit Listing Modal -->
   <div class="modal-overlay" id="editModal">
     <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('editModal')">&times;</button>
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
       <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-pen-to-square" style="color:#0284c7;"></i> Edit Listing Details</h2>
       <form onsubmit="saveEditedItem(event)">
         <div class="form-group"><label>Title</label><input type="text" id="editTitle" required></div>
@@ -234,616 +259,5 @@
   <!-- Messages & Offers Thread Modal -->
   <div class="modal-overlay" id="inboxModal">
     <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('inboxModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-message" style="color:#0284c7;"></i> Live Buyer &amp; Seller Chat</h2>
-      <div id="chatMessages" style="height:230px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:8px;padding:10px;background:#f8fafc;margin-bottom:8px;"></div>
-      <div style="display:flex;gap:6px;">
-        <input type="text" id="chatInput" placeholder="Type reply or meetup time..." style="padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;flex:1;">
-        <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;" onclick="sendChatMessage()">Send</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Member Join / Login Modal -->
-  <div class="modal-overlay" id="authModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('authModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-user-plus" style="color:#0284c7;"></i> Join / Member Login</h2>
-      <form onsubmit="handleJoin(event)">
-        <div class="form-group"><label>Your Name</label><input type="text" id="joinName" placeholder="e.g. John Miller" required></div>
-        <div class="form-group"><label>Email or Phone</label><input type="text" id="joinContact" placeholder="john@example.com" required></div>
-        <div class="form-group"><label>City / Location</label><input type="text" id="joinCity" value="Tempe, AZ" required></div>
-        <button type="submit" class="btn-submit">Sign In / Join Platform</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Founder & Admin Dashboard Modal -->
-  <div class="modal-overlay" id="adminModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('adminModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-crown" style="color:#fbbf24;"></i> Founder &amp; Admin Dashboard</h2>
-      <div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:12px;font-size:12px;">
-        <p><strong>Cloud Database:</strong> <span style="color:#16a34a;font-weight:700;"><i class="fa-solid fa-circle-check"></i> Connected to Supabase</span></p>
-        <p style="margin-top:4px;">All listings, photos, Q&amp;A, and chats sync automatically across all visitor phones and browsers.</p>
-      </div>
-      <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;width:100%;padding:10px;font-weight:700;margin-bottom:8px;" onclick="syncLocalToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Push My Phone's Saved Items to Cloud</button>
-    </div>
-  </div>
-
-  <!-- Menu Drawer -->
-  <div class="modal-overlay" id="menuModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('menuModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-bars-staggered" style="color:#0284c7;"></i> Marketplace Menu</h2>
-      <div class="menu-row" onclick="closeM('menuModal');openM('profileModal');"><span><i class="fa-solid fa-circle-user" style="color:#0284c7;width:24px;"></i> Profile Studio</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="closeM('menuModal');filterMine();"><span><i class="fa-solid fa-boxes-stacked" style="color:#6366f1;width:24px;"></i> My Active Listings</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="closeM('menuModal');openM('savedModal');"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved / Watchlist</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="closeM('menuModal');loadChats();openM('inboxModal');"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Messages &amp; Offers</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" id="adminMenuBtn" style="display:none;" onclick="closeM('menuModal');openM('adminModal');"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> Founder Admin Tools</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="closeM('menuModal');openM('safeModal');"><span><i class="fa-solid fa-hand-holding-heart" style="color:#06b6d4;width:24px;"></i> Safe Meetup Spots</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div style="margin-top:14px;">
-        <label style="font-size:12px;font-weight:700;">Account Mode / Founder Unlock</label>
-        <select id="roleSelector" onchange="setRole(this.value)" style="width:100%;padding:8px;margin-top:4px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;">
-          <option value="member">Buyer / Member (Standard)</option>
-          <option value="guest">Guest (Browse Only)</option>
-          <option value="owner">Founder / Owner (PIN Required)</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!-- Profile Settings Modal -->
-  <div class="modal-overlay" id="profileModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('profileModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Profile &amp; Location</h2>
-      <form onsubmit="saveProf(event)">
-        <div style="text-align:center;margin-bottom:10px;">
-          <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleProfileAvatar(this)">
-          <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;cursor:pointer;" onclick="document.getElementById('avatarFile').click()">
-            <img id="profPreview" style="width:100%;height:100%;object-fit:cover;display:none;">
-            <div id="profInitial" style="color:#fff;font-size:22px;font-weight:800;line-height:68px;">BM</div>
-          </div>
-          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i> Change Photo</span>
-        </div>
-        <div class="form-group"><label>Display Name</label><input type="text" id="pName" required></div>
-        <div class="form-group"><label>City / Location</label><input type="text" id="pCity" required></div>
-        <div class="form-group"><label>Contact</label><input type="text" id="pContact" required></div>
-        <button type="submit" class="btn-submit">Save Profile</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Saved Watchlist Modal -->
-  <div class="modal-overlay" id="savedModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('savedModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-bookmark" style="color:#0284c7;"></i> Saved Watchlist</h2>
-      <div id="savedList" style="font-size:12px;color:#64748b;text-align:center;padding:12px;">No items saved yet.</div>
-    </div>
-  </div>
-
-  <!-- Safe Meetup Modal -->
-  <div class="modal-overlay" id="safeModal">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeM('safeModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:8px;"><i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i> Verified Safe Exchange Spots</h2>
-      <p style="font-size:12px;line-height:1.5;color:#334155;margin-bottom:8px;">Meet during daylight hours in monitored public spaces. Recommended Tempe / East Valley locations:</p>
-      <div style="background:#f8fafc;padding:8px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-bottom:6px;"><strong>Tempe Police Station (Safe Zone)</strong><br>120 E 5th St, Tempe, AZ</div>
-      <div style="background:#f8fafc;padding:8px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;"><strong>Public Bank / Grocery Parking</strong><br>Well-lit daytime parking lots with active cameras.</div>
-    </div>
-  </div>
-
-  <script>
-    var SUPABASE_URL = 'https://rxjueszszoggbdhichhq.supabase.co';
-    var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
-    var FOUNDER_PIN = '8181';
-    var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    var items = [];
-    var defaultVisitor = { name: "Buyer / Member", city: "Tempe, AZ", contact: "", avatar: "", role: "member" };
-    var profile = JSON.parse(localStorage.getItem('stacks_profile')) || defaultVisitor;
-    var chatLog = [];
-    var saved = JSON.parse(localStorage.getItem('stacks_saved')) || [];
-    var uploadPhotos = [];
-    var active = null, slideIndex = 0, curCat = "All";
-
-    function saveLocalProfile(){
-      localStorage.setItem('stacks_profile', JSON.stringify(profile));
-      localStorage.setItem('stacks_saved', JSON.stringify(saved));
-    }
-
-    async function loadCloudItems(){
-      var res = await db.from('listings').select('*').order('id', { ascending: false });
-      if(res.error){
-        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> Run SQL Table Setup';
-        items = JSON.parse(localStorage.getItem('stacks_items')) || [];
-      } else {
-        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-cloud"></i> Live Cloud Sync';
-        items = res.data || [];
-      }
-      render();
-      renderSaved();
-    }
-
-    async function loadChats(){
-      var res = await db.from('chats').select('*').order('id', { ascending: true });
-      if(!res.error && res.data){
-        chatLog = res.data;
-        renderChats();
-      }
-    }
-
-    async function syncLocalToCloud(){
-      var localItems = JSON.parse(localStorage.getItem('stacks_items')) || [];
-      if(!localItems.length){
-        alert("No local items found on this phone to push.");
-        return;
-      }
-      for(var i=0; i<localItems.length; i++){
-        var it = localItems[i];
-        await db.from('listings').upsert({
-          id: it.id,
-          title: it.title,
-          cat: it.cat,
-          price: it.price,
-          images: it.images || [],
-          seller: it.seller,
-          desc: it.desc || "",
-          condition: it.condition || "Like New",
-          nego: it.nego !== false,
-          sold: !!it.sold,
-          comments: it.comments || []
-        });
-      }
-      alert("Uploaded " + localItems.length + " saved items from your phone to the live cloud!");
-      closeM('adminModal');
-      loadCloudItems();
-    }
-
-    function openM(id){ document.getElementById(id).classList.add('active'); }
-    function closeM(id){ document.getElementById(id).classList.remove('active'); }
-
-    function openCreateListing(){
-      if(profile.role === 'guest'){
-        alert("Posting is restricted to members. Please join or sign in.");
-        openM('authModal');
-        return;
-      }
-      if(profile.name === "Buyer / Member"){
-        var customName = prompt("Enter your display name before posting:", "");
-        if(customName && customName.trim()){
-          profile.name = customName.trim();
-          saveLocalProfile();
-          updateProfileDisplay();
-        }
-      }
-      openM('createPostModal');
-    }
-
-    function setRole(r){
-      if(r === 'owner'){
-        var entered = prompt("Enter Founder Security PIN:");
-        if(entered !== FOUNDER_PIN){
-          alert("Incorrect PIN. Staying in Buyer / Member mode.");
-          document.getElementById('roleSelector').value = profile.role;
-          return;
-        }
-        profile.name = "Dustin Stacks";
-        profile.contact = "dustinstack8181@gmail.com";
-      }
-      profile.role = r;
-      saveLocalProfile();
-      updateProfileDisplay();
-      render();
-    }
-
-    function updateProfileDisplay(){
-      var badge = document.getElementById('roleBadge');
-      var adminMenuBtn = document.getElementById('adminMenuBtn');
-      if(profile.role === 'owner'){
-        badge.innerText = 'FOUNDER';
-        badge.style.background = '#fee2e2';
-        badge.style.color = '#dc2626';
-        adminMenuBtn.style.display = 'flex';
-      } else if(profile.role === 'guest'){
-        badge.innerText = 'GUEST';
-        badge.style.background = '#f1f5f9';
-        badge.style.color = '#64748b';
-        adminMenuBtn.style.display = 'none';
-      } else {
-        badge.innerText = 'MEMBER';
-        badge.style.background = '#e0f2fe';
-        badge.style.color = '#0284c7';
-        adminMenuBtn.style.display = 'none';
-      }
-
-      document.getElementById('heroCity').innerText = profile.city;
-      document.getElementById('navCity').innerText = profile.city;
-      document.getElementById('pName').value = profile.name;
-      document.getElementById('pCity').value = profile.city;
-      document.getElementById('pContact').value = profile.contact;
-      document.getElementById('roleSelector').value = profile.role;
-
-      if(profile.avatar){
-        document.getElementById('navAvatar').innerHTML = '<img src="'+profile.avatar+'">';
-        var prev = document.getElementById('profPreview');
-        prev.src = profile.avatar;
-        prev.style.display = 'block';
-        document.getElementById('profInitial').style.display = 'none';
-      } else {
-        var initial = (profile.name[0]||'B') + ((profile.name.split(' ')[1]||'M')[0]||'');
-        document.getElementById('navAvatar').innerText = initial;
-        document.getElementById('profInitial').innerText = initial;
-      }
-    }
-
-    function addLike(){
-      var el = document.getElementById('siteLikes');
-      el.innerText = parseInt(el.innerText) + 1;
-    }
-
-    function setCat(b, c){
-      curCat = c;
-      document.querySelectorAll('.filters .pill').forEach(function(x){ x.classList.remove('active'); });
-      b.classList.add('active');
-      render();
-    }
-
-    function filterMine(){
-      curCat = "Mine";
-      document.querySelectorAll('.filters .pill').forEach(function(x){ x.classList.remove('active'); });
-      render();
-    }
-
-    function handleIncomingFiles(files){
-      if(!files) return;
-      for(var i=0; i<files.length; i++){
-        if(uploadPhotos.length >= 12){
-          alert("Maximum 12 photos reached per listing.");
-          break;
-        }
-        var file = files[i];
-        var reader = new FileReader();
-        reader.onload = function(e){
-          var img = new Image();
-          img.onload = function(){
-            var canvas = document.createElement('canvas');
-            var maxDim = 800;
-            var width = img.width;
-            var height = img.height;
-            if(width > height){
-              if(width > maxDim){ height *= maxDim / width; width = maxDim; }
-            } else {
-              if(height > maxDim){ width *= maxDim / height; height = maxDim; }
-            }
-            canvas.width = width;
-            canvas.height = height;
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            var compressedDataUrl = canvas.toDataURL('image/jpeg', 0.65);
-            uploadPhotos.push(compressedDataUrl);
-            renderUploadThumbs();
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function renderUploadThumbs(){
-      var grid = document.getElementById('newListingThumbs');
-      grid.innerHTML = "";
-      document.getElementById('postPhotoCount').innerText = uploadPhotos.length;
-      uploadPhotos.forEach(function(src, idx){
-        var wrap = document.createElement('div');
-        wrap.className = "thumb-wrap";
-        wrap.innerHTML = '<img src="'+src+'"><button type="button" class="thumb-del" onclick="removeUploadPhoto('+idx+')">&times;</button>';
-        grid.appendChild(wrap);
-      });
-    }
-
-    function removeUploadPhoto(idx){
-      uploadPhotos.splice(idx, 1);
-      renderUploadThumbs();
-    }
-
-    function handleProfileAvatar(inp){
-      if(inp.files && inp.files[0]){
-        var r = new FileReader();
-        r.onload = function(e){
-          var img = new Image();
-          img.onload = function(){
-            var canvas = document.createElement('canvas');
-            canvas.width = 160;
-            canvas.height = 160;
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, 160, 160);
-            profile.avatar = canvas.toDataURL('image/jpeg', 0.8);
-            saveLocalProfile();
-            updateProfileDisplay();
-          };
-          img.src = e.target.result;
-        };
-        r.readAsDataURL(inp.files[0]);
-      }
-    }
-
-    function saveProf(e){
-      e.preventDefault();
-      profile.name = document.getElementById('pName').value;
-      profile.city = document.getElementById('pCity').value;
-      profile.contact = document.getElementById('pContact').value;
-      saveLocalProfile();
-      updateProfileDisplay();
-      alert("Profile saved!");
-      closeM('profileModal');
-    }
-
-    function handleJoin(e){
-      e.preventDefault();
-      profile.name = document.getElementById('joinName').value;
-      profile.contact = document.getElementById('joinContact').value;
-      profile.city = document.getElementById('joinCity').value;
-      if(profile.role !== 'owner') profile.role = "member";
-      saveLocalProfile();
-      updateProfileDisplay();
-      alert("Welcome to Stacks Marketplace, " + profile.name + "!");
-      closeM('authModal');
-    }
-
-    function render(){
-      var g = document.getElementById('itemsGrid');
-      g.innerHTML = "";
-      var list = items;
-      if(curCat === "Mine") {
-        list = items.filter(function(x){ return x.seller === profile.name; });
-      } else if(curCat !== "All") {
-        list = items.filter(function(x){ return x.cat === curCat; });
-      }
-
-      document.getElementById('invCount').innerText = items.filter(function(x){ return !x.sold; }).length;
-
-      if(!list.length){
-        g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;"><i class="fa-solid fa-box-open" style="font-size:28px;margin-bottom:8px;display:block;"></i>No active listings in this category yet. Tap + to post the first item!</div>';
-        return;
-      }
-
-      list.forEach(function(item){
-        var c = document.createElement('div');
-        c.className = "card";
-        c.onclick = function(){ show(item); };
-        var firstImg = (item.images && item.images.length) ? item.images[0] : "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80";
-        var countTag = (item.images && item.images.length > 1) ? '<span style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.65);color:#fff;font-size:10px;padding:2px 5px;border-radius:4px;"><i class="fa-solid fa-images"></i> '+item.images.length+'</span>' : '';
-        var soldBadge = item.sold ? '<div class="sold-badge">SOLD</div>' : '';
-
-        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+countTag+soldBadge+'</div><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center;"><div class="price">$'+item.price+'</div>'+(item.nego?'<span style="font-size:9px;background:#e0f2fe;color:#0284c7;padding:2px 5px;border-radius:4px;font-weight:700;">Negotiable</span>':'')+'</div><div style="font-size:12px;font-weight:700;margin:4px 0;line-height:1.2;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">Tempe, AZ &bull; '+item.seller+'</div></div>';
-        g.appendChild(c);
-      });
-    }
-
-    function show(item){
-      active = item;
-      slideIndex = 0;
-      updateSlideDisplay();
-
-      document.getElementById('itemPrice').innerText = '$' + item.price;
-      document.getElementById('itemTitle').innerText = item.title;
-      document.getElementById('itemMeta').innerText = 'Listed by ' + item.seller + ' • ' + (item.condition || 'Like New') + (item.sold ? ' • [SOLD]' : '');
-      document.getElementById('itemDesc').innerText = item.desc || "Verified marketplace listing.";
-      document.getElementById('itemNego').innerText = item.sold ? "SOLD" : (item.nego ? "Negotiable" : "Firm Price");
-      document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
-
-      var canManageItem = (profile.role === 'owner' || (profile.name !== 'Buyer / Member' && item.seller === profile.name));
-      document.getElementById('sellerControlBox').style.display = canManageItem ? 'block' : 'none';
-
-      renderComments();
-      openM('itemModal');
-    }
-
-    function updateSlideDisplay(){
-      if(!active || !active.images || !active.images.length) return;
-      document.getElementById('detailCaroImg').src = active.images[slideIndex];
-      document.getElementById('detailCaroCount').innerText = (slideIndex + 1) + '/' + active.images.length;
-    }
-
-    function moveSlide(dir){
-      if(!active || !active.images || active.images.length <= 1) return;
-      slideIndex += dir;
-      if(slideIndex < 0) slideIndex = active.images.length - 1;
-      if(slideIndex >= active.images.length) slideIndex = 0;
-      updateSlideDisplay();
-    }
-
-    function renderComments(){
-      var box = document.getElementById('itemCommentsList');
-      box.innerHTML = "";
-      if(!active.comments || !active.comments.length){
-        box.innerHTML = '<p style="font-size:11px;color:#94a3b8;font-style:italic;">No questions posted yet.</p>';
-        return;
-      }
-      active.comments.forEach(function(c){
-        var b = document.createElement('div');
-        b.className = "comment-bubble";
-        b.innerText = c;
-        box.appendChild(b);
-      });
-    }
-
-    async function submitComment(){
-      var inp = document.getElementById('newCommentInput');
-      if(!inp.value.trim() || !active) return;
-      if(!active.comments) active.comments = [];
-      active.comments.push(profile.name + ": " + inp.value.trim());
-      inp.value = "";
-      renderComments();
-      await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
-    }
-
-    function openEditActive(){
-      if(!active) return;
-      document.getElementById('editTitle').value = active.title;
-      document.getElementById('editPrice').value = active.price;
-      document.getElementById('editCondition').value = active.condition || "Like New";
-      document.getElementById('editDesc').value = active.desc || "";
-      openM('editModal');
-    }
-
-    async function saveEditedItem(e){
-      e.preventDefault();
-      if(!active) return;
-      active.title = document.getElementById('editTitle').value;
-      active.price = parseInt(document.getElementById('editPrice').value);
-      active.condition = document.getElementById('editCondition').value;
-      active.desc = document.getElementById('editDesc').value;
-      await db.from('listings').update({
-        title: active.title,
-        price: active.price,
-        condition: active.condition,
-        desc: active.desc
-      }).eq('id', active.id);
-      closeM('editModal');
-      show(active);
-      render();
-    }
-
-    async function toggleSold(){
-      if(!active) return;
-      active.sold = !active.sold;
-      await db.from('listings').update({ sold: active.sold }).eq('id', active.id);
-      show(active);
-      render();
-    }
-
-    async function delItem(){
-      if(!active || !confirm("Permanently delete this listing for everyone?")) return;
-      await db.from('listings').delete().eq('id', active.id);
-      items = items.filter(function(x){ return x.id !== active.id; });
-      closeM('itemModal');
-      render();
-    }
-
-    function openOffer(){
-      var b = document.getElementById('offerBox');
-      b.style.display = b.style.display === 'block' ? 'none' : 'block';
-    }
-
-    async function sendOffer(){
-      var a = document.getElementById('offerAmt').value;
-      if(!a) return;
-      var msg = { sender: profile.name, text: "Submitted offer of $" + a + " on " + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) };
-      await db.from('chats').insert([msg]);
-      alert("Offer of $" + a + " sent live to " + active.seller + "!");
-      document.getElementById('offerBox').style.display = 'none';
-      loadChats();
-    }
-
-    function openItemChat(){
-      closeM('itemModal');
-      loadChats();
-      openM('inboxModal');
-    }
-
-    function renderChats(){
-      var box = document.getElementById('chatMessages');
-      box.innerHTML = "";
-      if(!chatLog.length){
-        box.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;margin-top:40px;">No messages yet. Say hello!</div>';
-        return;
-      }
-      chatLog.forEach(function(m){
-        var div = document.createElement('div');
-        div.className = "chat-bubble " + (m.sender === profile.name ? "chat-me" : "chat-them");
-        div.innerHTML = "<strong>" + m.sender + "</strong>: " + m.text + "<div style='font-size:9px;opacity:0.8;margin-top:2px;'>" + m.time + "</div>";
-        box.appendChild(div);
-      });
-      box.scrollTop = box.scrollHeight;
-    }
-
-    async function sendChatMessage(){
-      var inp = document.getElementById('chatInput');
-      if(!inp.value.trim()) return;
-      var msg = { sender: profile.name, text: inp.value.trim(), time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) };
-      inp.value = "";
-      await db.from('chats').insert([msg]);
-      loadChats();
-    }
-
-    function toggleSave(){
-      if(!active) return;
-      var i = saved.indexOf(active.id);
-      if(i > -1){
-        saved.splice(i, 1);
-        document.getElementById('saveIcon').className = "fa-regular fa-bookmark";
-      } else {
-        saved.push(active.id);
-        document.getElementById('saveIcon').className = "fa-solid fa-bookmark";
-      }
-      saveLocalProfile();
-      renderSaved();
-    }
-
-    function renderSaved(){
-      var b = document.getElementById('savedList');
-      var s = items.filter(function(x){ return saved.includes(x.id); });
-      if(!s.length){ b.innerHTML = "No items saved yet."; return; }
-      b.innerHTML = "";
-      s.forEach(function(x){
-        var img = (x.images && x.images.length) ? x.images[0] : '';
-        b.innerHTML += '<div style="display:flex;gap:8px;padding:6px;border-bottom:1px solid #e2e8f0;align-items:center;"><img src="'+img+'" style="width:36px;height:36px;border-radius:4px;object-fit:cover;"><div><div style="font-weight:700;">'+x.title+'</div><div style="color:#0284c7;">$'+x.price+'</div></div></div>';
-      });
-    }
-
-    function shareCurrentItem(){
-      if(navigator.share){
-        navigator.share({ title: active.title, text: "Check out this " + active.title + " on Stacks Collectibles!", url: window.location.href });
-      } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert("Link copied to clipboard!");
-      }
-    }
-
-    async function subPost(e){
-      e.preventDefault();
-      var btn = document.getElementById('publishBtn');
-      btn.innerText = "Uploading to Live Cloud...";
-      btn.disabled = true;
-
-      var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ["https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80"];
-      var newItem = {
-        id: Date.now(),
-        title: document.getElementById('postTitle').value,
-        cat: document.getElementById('postCat').value,
-        price: parseInt(document.getElementById('postPrice').value),
-        images: imgs,
-        seller: profile.name,
-        desc: document.getElementById('postDesc').value,
-        condition: document.getElementById('postCondition').value,
-        nego: document.getElementById('postNego').checked,
-        sold: false,
-        comments: []
-      };
-
-      var res = await db.from('listings').insert([newItem]);
-      btn.innerText = "Publish to Live Marketplace";
-      btn.disabled = false;
-
-      if(res.error){
-        alert("Cloud error: " + res.error.message);
-        return;
-      }
-
-      closeM('createPostModal');
-      e.target.reset();
-      uploadPhotos = [];
-      renderUploadThumbs();
-      loadCloudItems();
-    }
-
-    updateProfileDisplay();
-    loadCloudItems();
-    loadChats();
-  </script>
-</body>
-</html>
+      <div class="modal-nav-bar">
+        <b
