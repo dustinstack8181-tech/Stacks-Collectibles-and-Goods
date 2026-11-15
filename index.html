@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Stacks Collectibles and Goods</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
     body{background:#f1f5f9;color:#0f172a;padding-bottom:75px;}
@@ -78,7 +79,7 @@
         <div>
           <h1 style="font-size:15px;" id="brandTitle">Stacks Collectibles and Goods</h1>
           <p style="font-size:12px;color:#64748b;">Founder: <span id="heroName">Dustin Stacks</span> &bull; <span id="heroCity">Tempe, AZ</span></p>
-          <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#0284c7;font-weight:700;"><i class="fa-solid fa-shield-halved"></i> Verified Local Hub</span></div>
+          <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#16a34a;font-weight:700;" id="syncStatus"><i class="fa-solid fa-cloud"></i> Live Cloud Sync</span></div>
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:8px;font-size:12px;font-weight:600;">
@@ -97,11 +98,13 @@
     <button class="pill" type="button" onclick="setCat(this, 'Electronics & Audio')">Car Audio</button>
   </div>
 
-  <main class="grid" id="itemsGrid"></main>
+  <main class="grid" id="itemsGrid">
+    <div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading live marketplace...</div>
+  </main>
 
   <nav class="bottom-bar">
     <button class="b-item" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-store"></i>Market</button>
-    <button class="b-item" type="button" onclick="openM('inboxModal')">
+    <button class="b-item" type="button" onclick="loadChats();openM('inboxModal')">
       <i class="fa-solid fa-message"></i>Inbox
       <span class="badge-dot" id="msgDot" style="display:none;">!</span>
     </button>
@@ -150,7 +153,7 @@
           </select>
         </div>
         <div class="form-group"><label>Description</label><textarea id="postDesc" rows="3" placeholder="Condition, strike luster, specs, included accessories..."></textarea></div>
-        <button type="submit" class="btn-submit">Publish &amp; Save Listing</button>
+        <button type="submit" id="publishBtn" class="btn-submit">Publish to Live Marketplace</button>
       </form>
     </div>
   </div>
@@ -159,7 +162,6 @@
   <div class="modal-overlay" id="itemModal">
     <div class="modal-box">
       <button class="modal-close" type="button" onclick="closeM('itemModal')">&times;</button>
-      
       <div class="carousel-wrap">
         <img id="detailCaroImg" src="">
         <button class="caro-nav" style="left:6px;" type="button" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
@@ -175,7 +177,6 @@
       <div style="font-size:11px;color:#64748b;margin-bottom:8px;" id="itemMeta"></div>
       <p style="font-size:13px;color:#334155;line-height:1.4;margin-bottom:10px;" id="itemDesc"></p>
 
-      <!-- Action Buttons -->
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;">
         <button class="pill" type="button" onclick="toggleSave()"><i class="fa-regular fa-bookmark" id="saveIcon"></i> Save</button>
         <button class="pill" type="button" style="background:#0f172a;color:#fff;" onclick="openOffer()"><i class="fa-solid fa-handshake"></i> Offer</button>
@@ -187,7 +188,6 @@
         <button class="pill" type="button" style="background:#16a34a;color:#fff;border:none;" onclick="sendOffer()">Send</button>
       </div>
 
-      <!-- Seller & Founder Control Center -->
       <div id="sellerControlBox" style="display:none;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:12px;">
         <div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:6px;"><i class="fa-solid fa-screwdriver-wrench"></i> Seller &amp; Admin Tools</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
@@ -226,7 +226,7 @@
           </select>
         </div>
         <div class="form-group"><label>Description</label><textarea id="editDesc" rows="3"></textarea></div>
-        <button type="submit" class="btn-submit">Save Changes Permanently</button>
+        <button type="submit" class="btn-submit">Save Changes to Cloud</button>
       </form>
     </div>
   </div>
@@ -235,7 +235,7 @@
   <div class="modal-overlay" id="inboxModal">
     <div class="modal-box">
       <button class="modal-close" type="button" onclick="closeM('inboxModal')">&times;</button>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-message" style="color:#0284c7;"></i> Buyer &amp; Seller Chat</h2>
+      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-message" style="color:#0284c7;"></i> Live Buyer &amp; Seller Chat</h2>
       <div id="chatMessages" style="height:230px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:8px;padding:10px;background:#f8fafc;margin-bottom:8px;"></div>
       <div style="display:flex;gap:6px;">
         <input type="text" id="chatInput" placeholder="Type reply or meetup time..." style="padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;flex:1;">
@@ -264,10 +264,10 @@
       <button class="modal-close" type="button" onclick="closeM('adminModal')">&times;</button>
       <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-crown" style="color:#fbbf24;"></i> Founder &amp; Admin Dashboard</h2>
       <div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:12px;font-size:12px;">
-        <p><strong>Admin Status:</strong> <span style="color:#16a34a;font-weight:700;"><i class="fa-solid fa-circle-check"></i> Founder Mode Active</span></p>
-        <p style="margin-top:4px;">As founder, you have full override powers to edit, delete, or moderate every item on Stacks Collectibles.</p>
+        <p><strong>Cloud Database:</strong> <span style="color:#16a34a;font-weight:700;"><i class="fa-solid fa-circle-check"></i> Connected to Supabase</span></p>
+        <p style="margin-top:4px;">All listings, photos, Q&amp;A, and chats sync automatically across all visitor phones and browsers.</p>
       </div>
-      <button class="pill" type="button" style="background:#fee2e2;color:#dc2626;border:none;width:100%;padding:10px;font-weight:700;" onclick="resetToSampleData()"><i class="fa-solid fa-rotate-left"></i> Restore Original Sample Listings</button>
+      <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;width:100%;padding:10px;font-weight:700;margin-bottom:8px;" onclick="syncLocalToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Push My Phone's Saved Items to Cloud</button>
     </div>
   </div>
 
@@ -279,7 +279,7 @@
       <div class="menu-row" onclick="closeM('menuModal');openM('profileModal');"><span><i class="fa-solid fa-circle-user" style="color:#0284c7;width:24px;"></i> Profile Studio</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="closeM('menuModal');filterMine();"><span><i class="fa-solid fa-boxes-stacked" style="color:#6366f1;width:24px;"></i> My Active Listings</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="closeM('menuModal');openM('savedModal');"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved / Watchlist</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="closeM('menuModal');openM('inboxModal');"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Messages &amp; Offers</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="closeM('menuModal');loadChats();openM('inboxModal');"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Messages &amp; Offers</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="closeM('menuModal');openM('adminModal');"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> Founder Admin Tools</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="closeM('menuModal');openM('safeModal');"><span><i class="fa-solid fa-hand-holding-heart" style="color:#06b6d4;width:24px;"></i> Safe Meetup Spots</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div style="margin-top:14px;">
@@ -310,7 +310,7 @@
         <div class="form-group"><label>Display Name</label><input type="text" id="pName" required></div>
         <div class="form-group"><label>City / Location</label><input type="text" id="pCity" required></div>
         <div class="form-group"><label>Contact</label><input type="text" id="pContact" required></div>
-        <button type="submit" class="btn-submit">Save Profile Permanently</button>
+        <button type="submit" class="btn-submit">Save Profile</button>
       </form>
     </div>
   </div>
@@ -336,50 +336,68 @@
   </div>
 
   <script>
-    var DEFAULT_ITEMS = [
-      {
-        id: 1,
-        title: "1921 Morgan Silver Dollar",
-        cat: "Coins & Currency",
-        price: 48,
-        images: ["https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=600&q=80"],
-        seller: "Dustin Stacks",
-        desc: "Sharp strike, original mint luster in airtight capsule.",
-        condition: "Like New",
-        nego: true,
-        sold: false,
-        comments: ["Is this still available for meetup in Tempe? - Mark"]
-      },
-      {
-        id: 2,
-        title: "Kicker Solo-Baric L7 Subwoofer",
-        cat: "Electronics & Audio",
-        price: 250,
-        images: ["https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=600&q=80"],
-        seller: "Dustin Stacks",
-        desc: "Custom tuned port box, tested clean sound.",
-        condition: "Good",
-        nego: false,
-        sold: false,
-        comments: []
-      }
-    ];
+    var SUPABASE_URL = 'https://rxjueszszoggbdhichhq.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
+    var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    var items = JSON.parse(localStorage.getItem('stacks_items')) || DEFAULT_ITEMS;
+    var items = [];
     var profile = JSON.parse(localStorage.getItem('stacks_profile')) || { name: "Dustin Stacks", city: "Tempe, AZ", contact: "dustinstack8181@gmail.com", avatar: "", role: "owner" };
-    var chatLog = JSON.parse(localStorage.getItem('stacks_chats')) || [
-      { sender: "Mark", text: "Hey Dustin, is that 1921 Morgan dollar still available?", time: "10:15 AM" },
-      { sender: "Dustin Stacks", text: "Yes it is! Cash meetup in Tempe today.", time: "10:18 AM" }
-    ];
+    var chatLog = [];
     var saved = JSON.parse(localStorage.getItem('stacks_saved')) || [];
     var uploadPhotos = [];
     var active = null, slideIndex = 0, curCat = "All";
 
-    function saveState(){
-      localStorage.setItem('stacks_items', JSON.stringify(items));
+    function saveLocalProfile(){
       localStorage.setItem('stacks_profile', JSON.stringify(profile));
-      localStorage.setItem('stacks_chats', JSON.stringify(chatLog));
       localStorage.setItem('stacks_saved', JSON.stringify(saved));
+    }
+
+    async function loadCloudItems(){
+      var res = await db.from('listings').select('*').order('id', { ascending: false });
+      if(res.error){
+        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> Run SQL Table Setup';
+        items = JSON.parse(localStorage.getItem('stacks_items')) || [];
+      } else {
+        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-cloud"></i> Live Cloud Sync';
+        items = res.data || [];
+      }
+      render();
+      renderSaved();
+    }
+
+    async function loadChats(){
+      var res = await db.from('chats').select('*').order('id', { ascending: true });
+      if(!res.error && res.data){
+        chatLog = res.data;
+        renderChats();
+      }
+    }
+
+    async function syncLocalToCloud(){
+      var localItems = JSON.parse(localStorage.getItem('stacks_items')) || [];
+      if(!localItems.length){
+        alert("No local items found on this phone to push.");
+        return;
+      }
+      for(var i=0; i<localItems.length; i++){
+        var it = localItems[i];
+        await db.from('listings').upsert({
+          id: it.id,
+          title: it.title,
+          cat: it.cat,
+          price: it.price,
+          images: it.images || [],
+          seller: it.seller,
+          desc: it.desc || "",
+          condition: it.condition || "Like New",
+          nego: it.nego !== false,
+          sold: !!it.sold,
+          comments: it.comments || []
+        });
+      }
+      alert("Uploaded " + localItems.length + " saved items from your phone to the live cloud!");
+      closeM('adminModal');
+      loadCloudItems();
     }
 
     function openM(id){ document.getElementById(id).classList.add('active'); }
@@ -387,7 +405,7 @@
 
     function openCreateListing(){
       if(profile.role === 'guest'){
-        alert("Posting is restricted to approved members. Please join or sign in.");
+        alert("Posting is restricted to members. Please join or sign in.");
         openM('authModal');
         return;
       }
@@ -396,7 +414,7 @@
 
     function setRole(r){
       profile.role = r;
-      saveState();
+      saveLocalProfile();
       updateProfileDisplay();
       render();
     }
@@ -444,7 +462,6 @@
       render();
     }
 
-    // Auto-compressor engine for camera and gallery photos
     function handleIncomingFiles(files){
       if(!files) return;
       for(var i=0; i<files.length; i++){
@@ -470,7 +487,7 @@
             canvas.height = height;
             var ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
-            var compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+            var compressedDataUrl = canvas.toDataURL('image/jpeg', 0.65);
             uploadPhotos.push(compressedDataUrl);
             renderUploadThumbs();
           };
@@ -509,7 +526,7 @@
             var ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, 160, 160);
             profile.avatar = canvas.toDataURL('image/jpeg', 0.8);
-            saveState();
+            saveLocalProfile();
             updateProfileDisplay();
           };
           img.src = e.target.result;
@@ -523,9 +540,9 @@
       profile.name = document.getElementById('pName').value;
       profile.city = document.getElementById('pCity').value;
       profile.contact = document.getElementById('pContact').value;
-      saveState();
+      saveLocalProfile();
       updateProfileDisplay();
-      alert("Profile and location permanently saved!");
+      alert("Profile saved!");
       closeM('profileModal');
     }
 
@@ -535,7 +552,7 @@
       profile.contact = document.getElementById('joinContact').value;
       profile.city = document.getElementById('joinCity').value;
       profile.role = "member";
-      saveState();
+      saveLocalProfile();
       updateProfileDisplay();
       alert("Welcome to Stacks Marketplace, " + profile.name + "!");
       closeM('authModal');
@@ -554,7 +571,7 @@
       document.getElementById('invCount').innerText = items.filter(function(x){ return !x.sold; }).length;
 
       if(!list.length){
-        g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;"><i class="fa-solid fa-box-open" style="font-size:28px;margin-bottom:8px;display:block;"></i>No active listings in this category. Tap + to list an item!</div>';
+        g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;"><i class="fa-solid fa-box-open" style="font-size:28px;margin-bottom:8px;display:block;"></i>No active listings in this category yet. Tap + to post the first item!</div>';
         return;
       }
 
@@ -619,14 +636,14 @@
       });
     }
 
-    function submitComment(){
+    async function submitComment(){
       var inp = document.getElementById('newCommentInput');
       if(!inp.value.trim() || !active) return;
       if(!active.comments) active.comments = [];
       active.comments.push(profile.name + ": " + inp.value.trim());
       inp.value = "";
-      saveState();
       renderComments();
+      await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
     }
 
     function openEditActive(){
@@ -638,31 +655,36 @@
       openM('editModal');
     }
 
-    function saveEditedItem(e){
+    async function saveEditedItem(e){
       e.preventDefault();
       if(!active) return;
       active.title = document.getElementById('editTitle').value;
       active.price = parseInt(document.getElementById('editPrice').value);
       active.condition = document.getElementById('editCondition').value;
       active.desc = document.getElementById('editDesc').value;
-      saveState();
+      await db.from('listings').update({
+        title: active.title,
+        price: active.price,
+        condition: active.condition,
+        desc: active.desc
+      }).eq('id', active.id);
       closeM('editModal');
       show(active);
       render();
     }
 
-    function toggleSold(){
+    async function toggleSold(){
       if(!active) return;
       active.sold = !active.sold;
-      saveState();
+      await db.from('listings').update({ sold: active.sold }).eq('id', active.id);
       show(active);
       render();
     }
 
-    function delItem(){
-      if(!active || !confirm("Permanently delete this listing?")) return;
+    async function delItem(){
+      if(!active || !confirm("Permanently delete this listing for everyone?")) return;
+      await db.from('listings').delete().eq('id', active.id);
       items = items.filter(function(x){ return x.id !== active.id; });
-      saveState();
       closeM('itemModal');
       render();
     }
@@ -672,25 +694,29 @@
       b.style.display = b.style.display === 'block' ? 'none' : 'block';
     }
 
-    function sendOffer(){
+    async function sendOffer(){
       var a = document.getElementById('offerAmt').value;
       if(!a) return;
-      chatLog.push({ sender: profile.name, text: "Submitted offer of $" + a + " on " + active.title, time: "Just now" });
-      saveState();
-      alert("Offer of $" + a + " sent directly to " + active.seller + "!");
+      var msg = { sender: profile.name, text: "Submitted offer of $" + a + " on " + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) };
+      await db.from('chats').insert([msg]);
+      alert("Offer of $" + a + " sent live to " + active.seller + "!");
       document.getElementById('offerBox').style.display = 'none';
-      renderChats();
+      loadChats();
     }
 
     function openItemChat(){
       closeM('itemModal');
-      renderChats();
+      loadChats();
       openM('inboxModal');
     }
 
     function renderChats(){
       var box = document.getElementById('chatMessages');
       box.innerHTML = "";
+      if(!chatLog.length){
+        box.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;margin-top:40px;">No messages yet. Say hello!</div>';
+        return;
+      }
       chatLog.forEach(function(m){
         var div = document.createElement('div');
         div.className = "chat-bubble " + (m.sender === profile.name ? "chat-me" : "chat-them");
@@ -700,13 +726,13 @@
       box.scrollTop = box.scrollHeight;
     }
 
-    function sendChatMessage(){
+    async function sendChatMessage(){
       var inp = document.getElementById('chatInput');
       if(!inp.value.trim()) return;
-      chatLog.push({ sender: profile.name, text: inp.value.trim(), time: "Just now" });
+      var msg = { sender: profile.name, text: inp.value.trim(), time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) };
       inp.value = "";
-      saveState();
-      renderChats();
+      await db.from('chats').insert([msg]);
+      loadChats();
     }
 
     function toggleSave(){
@@ -719,7 +745,7 @@
         saved.push(active.id);
         document.getElementById('saveIcon').className = "fa-solid fa-bookmark";
       }
-      saveState();
+      saveLocalProfile();
       renderSaved();
     }
 
@@ -743,20 +769,14 @@
       }
     }
 
-    function resetToSampleData(){
-      if(!confirm("Reset database to original sample listings? All changes will be wiped.")) return;
-      localStorage.clear();
-      items = DEFAULT_ITEMS;
-      saveState();
-      render();
-      closeM('adminModal');
-      alert("Marketplace restored to default sample data.");
-    }
-
-    function subPost(e){
+    async function subPost(e){
       e.preventDefault();
+      var btn = document.getElementById('publishBtn');
+      btn.innerText = "Uploading to Live Cloud...";
+      btn.disabled = true;
+
       var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ["https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80"];
-      items.unshift({
+      var newItem = {
         id: Date.now(),
         title: document.getElementById('postTitle').value,
         cat: document.getElementById('postCat').value,
@@ -768,19 +788,27 @@
         nego: document.getElementById('postNego').checked,
         sold: false,
         comments: []
-      });
-      saveState();
+      };
+
+      var res = await db.from('listings').insert([newItem]);
+      btn.innerText = "Publish to Live Marketplace";
+      btn.disabled = false;
+
+      if(res.error){
+        alert("Cloud error: " + res.error.message + "\nMake sure you ran Step 1 in Supabase SQL Editor!");
+        return;
+      }
+
       closeM('createPostModal');
       e.target.reset();
       uploadPhotos = [];
       renderUploadThumbs();
-      render();
+      loadCloudItems();
     }
 
     updateProfileDisplay();
-    render();
-    renderChats();
-    renderSaved();
+    loadCloudItems();
+    loadChats();
   </script>
 </body>
 </html>
