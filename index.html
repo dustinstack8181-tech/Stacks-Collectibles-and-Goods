@@ -12,35 +12,38 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
     body{background:#f1f5f9;color:#0f172a;padding-bottom:82px;}
-    header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:40;padding:12px 16px;}
-    .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+    header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:40;padding:11px 15px;}
+    .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
     .brand-btn{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;text-align:left;}
     .logo-badge{width:42px;height:42px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #fbbf24;font-size:16px;overflow:hidden;}
     .logo-badge img,.hero-avatar img,.chat-av img,.seller-av img{width:100%;height:100%;object-fit:cover;}
     .search-bar{display:flex;align-items:center;background:#f1f5f9;border-radius:22px;padding:9px 14px;gap:8px;border:1px solid #e2e8f0;}
     .search-bar input{border:none;background:transparent;width:100%;font-size:14px;outline:none;color:#0f172a;}
-    .hero{max-width:1280px;margin:12px auto;padding:0 16px;}
+    .hero{max-width:1280px;margin:12px auto;padding:0 15px;}
     .hero-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-    .hero-banner{height:115px;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#0284c7 100%);position:relative;overflow:hidden;}
-    .hero-banner img{width:100%;height:100%;object-fit:cover;}
-    .hero-inner{padding:0 16px 14px;position:relative;}
-    .hero-top{display:flex;gap:12px;align-items:flex-end;margin-top:-28px;margin-bottom:8px;}
-    .hero-avatar{width:68px;height:68px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;overflow:hidden;border:4px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.18);flex-shrink:0;}
+    .hero-banner{height:155px;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#0284c7 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:14px;}
+    .hero-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+    .hero-banner-tint{position:absolute;inset:0;background:rgba(15,23,42,0.38);z-index:2;}
+    .hero-overlay-caption{position:relative;z-index:3;color:#fff;font-size:16px;font-weight:900;text-align:center;text-shadow:0 2px 6px rgba(0,0,0,0.75);max-width:90%;line-height:1.3;}
+    .admin-edit-chip{display:none;background:#fbbf24;color:#0f172a;border:none;border-radius:14px;padding:4px 9px;font-size:10px;font-weight:900;cursor:pointer;align-items:center;gap:4px;box-shadow:0 2px 6px rgba(0,0,0,0.28);z-index:5;}
+    .hero-inner{padding:0 15px 14px;position:relative;}
+    .hero-top{display:flex;gap:12px;align-items:flex-end;margin-top:-32px;margin-bottom:8px;position:relative;z-index:4;}
+    .hero-avatar{width:74px;height:74px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;overflow:hidden;border:4px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);flex-shrink:0;position:relative;}
     .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
     .hero-btn-primary{background:#0284c7;color:#fff;border:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
     .hero-btn-sec{background:#e2e8f0;color:#0f172a;border:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
-    .filters{max-width:1280px;margin:10px auto;padding:0 16px;display:flex;gap:8px;overflow-x:auto;}
+    .filters{max-width:1280px;margin:10px auto;padding:0 15px;display:flex;gap:8px;overflow-x:auto;}
     .pill{background:#fff;border:1px solid #cbd5e1;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;position:relative;}
     .pill.active{background:#0f172a;color:#fff;border-color:#0f172a;}
-    .grid{max-width:1280px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:12px;}
+    .grid{max-width:1280px;margin:0 auto;padding:0 15px;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}
     .card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;cursor:pointer;position:relative;box-shadow:0 1px 3px rgba(0,0,0,0.03);}
-    .card img{width:100%;height:165px;object-fit:cover;display:block;background:#e2e8f0;}
+    .card img{width:100%;height:162px;object-fit:cover;display:block;background:#e2e8f0;}
     .card-body{padding:10px;}
     .price{font-size:17px;font-weight:800;color:#0f172a;}
     .just-listed{position:absolute;top:8px;left:8px;background:rgba(255,255,255,0.94);color:#0f172a;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
     .sold-badge{position:absolute;top:8px;left:8px;background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;}
     .ship-tag{position:absolute;bottom:7px;left:7px;background:rgba(15,23,42,0.85);color:#fff;font-size:10px;padding:2px 7px;border-radius:5px;font-weight:700;}
-    .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:66px;z-index:35;}
+        .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:66px;z-index:35;}
     .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;position:relative;padding:4px 8px;}
     .b-fab{width:48px;height:48px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;border:none;font-size:21px;transform:translateY(-10px);box-shadow:0 4px 12px rgba(2,132,199,0.38);cursor:pointer;}
     .num-badge{position:absolute;top:-4px;right:2px;background:#dc2626;color:#fff;font-size:10px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:none;align-items:center;justify-content:center;font-weight:800;border:2px solid #fff;}
@@ -50,11 +53,11 @@
     .modal-box{background:#fff;border-radius:16px;width:100%;max-width:540px;max-height:94vh;overflow-y:auto;padding:15px;position:relative;}
     .modal-nav-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;}
     .back-arrow-btn{background:#f1f5f9;border:1px solid #cbd5e1;color:#0f172a;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
-    .modal-close{background:none;border:none;font-size:24px;color:#64748b;cursor:pointer;line-height:1;}
+    .modal-close{background:#f1f5f9;border:1px solid #cbd5e1;width:32px;height:32px;border-radius:50%;font-size:19px;color:#0f172a;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-weight:700;}
     .form-group{margin-bottom:10px;}
     .form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:#334155;}
     .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;}
-    .btn-submit{width:100%;padding:11px;background:#0284c7;color:#fff;border:none;border-radius:9px;font-weight:700;cursor:pointer;margin-top:6px;font-size:14px;}
+    .btn-submit{width:100%;padding:12px;background:#0284c7;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-top:6px;font-size:14px;}
     .fb-cover-wrap{height:150px;background:linear-gradient(135deg,#0f172a,#1e3a8a);border-radius:12px;position:relative;overflow:hidden;}
     .fb-cover-wrap img{width:100%;height:100%;object-fit:cover;}
     .fb-cam-btn{position:absolute;bottom:8px;right:8px;background:rgba(255,255,255,0.92);color:#0f172a;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.2);}
@@ -117,30 +120,47 @@
     </div>
     <div class="search-bar">
       <i class="fa-solid fa-magnifying-glass" style="color:#64748b;"></i>
-      <input type="text" id="marketSearchInput" placeholder="Search coins, cards, diecasts, or members..." oninput="render()">
+      <input type="text" id="marketSearchInput" placeholder="What are you looking for? (Coins, Cards, Other...)" oninput="render()">
     </div>
   </header>
 
-  <div id="founderPendingAlert" style="display:none;max-width:1280px;margin:10px auto 0;padding:0 16px;">
-    <div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;cursor:pointer;" onclick="loadMembers();openM('adminModal')">
-      <span><i class="fa-solid fa-bell" style="color:#dc2626;"></i> <span id="pendingAlertCount">0</span> New Member Join Request(s) Waiting!</span>
-      <span style="background:#0f172a;color:#fff;padding:4px 10px;border-radius:8px;font-size:11px;">Review Now &rarr;</span>
+  <div id="siteAnnouncementBar" style="display:none;max-width:1280px;margin:10px auto 0;padding:0 15px;">
+    <div style="background:#0f172a;color:#fbbf24;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;gap:8px;">
+      <span><i class="fa-solid fa-bullhorn"></i> <span id="siteAnnouncementText"></span></span>
+      <button type="button" class="admin-edit-chip" onclick="openAdminMasterHub('home')"><i class="fa-solid fa-pen"></i> Edit</button>
+    </div>
+  </div>
+
+  <div id="founderPendingAlert" style="display:none;max-width:1280px;margin:10px auto 0;padding:0 15px;">
+    <div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;cursor:pointer;" onclick="openAdminMasterHub('members')">
+      <span><i class="fa-solid fa-bell" style="color:#dc2626;"></i> <span id="pendingAlertCount">0</span> Admin Alert(s) / Member Requests!</span>
+      <span style="background:#0f172a;color:#fff;padding:4px 10px;border-radius:8px;font-size:11px;">Open Admin Tools &rarr;</span>
     </div>
   </div>
 
   <div class="hero">
     <div class="hero-card">
-      <div class="hero-banner">
-        <div style="position:absolute;top:10px;right:12px;background:rgba(15,23,42,0.75);color:#fbbf24;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;border:1px solid rgba(251,191,36,0.4);">
-          <i class="fa-solid fa-shield-halved"></i> Verified Collector Club
+      <div class="hero-banner" id="homeBannerBox">
+        <img id="homeWallpaperImg" style="display:none;">
+        <div class="hero-banner-tint"></div>
+        <div class="hero-overlay-caption" id="homeOverlayText">Verified Collector Marketplace &amp; Trading Club</div>
+        <div style="position:absolute;top:10px;right:10px;display:flex;gap:6px;z-index:5;">
+          <button type="button" class="admin-edit-chip" onclick="document.getElementById('homeWallpaperFile').click()"><i class="fa-solid fa-image"></i> Wallpaper</button>
+          <button type="button" class="admin-edit-chip" onclick="quickEditHomeOverlay()"><i class="fa-solid fa-pen"></i> Text</button>
         </div>
       </div>
       <div class="hero-inner">
         <div class="hero-top">
-          <div class="hero-avatar" id="heroAvatar">DS</div>
-          <div style="padding-bottom:2px;">
-            <h1 style="font-size:17px;font-weight:900;" id="brandTitle">Stacks Collectibles and Goods</h1>
-            <p style="font-size:12px;color:#64748b;">Founder: Dustin Stacks &bull; <span id="heroCity">Tempe, AZ</span></p>
+          <div class="hero-avatar" id="heroAvatarWrap" onclick="openMemberProfileByName('Admin')" style="cursor:pointer;">
+            <img id="heroAvatarImg" style="display:none;">
+            <span id="heroAvatarInitial">AD</span>
+          </div>
+          <div style="padding-bottom:2px;flex:1;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+              <h1 style="font-size:17px;font-weight:900;" id="brandTitle">Stacks Collectibles and Goods</h1>
+              <button type="button" class="admin-edit-chip" onclick="openAdminMasterHub('home')"><i class="fa-solid fa-pen"></i> Edit Page</button>
+            </div>
+            <p style="font-size:12px;color:#64748b;" id="brandSubtitle">Admin: Dustin Stacks &bull; Tempe, AZ</p>
             <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#16a34a;font-weight:700;" id="syncStatus"><i class="fa-solid fa-cloud"></i> Live Cloud Sync</span></div>
           </div>
         </div>
@@ -164,6 +184,7 @@
     <button class="pill" type="button" onclick="setCat(this, 'Trading Cards')">Cards</button>
     <button class="pill" type="button" onclick="setCat(this, 'Collectibles & Toys')">Collectibles</button>
     <button class="pill" type="button" onclick="setCat(this, 'Electronics & Audio')">Car Audio</button>
+    <button class="pill" type="button" onclick="setCat(this, 'Other')">Other</button>
   </div>
 
   <main class="grid" id="itemsGrid">
@@ -172,7 +193,7 @@
 
   <nav class="bottom-bar">
     <button class="b-item" type="button" onclick="goHomeMarket()">
-      <i class="fa-solid fa-store"></i>Market
+      <i class="fa-solid fa-store"></i>Home
       <span class="num-badge" id="marketBadge">0</span>
     </button>
     <button class="b-item" type="button" onclick="openMySellingHub()">
@@ -193,11 +214,13 @@
   <input type="file" id="galleryPickInput" accept="image/*" multiple style="display:none;" onchange="handleIncomingFiles(this.files)">
   <input type="file" id="coverFile" accept="image/*" style="display:none;" onchange="handleMemberCover(this)">
   <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleProfileAvatar(this)">
+  <input type="file" id="homeWallpaperFile" accept="image/*" style="display:none;" onchange="handleHomeWallpaperUpload(this)">
+  <input type="file" id="homeAvatarFile" accept="image/*" style="display:none;" onchange="handleHomeAvatarUpload(this)">
     <div class="modal-overlay" id="memberProfileModal">
     <div class="modal-box" style="padding:0;overflow-x:hidden;">
       <div style="padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:13px;font-weight:800;color:#0f172a;">Collector Profile</span>
+        <span style="font-size:13px;font-weight:800;color:#0f172a;">Member Profile</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
 
@@ -210,11 +233,11 @@
         <div class="thought-bubble" id="mpThoughtBubble" onclick="editMyThought()">Drop a thought...</div>
         <div class="fb-avatar-circle" id="mpAvatarWrap">
           <img id="mpAvatarImg" style="display:none;">
-          <span id="mpAvatarInitial">DS</span>
+          <span id="mpAvatarInitial">AD</span>
           <button type="button" class="fb-cam-btn" id="mpEditAvBtn" style="display:none;width:26px;height:26px;bottom:2px;right:2px;font-size:11px;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i></button>
         </div>
-        <h2 style="font-size:20px;font-weight:900;margin-top:8px;" id="mpName">Dustin Stacks</h2>
-        <div style="font-size:12px;color:#64748b;font-weight:600;" id="mpSubStats">0 Active Listings &bull; Verified Collector</div>
+        <h2 style="font-size:20px;font-weight:900;margin-top:8px;" id="mpName">Admin</h2>
+        <div style="font-size:12px;color:#64748b;font-weight:600;" id="mpSubStats">0 Listings &bull; Verified Member</div>
       </div>
 
       <div style="padding:12px 14px;">
@@ -224,7 +247,7 @@
         </div>
         <div id="mpVisitorButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
           <button class="hero-btn-primary" type="button" onclick="startPrivateChatWithViewedMember()"><i class="fa-solid fa-paper-plane"></i> Private Message</button>
-          <button class="hero-btn-sec" type="button" onclick="closeAllModals();filterByMember(viewedMemberName);"><i class="fa-solid fa-store"></i> View in Market</button>
+          <button class="hero-btn-sec" type="button" onclick="filterByMember(viewedMemberName)"><i class="fa-solid fa-store"></i> View in Market</button>
         </div>
 
         <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;">
@@ -236,7 +259,7 @@
 
         <div id="mpDetailsCard" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:12px;font-size:13px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <strong style="font-size:14px;">Collector Details</strong>
+            <strong style="font-size:14px;">Member Details</strong>
             <button type="button" id="mpInlineEditIcon" style="display:none;background:none;border:none;color:#0284c7;cursor:pointer;" onclick="openM('profileModal')"><i class="fa-solid fa-pen"></i></button>
           </div>
           <div style="margin-bottom:6px;color:#334155;"><i class="fa-solid fa-location-dot" style="width:20px;color:#64748b;"></i> Lives in <strong id="mpCityText">Tempe, Arizona</strong></div>
@@ -258,7 +281,7 @@
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <span style="font-size:15px;font-weight:900;">Selling Dashboard</span>
-        <button class="pill" type="button" style="padding:4px 9px;" onclick="openM('profileModal')"><i class="fa-solid fa-gear"></i></button>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
 
       <div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;">
@@ -291,16 +314,6 @@
         </div>
       </div>
 
-      <h3 style="font-size:15px;font-weight:900;margin-bottom:8px;">Your Seller Performance</h3>
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div><div class="stat-num">5 <i class="fa-solid fa-star" style="color:#f59e0b;font-size:16px;"></i></div><div class="stat-lbl">Seller rating<br><span style="font-size:10px;color:#94a3b8;">Verified member</span></div></div>
-        </div>
-        <div class="stat-card">
-          <div><div class="stat-num" id="hubTotalMembers">1</div><div class="stat-lbl">Club buyers<br><span style="font-size:10px;color:#94a3b8;">Active community</span></div></div>
-        </div>
-      </div>
-
       <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Manage Your Listings (Tap to Edit or Mark Sold)</h3>
       <div id="hubMyListingsList"></div>
     </div>
@@ -309,10 +322,10 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">New Listing</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-cloud-arrow-up" style="color:#0284c7;"></i> Create Marketplace Listing</h2>
-      <form onsubmit="subPost(event)">
+      <form id="createListingForm" onsubmit="subPost(event)">
         <div class="form-group">
           <label>Photos (Up to 12 Photos) - <span id="postPhotoCount">0</span>/12 Added</label>
           <div class="upload-dual-grid">
@@ -327,15 +340,24 @@
           </div>
           <div class="thumb-grid" id="newListingThumbs"></div>
         </div>
-        <div class="form-group"><label>Title</label><input type="text" id="postTitle" placeholder="e.g. 1884 CC Morgan Silver Dollar" required></div>
-        <div class="form-group"><label>Category</label>
-          <select id="postCat">
-            <option>Coins &amp; Currency</option><option>Trading Cards</option><option>Collectibles &amp; Toys</option><option>Electronics &amp; Audio</option>
+        <div class="form-group"><label>1. Item Title</label><input type="text" id="postTitle" enterkeyhint="next" onkeydown="jumpField(event, 'postCat')" placeholder="e.g. 1884 CC Morgan Silver Dollar" required></div>
+        <div class="form-group"><label>2. Category</label>
+          <select id="postCat" onchange="document.getElementById('postPrice').focus()">
+            <option>Coins &amp; Currency</option>
+            <option>Trading Cards</option>
+            <option>Collectibles &amp; Toys</option>
+            <option>Electronics &amp; Audio</option>
+            <option>Other</option>
           </select>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div class="form-group"><label>Price ($)</label><input type="number" id="postPrice" placeholder="50" required></div>
-          <div class="form-group"><label>Compare / Original Price ($)</label><input type="number" id="postOrigPrice" placeholder="Optional"></div>
+          <div class="form-group"><label>3. Price ($)</label><input type="number" id="postPrice" enterkeyhint="next" onkeydown="jumpField(event, 'postOrigPrice')" placeholder="50" required></div>
+          <div class="form-group"><label>4. Compare Price ($)</label><input type="number" id="postOrigPrice" enterkeyhint="next" onkeydown="jumpField(event, 'postCondition')" placeholder="Optional"></div>
+        </div>
+        <div class="form-group"><label>5. Item Condition</label>
+          <select id="postCondition" onchange="document.getElementById('postDesc').focus()">
+            <option>Like New</option><option>New</option><option>Good</option><option>Fair</option>
+          </select>
         </div>
         <div class="form-group" style="display:flex;align-items:center;gap:8px;">
           <input type="checkbox" id="postNego" style="width:18px;height:18px;" checked>
@@ -345,21 +367,26 @@
           <input type="checkbox" id="postShip" style="width:18px;height:18px;">
           <label for="postShip" style="margin:0;font-size:12px;">Shipping Available</label>
         </div>
-        <div class="form-group"><label>Item Condition</label>
-          <select id="postCondition">
-            <option>Like New</option><option>New</option><option>Good</option><option>Fair</option>
-          </select>
+        <div class="form-group">
+          <label>6. Description</label>
+          <textarea id="postDesc" rows="3" enterkeyhint="done" onkeydown="handleDescEnter(event)" placeholder="Condition, strike luster, specs..." required></textarea>
         </div>
-        <div class="form-group"><label>Description</label><textarea id="postDesc" rows="3" placeholder="Condition, strike luster, specs..." required></textarea></div>
-        <button type="submit" id="publishBtn" class="btn-submit">Publish to Live Marketplace</button>
+
+        <div id="listingReadyConfirmBox" style="display:none;background:#dcfce7;border:1px solid #16a34a;color:#166534;padding:9px;border-radius:8px;font-size:12px;font-weight:700;margin-bottom:8px;text-align:center;">
+          <i class="fa-solid fa-circle-check"></i> All details look ready! Tap <strong>Post It</strong> below to publish.
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin-top:8px;">
+          <button type="button" id="doneListingBtn" class="hero-btn-sec" style="padding:12px;" onclick="finishListingInputs()"><i class="fa-solid fa-check"></i> Done</button>
+          <button type="submit" id="publishBtn" class="btn-submit" style="margin-top:0;background:#16a34a;"><i class="fa-solid fa-paper-plane"></i> Post It</button>
+        </div>
       </form>
     </div>
-  </div>
-
-  <div class="modal-overlay" id="itemModal">
+    </div>
+    <div class="modal-overlay" id="itemModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
-        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back to Market</button>
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <div style="display:flex;gap:8px;align-items:center;">
           <button class="pill" type="button" style="padding:4px 9px;" onclick="shareCurrentItem()"><i class="fa-solid fa-share-nodes"></i></button>
           <button class="pill" type="button" style="padding:4px 9px;" onclick="toggleSave()"><i class="fa-regular fa-heart" id="saveIcon"></i></button>
@@ -386,9 +413,9 @@
 
       <div class="seller-card" onclick="openMemberProfileByName(active.seller)">
         <div style="display:flex;align-items:center;gap:10px;">
-          <div class="seller-av" id="detailSellerAv">DS</div>
+          <div class="seller-av" id="detailSellerAv">AD</div>
           <div>
-            <div style="font-size:14px;font-weight:800;" id="detailSellerName">Dustin Stacks <i class="fa-solid fa-circle-check" style="color:#0284c7;"></i></div>
+            <div style="font-size:14px;font-weight:800;" id="detailSellerName">Admin <i class="fa-solid fa-circle-check" style="color:#0284c7;"></i></div>
             <div style="font-size:11px;color:#64748b;">Verified Member &bull; Tap to view profile &amp; listings</div>
             <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           </div>
@@ -408,7 +435,7 @@
       </div>
 
       <div id="founderIncognitoBar" style="display:none;margin-bottom:10px;">
-        <button class="pill" type="button" style="width:100%;background:#1e293b;color:#fbbf24;border:1px solid #fbbf24;" onclick="openListingTalkRoom(true)"><i class="fa-solid fa-user-secret"></i> Founder Incognito: Inspect Offer Talks Silently</button>
+        <button class="pill" type="button" style="width:100%;background:#1e293b;color:#fbbf24;border:1px solid #fbbf24;" onclick="openListingTalkRoom(true)"><i class="fa-solid fa-user-secret"></i> Admin Incognito: Inspect Offer Talks Silently</button>
       </div>
 
       <div id="offerBox" style="display:none;background:#f8fafc;border:1px solid #e2e8f0;padding:8px;border-radius:8px;margin-bottom:10px;">
@@ -444,6 +471,11 @@
       <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-pen-to-square" style="color:#0284c7;"></i> Edit Listing Details</h2>
       <form onsubmit="saveEditedItem(event)">
         <div class="form-group"><label>Title</label><input type="text" id="editTitle" required></div>
+        <div class="form-group"><label>Category</label>
+          <select id="editCat">
+            <option>Coins &amp; Currency</option><option>Trading Cards</option><option>Collectibles &amp; Toys</option><option>Electronics &amp; Audio</option><option>Other</option>
+          </select>
+        </div>
         <div class="form-group"><label>Price ($)</label><input type="number" id="editPrice" required></div>
         <div class="form-group"><label>Condition</label>
           <select id="editCondition">
@@ -455,8 +487,7 @@
       </form>
     </div>
   </div>
-
-  <div class="modal-overlay" id="inboxModal">
+    <div class="modal-overlay" id="inboxModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -488,7 +519,92 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="membersDirModal">
+  <div class="modal-overlay" id="contactAdminModal">
+    <div class="modal-box">
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Contact Admin / Report Issue</span>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
+      <p style="font-size:12px;color:#475569;margin-bottom:10px;">Send a private message directly to the Admin to report an issue, rule violation, or request help. You will receive the Admin's reply right here.</p>
+      <div id="memberSupportThread" style="max-height:190px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:8px;padding:8px;background:#f8fafc;margin-bottom:10px;"></div>
+      <form onsubmit="sendMemberSupportMsg(event)">
+        <div class="form-group">
+          <label>Issue Type</label>
+          <select id="supportTopic">
+            <option>Report a Listing or Member</option>
+            <option>Account / Approval Help</option>
+            <option>Bug / Website Issue</option>
+            <option>General Question for Admin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message to Admin</label>
+          <textarea id="supportMsgInput" rows="3" placeholder="Describe the issue clearly..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Send to Admin</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal-box">
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:15px;font-weight:900;"><i class="fa-solid fa-shield-halved" style="color:#eab308;"></i> Admin Master Tools</span>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#e2e8f0;padding:4px;border-radius:10px;margin-bottom:12px;">
+        <button class="chat-tab-btn active" id="admTabHomeBtn" type="button" onclick="switchAdminTab('home')">Home Page</button>
+        <button class="chat-tab-btn" id="admTabMembersBtn" type="button" onclick="switchAdminTab('members')">Members <span id="admPendMini"></span></button>
+        <button class="chat-tab-btn" id="admTabReportsBtn" type="button" onclick="switchAdminTab('reports')">Reports <span id="admRepMini"></span></button>
+        <button class="chat-tab-btn" id="admTabRulesBtn" type="button" onclick="switchAdminTab('rules')">Rules &amp; Tools</button>
+      </div>
+
+      <div id="admSecHome">
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:8px;"><i class="fa-solid fa-paintbrush" style="color:#0284c7;"></i> Live Homepage &amp; Wallpaper Editor</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+          <button type="button" class="hero-btn-primary" onclick="document.getElementById('homeWallpaperFile').click()"><i class="fa-solid fa-image"></i> Upload Wallpaper</button>
+          <button type="button" class="hero-btn-sec" onclick="document.getElementById('homeAvatarFile').click()"><i class="fa-solid fa-circle-user"></i> Upload Left Photo</button>
+        </div>
+        <div class="form-group"><label>Wallpaper Overlay Text (Written on Wallpaper)</label><input type="text" id="admOverlayInput" placeholder="e.g. Verified Collector Marketplace & Trading Club"></div>
+        <div class="form-group"><label>Homepage Main Title</label><input type="text" id="admTitleInput" placeholder="Stacks Collectibles and Goods"></div>
+        <div class="form-group"><label>Homepage Subtitle</label><input type="text" id="admSubtitleInput" placeholder="Admin: Dustin Stacks • Tempe, AZ"></div>
+        <div class="form-group"><label>Top Announcement Banner (Leave blank to hide)</label><input type="text" id="admAnnounceInput" placeholder="e.g. Weekend Coin & Card Show Sunday!"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <button type="button" class="hero-btn-sec" onclick="clearHomeWallpaper()">Reset Wallpaper</button>
+          <button type="button" class="btn-submit" style="margin-top:0;" onclick="saveHomeAppearance()">Save to Live Home</button>
+        </div>
+      </div>
+
+      <div id="admSecMembers" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <h3 style="font-size:13px;font-weight:800;"><i class="fa-solid fa-user-clock" style="color:#dc2626;"></i> Pending Approvals (<span id="pendingMemberCountText">0</span>)</h3>
+          <button type="button" class="pill" style="padding:3px 8px;font-size:10px;" onclick="loadMembers()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+        </div>
+        <div id="pendingMembersList" style="margin-bottom:12px;"></div>
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;"><i class="fa-solid fa-users" style="color:#10b981;"></i> Approved Members</h3>
+        <div id="approvedMembersList"></div>
+      </div>
+
+      <div id="admSecReports" style="display:none;">
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:8px;"><i class="fa-solid fa-envelope-open-text" style="color:#dc2626;"></i> Member Reports &amp; Support Inbox</h3>
+        <div id="adminReportsInboxList" style="max-height:290px;overflow-y:auto;"></div>
+      </div>
+
+      <div id="admSecRules" style="display:none;">
+        <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:10px;">
+          <label style="font-size:12px;font-weight:800;display:block;margin-bottom:4px;"><i class="fa-solid fa-scroll"></i> Edit Member Join Rules</label>
+          <textarea id="founderRulesEditor" rows="3" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;"></textarea>
+          <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;margin-top:6px;width:100%;" onclick="saveFounderRules()">Save Rules</button>
+        </div>
+        <button class="pill" type="button" style="background:#0f172a;color:#fbbf24;border:none;width:100%;padding:10px;font-weight:700;margin-bottom:8px;" onclick="openChatHub('group')"><i class="fa-solid fa-user-secret"></i> Stealth Chat Editor (Group &amp; Private)</button>
+        <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;width:100%;padding:10px;font-weight:700;" onclick="syncLocalToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Push Local Phone Items to Cloud</button>
+      </div>
+    </div>
+  </div>
+    <div class="modal-overlay" id="membersDirModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -523,32 +639,8 @@
             <option value="no">No, I do not agree</option>
           </select>
         </div>
-        <button type="submit" id="joinSubmitBtn" class="btn-submit">Submit Request to Founder</button>
+        <button type="submit" id="joinSubmitBtn" class="btn-submit">Submit Request to Admin</button>
       </form>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="adminModal">
-    <div class="modal-box">
-      <div class="modal-nav-bar">
-        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
-      </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-crown" style="color:#fbbf24;"></i> Founder Master Control</h2>
-      <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:12px;">
-        <label style="font-size:12px;font-weight:800;display:block;margin-bottom:4px;"><i class="fa-solid fa-scroll"></i> Edit Member Join Rules</label>
-        <textarea id="founderRulesEditor" rows="3" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;"></textarea>
-        <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;margin-top:6px;width:100%;" onclick="saveFounderRules()">Save Rules</button>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <h3 style="font-size:13px;font-weight:800;"><i class="fa-solid fa-user-clock" style="color:#dc2626;"></i> Pending Approvals (<span id="pendingMemberCountText">0</span>)</h3>
-        <button type="button" class="pill" style="padding:3px 8px;font-size:10px;" onclick="loadMembers()"><i class="fa-solid fa-rotate"></i> Refresh</button>
-      </div>
-      <div id="pendingMembersList" style="margin-bottom:12px;"></div>
-      <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;"><i class="fa-solid fa-users" style="color:#10b981;"></i> Approved Members</h3>
-      <div id="approvedMembersList" style="margin-bottom:12px;"></div>
-      <button class="pill" type="button" style="background:#0f172a;color:#fbbf24;border:none;width:100%;padding:10px;font-weight:700;margin-bottom:6px;" onclick="openChatHub('group')"><i class="fa-solid fa-user-secret"></i> Stealth Chat Editor (Group &amp; Private)</button>
-      <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;width:100%;padding:10px;font-weight:700;" onclick="syncLocalToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Push Local Phone Items to Cloud</button>
     </div>
   </div>
 
@@ -556,23 +648,25 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Marketplace Menu</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-bars-staggered" style="color:#0284c7;"></i> Marketplace Menu</h2>
-      <div class="menu-row" onclick="openMyProfileHub()"><span><i class="fa-solid fa-id-card" style="color:#0284c7;width:24px;"></i> My Collector Profile &amp; Storefront</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="goHomeMarket()"><span><i class="fa-solid fa-house" style="color:#0284c7;width:24px;"></i> Home Marketplace</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openMyProfileHub()"><span><i class="fa-solid fa-id-card" style="color:#0284c7;width:24px;"></i> My Profile &amp; Storefront</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="openMySellingHub()"><span><i class="fa-solid fa-chart-line" style="color:#16a34a;width:24px;"></i> My Selling Dashboard</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openM('profileModal')"><span><i class="fa-solid fa-bell" style="color:#dc2626;width:24px;"></i> Edit Profile &amp; Admin Notices <span class="inline-badge" id="menuNoticeBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openM('membersDirModal')"><span><i class="fa-solid fa-users" style="color:#0284c7;width:24px;"></i> Browse Members &amp; Storefronts</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openM('savedModal')"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved Items <span class="inline-badge" id="menuSavedBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd
+      <div class="menu-row" onclick="openM('profileModal')"><span><i class="fa-solid fa-bell" style="color:#dc2626;width:24px;"></i> Edit Profile &amp; Notices <span class="inline-badge" id="menuNoticeBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openM('membersDirModal')"><span><i class="fa-solid fa-users" style="color:#0284c7;width:24px;"></i> Browse Members</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openM('savedModal')"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved Watchlist <span class="inline-badge" id="menuSavedBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="openChatHub('group')"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Group &amp; Private Chats <span class="inline-badge" id="menuChatBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" id="adminMenuBtn" style="display:none;" onclick="loadMembers();openM('adminModal')"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> Founder Master Tools <span class="inline-badge" id="menuAdminBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openContactAdmin()"><span><i class="fa-solid fa-headset" style="color:#f59e0b;width:24px;"></i> Contact Admin / Report Issue</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" id="adminMenuBtn" style="display:none;background:#fefce8;border-radius:8px;padding:12px 8px;" onclick="openAdminMasterHub('home')"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> <strong>Admin Master Tools</strong> <span class="inline-badge" id="menuAdminBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#0f172a;"></i></div>
       <div class="menu-row" onclick="openM('safeModal')"><span><i class="fa-solid fa-hand-holding-heart" style="color:#06b6d4;width:24px;"></i> Safe Meetup Spots</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div style="margin-top:14px;">
-        <label style="font-size:12px;font-weight:700;">Account Mode / Founder Unlock</label>
+        <label style="font-size:12px;font-weight:700;">Account Mode / Admin Unlock</label>
         <select id="roleSelector" onchange="setRole(this.value)" style="width:100%;padding:8px;margin-top:4px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;">
           <option value="guest">Guest / Pending Approval</option>
           <option value="member">Approved Member</option>
-          <option value="owner">Founder / Owner (PIN Required)</option>
+          <option value="owner">Admin / Owner (PIN Required)</option>
         </select>
       </div>
     </div>
@@ -584,7 +678,7 @@
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Edit My Profile &amp; Collector Bio</h2>
+      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Edit My Profile &amp; Bio</h2>
       <form onsubmit="saveProf(event)">
         <div style="text-align:center;margin-bottom:10px;">
           <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;cursor:pointer;" onclick="document.getElementById('avatarFile').click()">
@@ -597,7 +691,7 @@
         <div class="form-group"><label>Display Name</label><input type="text" id="pName" required></div>
         <div class="form-group"><label>City / Location</label><input type="text" id="pCity" required></div>
         <div class="form-group"><label>What Do You Collect? (Specialty)</label><input type="text" id="pSpec" placeholder="e.g. Morgan Dollars, Pokémon, Hot Wheels"></div>
-        <div class="form-group"><label>Collector Bio / About Me</label><textarea id="pBio" rows="2" placeholder="Tell members what you buy, sell, or trade..."></textarea></div>
+        <div class="form-group"><label>Bio / About Me</label><textarea id="pBio" rows="2" placeholder="Tell members what you buy, sell, or trade..."></textarea></div>
         <div class="form-group"><label>Contact</label><input type="text" id="pContact" required></div>
         <button type="submit" class="btn-submit">Save My Profile</button>
       </form>
@@ -633,13 +727,14 @@
     <script>
     var SUPABASE_URL = 'https://rxjueszszoggbdhichhq.supabase.co';
     var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
-    var FOUNDER_PIN = '8181';
+    var FOUNDER_PIN = '1309';
     var ADMIN_DEL_REASON = "An admin has deleted your post/message due to spam post, hate talk, racism, or admin discretion.";
     var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     var items = [], membersList = [], chatLog = [];
     var defaultVisitor = { id: null, name: "Guest Visitor", city: "Tempe, AZ", contact: "", avatar: "", cover_photo: "", thought: "", bio: "", specialty: "Coins, Cards & Collectibles", role: "guest", inGroup: true };
     var profile = JSON.parse(localStorage.getItem('stacks_profile')) || defaultVisitor;
+    if(profile.name === 'Dustin Stacks' && profile.role === 'owner') profile.name = 'Admin';
     if(typeof profile.inGroup === 'undefined') profile.inGroup = true;
     var lastSeenChatCount = parseInt(localStorage.getItem('stacks_seen_chats') || '0');
     var lastSeenItemCount = parseInt(localStorage.getItem('stacks_seen_items') || '0');
@@ -647,35 +742,47 @@
     var uploadPhotos = [], active = null, slideIndex = 0, curCat = "All", memberFilter = "";
     var activeChatMode = 'group', activePrivatePartner = '', activeListingRoomId = '', incognitoMode = false, viewedMemberName = '', mpCurrentTab = 'all';
     var siteRulesText = "1. Be respectful — zero hate talk, racism, or harassment.\n2. No spam, scam links, or fake listings.\n3. Honor agreed cash offers and safe public meetups.";
+    var homeAppearance = { hero_title: 'Stacks Collectibles and Goods', hero_subtitle: 'Admin: Dustin Stacks • Tempe, AZ', hero_wallpaper: '', hero_overlay_text: 'Verified Collector Marketplace & Trading Club', hero_avatar: '', announcement: '' };
     var modalStack = [];
 
-    history.replaceState({ modalOpen: false }, "", window.location.pathname);
     window.addEventListener('popstate', function(){
       if(modalStack.length > 0){
-        var el = document.getElementById(modalStack.pop());
-        if(el) el.classList.remove('active');
+        modalStack.pop();
+        renderActiveModal();
       }
     });
+
+    function renderActiveModal(){
+      var topId = modalStack.length ? modalStack[modalStack.length - 1] : null;
+      document.querySelectorAll('.modal-overlay').forEach(function(el){
+        el.classList.toggle('active', el.id === topId);
+      });
+    }
 
     function openM(id){
       var el = document.getElementById(id);
       if(!el) return;
-      if(!el.classList.contains('active')){
-        el.classList.add('active');
-        modalStack.push(id);
-        history.pushState({ modal: id }, "", "#view-" + id);
-      }
-      if(id === 'authModal'){ loadRules(); loadMembers(); checkMyApprovalStatus(); }
+      modalStack = modalStack.filter(function(x){ return x !== id; });
+      modalStack.push(id);
+      renderActiveModal();
+      history.pushState({ modal: id }, "", "#view-" + id);
+      if(id === 'authModal'){ loadSiteSettings(); loadMembers(); checkMyApprovalStatus(); }
       if(id === 'membersDirModal') renderMembersDirectory();
       if(id === 'profileModal') renderProfileNotices();
     }
 
-    function goBackStep(){ if(modalStack.length > 0) history.back(); }
-    function closeAllModals(){
-      while(modalStack.length > 0){
-        var el = document.getElementById(modalStack.pop());
-        if(el) el.classList.remove('active');
+    function goBackStep(){
+      if(modalStack.length > 0){
+        modalStack.pop();
+        renderActiveModal();
+        if(window.location.hash) history.replaceState({}, "", window.location.pathname);
       }
+    }
+
+    function closeAllModals(){
+      modalStack = [];
+      renderActiveModal();
+      if(window.location.hash) history.replaceState({}, "", window.location.pathname);
     }
 
     function goHomeMarket(){
@@ -687,6 +794,29 @@
       localStorage.setItem('stacks_seen_items', String(lastSeenItemCount));
       updateAllBadges(); render();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function jumpField(e, nextId){
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        var nextEl = document.getElementById(nextId);
+        if(nextEl) nextEl.focus();
+      }
+    }
+
+    function handleDescEnter(e){
+      if(e.key === 'Enter' && !e.shiftKey){
+        e.preventDefault();
+        finishListingInputs();
+      }
+    }
+
+    function finishListingInputs(){
+      if(document.activeElement) document.activeElement.blur();
+      var box = document.getElementById('listingReadyConfirmBox');
+      if(box) box.style.display = 'block';
+      var pub = document.getElementById('publishBtn');
+      if(pub) pub.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     function saveLocalProfile(){
@@ -717,126 +847,222 @@
       var unreadChats = Math.max(0, visibleChats.length - lastSeenChatCount);
       var newListings = Math.max(0, items.length - lastSeenItemCount);
       var pendingMembers = membersList.filter(function(m){ return m.status === 'pending'; }).length;
+      var supportCount = chatLog.filter(function(m){ return (m.room || '').startsWith('support:') && m.sender !== 'Admin'; }).length;
       var myNotices = chatLog.filter(function(m){ return m.is_notice && m.room === 'notice:' + profile.name; }).length;
-      var showPending = (profile.role === 'owner') ? pendingMembers : 0;
+      var adminAlerts = (profile.role === 'owner') ? (pendingMembers + supportCount) : 0;
 
       setBadgeCount('inboxBadge', unreadChats, false);
       setBadgeCount('menuChatBadge', unreadChats, true);
       setBadgeCount('marketBadge', newListings, false);
       setBadgeCount('savedBadge', saved.length, false);
       setBadgeCount('menuSavedBadge', saved.length, true);
-      setBadgeCount('menuAdminBadge', showPending, true);
-      setBadgeCount('topJoinBadge', showPending, false);
+      setBadgeCount('menuAdminBadge', adminAlerts, true);
+      setBadgeCount('topJoinBadge', adminAlerts, false);
       setBadgeCount('menuNoticeBadge', myNotices, true);
-      setBadgeCount('menuBadge', unreadChats + showPending + myNotices, false);
+      setBadgeCount('menuBadge', unreadChats + adminAlerts + myNotices, false);
 
       var alertBox = document.getElementById('founderPendingAlert');
       if(alertBox){
-        alertBox.style.display = (profile.role === 'owner' && pendingMembers > 0) ? 'block' : 'none';
-        document.getElementById('pendingAlertCount').innerText = pendingMembers;
+        alertBox.style.display = (profile.role === 'owner' && adminAlerts > 0) ? 'block' : 'none';
+        document.getElementById('pendingAlertCount').innerText = adminAlerts;
       }
+      if(document.getElementById('admPendMini')) document.getElementById('admPendMini').innerText = pendingMembers ? '('+pendingMembers+')' : '';
+      if(document.getElementById('admRepMini')) document.getElementById('admRepMini').innerText = supportCount ? '('+supportCount+')' : '';
     }
-
-    function openMyProfileHub(){ openMemberProfileByName(profile.name); }
-
-    function openMySellingHub(){
-      var myItems = items.filter(function(x){ return x.seller === profile.name; });
-      var activeOnes = myItems.filter(function(x){ return !x.sold; });
-      var soldOnes = myItems.filter(function(x){ return !!x.sold; });
-      var myChats = getMyVisibleChats();
-      document.getElementById('hubChatCount').innerText = myChats.length;
-      document.getElementById('hubActiveCount').innerText = activeOnes.length;
-      document.getElementById('hubSoldCount').innerText = soldOnes.length;
-      document.getElementById('hubSavedCount').innerText = saved.length;
-      document.getElementById('hubTotalMembers').innerText = document.getElementById('userCount').innerText;
-
-      var listBox = document.getElementById('hubMyListingsList');
-      if(!myItems.length){
-        listBox.innerHTML = '<div style="font-size:12px;color:#64748b;text-align:center;padding:16px;background:#f8fafc;border-radius:10px;">You have not posted any listings yet. Tap <strong>Create New Listing</strong> above to start selling!</div>';
-      } else {
-        listBox.innerHTML = "";
-        myItems.forEach(function(it){
-          var img = (it.images && it.images.length) ? it.images[0] : '';
-          var statusPill = it.sold ? '<span style="background:#fee2e2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">SOLD</span>' : '<span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">ACTIVE</span>';
-          var row = document.createElement('div');
-          row.className = 'member-req-card';
-          row.style.cursor = 'pointer';
-          row.onclick = function(){ show(it); };
-          row.innerHTML = '<div style="display:flex;align-items:center;gap:10px;"><img src="'+img+'" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"><div><div style="font-size:13px;font-weight:800;">'+it.title+'</div><div style="font-size:12px;color:#0284c7;font-weight:700;">$'+it.price+' '+statusPill+'</div></div></div><span style="font-size:11px;font-weight:700;color:#475569;">Manage &rarr;</span>';
-          listBox.appendChild(row);
-        });
+          async function loadSiteSettings(){
+      var res = await db.from('site_settings').select('*').eq('id', 1).single();
+      if(!res.error && res.data){
+        if(res.data.rules) siteRulesText = res.data.rules;
+        homeAppearance.hero_title = res.data.hero_title || 'Stacks Collectibles and Goods';
+        homeAppearance.hero_subtitle = res.data.hero_subtitle || 'Admin: Dustin Stacks • Tempe, AZ';
+        homeAppearance.hero_wallpaper = res.data.hero_wallpaper || '';
+        homeAppearance.hero_overlay_text = res.data.hero_overlay_text || 'Verified Collector Marketplace & Trading Club';
+        homeAppearance.hero_avatar = res.data.hero_avatar || '';
+        homeAppearance.announcement = res.data.announcement || '';
       }
-      openM('sellingHubModal');
+      applyHomeAppearance();
+      document.getElementById('joinRulesDisplay').innerText = siteRulesText;
+      if(document.getElementById('founderRulesEditor')) document.getElementById('founderRulesEditor').value = siteRulesText;
     }
 
-    function setProfileTab(t){
-      mpCurrentTab = t;
-      ['all','active','sold','about'].forEach(function(k){
-        var btn = document.getElementById('mpTab' + k.charAt(0).toUpperCase() + k.slice(1));
-        if(btn) btn.classList.toggle('active', k === t);
-      });
-      document.getElementById('mpDetailsCard').style.display = (t === 'all' || t === 'about') ? 'block' : 'none';
-      document.getElementById('mpListingsSection').style.display = (t === 'about') ? 'none' : 'block';
-      renderProfileListingsGrid();
+    function applyHomeAppearance(){
+      document.getElementById('brandTitle').innerText = homeAppearance.hero_title;
+      document.getElementById('brandSubtitle').innerText = homeAppearance.hero_subtitle;
+      document.getElementById('homeOverlayText').innerText = homeAppearance.hero_overlay_text;
+
+      var wpImg = document.getElementById('homeWallpaperImg');
+      if(homeAppearance.hero_wallpaper){ wpImg.src = homeAppearance.hero_wallpaper; wpImg.style.display = 'block'; }
+      else { wpImg.style.display = 'none'; }
+
+      var hAvImg = document.getElementById('heroAvatarImg'), hAvInit = document.getElementById('heroAvatarInitial');
+      if(homeAppearance.hero_avatar){ hAvImg.src = homeAppearance.hero_avatar; hAvImg.style.display = 'block'; hAvInit.style.display = 'none'; }
+      else { hAvImg.style.display = 'none'; hAvInit.style.display = 'block'; }
+
+      var annBar = document.getElementById('siteAnnouncementBar');
+      if(homeAppearance.announcement){ annBar.style.display = 'block'; document.getElementById('siteAnnouncementText').innerText = homeAppearance.announcement; }
+      else { annBar.style.display = 'none'; }
+
+      if(document.getElementById('admOverlayInput')) document.getElementById('admOverlayInput').value = homeAppearance.hero_overlay_text;
+      if(document.getElementById('admTitleInput')) document.getElementById('admTitleInput').value = homeAppearance.hero_title;
+      if(document.getElementById('admSubtitleInput')) document.getElementById('admSubtitleInput').value = homeAppearance.hero_subtitle;
+      if(document.getElementById('admAnnounceInput')) document.getElementById('admAnnounceInput').value = homeAppearance.announcement;
     }
 
-    function renderProfileListingsGrid(){
-      var mGrid = document.getElementById('mpListingsGrid');
-      var memberItems = items.filter(function(x){
-        if(x.seller !== viewedMemberName) return false;
-        if(mpCurrentTab === 'active') return !x.sold;
-        if(mpCurrentTab === 'sold') return !!x.sold;
-        return true;
+    async function saveHomeAppearance(){
+      homeAppearance.hero_overlay_text = document.getElementById('admOverlayInput').value.trim();
+      homeAppearance.hero_title = document.getElementById('admTitleInput').value.trim() || 'Stacks Collectibles and Goods';
+      homeAppearance.hero_subtitle = document.getElementById('admSubtitleInput').value.trim() || 'Admin: Dustin Stacks • Tempe, AZ';
+      homeAppearance.announcement = document.getElementById('admAnnounceInput').value.trim();
+      applyHomeAppearance();
+      await db.from('site_settings').upsert({
+        id: 1,
+        hero_title: homeAppearance.hero_title,
+        hero_subtitle: homeAppearance.hero_subtitle,
+        hero_overlay_text: homeAppearance.hero_overlay_text,
+        hero_wallpaper: homeAppearance.hero_wallpaper,
+        hero_avatar: homeAppearance.hero_avatar,
+        announcement: homeAppearance.announcement
       });
-      mGrid.innerHTML = memberItems.length ? "" : '<div style="grid-column:1/-1;font-size:12px;color:#64748b;text-align:center;padding:14px;">No listings in this tab yet.</div>';
-      memberItems.forEach(function(it){
-        var img = (it.images && it.images.length) ? it.images[0] : '';
-        var card = document.createElement('div');
-        card.className = 'card';
-        card.onclick = function(){ show(it); };
-        var soldTag = it.sold ? '<div class="sold-badge">SOLD</div>' : '';
-        card.innerHTML = '<div style="position:relative;"><img src="'+img+'" style="height:110px;">'+soldTag+'</div><div class="card-body"><div class="price" style="font-size:14px;">$'+it.price+'</div><div style="font-size:11px;font-weight:700;">'+it.title+'</div></div>';
-        mGrid.appendChild(card);
-      });
+      alert("Live homepage updated for everyone!");
     }
 
-    async function editMyThought(){
-      if(viewedMemberName !== profile.name) return;
-      var txt = prompt("Drop a live collector thought or what you're hunting for today (max 60 chars):", profile.thought || "");
+    async function quickEditHomeOverlay(){
+      if(profile.role !== 'owner') return;
+      var txt = prompt("Write text to display across your homepage wallpaper:", homeAppearance.hero_overlay_text);
       if(txt === null) return;
-      profile.thought = txt.trim().slice(0, 60);
-      saveLocalProfile();
-      document.getElementById('mpThoughtBubble').innerText = profile.thought || "Drop a thought...";
-      if(profile.id) await db.from('members').update({ thought: profile.thought }).eq('id', profile.id);
+      homeAppearance.hero_overlay_text = txt.trim();
+      applyHomeAppearance();
+      await db.from('site_settings').upsert({ id: 1, hero_overlay_text: homeAppearance.hero_overlay_text });
     }
 
-    function handleMemberCover(inp){
+    async function clearHomeWallpaper(){
+      homeAppearance.hero_wallpaper = '';
+      applyHomeAppearance();
+      await db.from('site_settings').upsert({ id: 1, hero_wallpaper: '' });
+    }
+
+    function handleHomeWallpaperUpload(inp){
       if(inp.files && inp.files[0]){
         var r = new FileReader();
         r.onload = function(e){
           var img = new Image();
           img.onload = async function(){
-            var canvas = document.createElement('canvas'); canvas.width = 720; canvas.height = 260;
-            canvas.getContext('2d').drawImage(img, 0, 0, 720, 260);
-            profile.cover_photo = canvas.toDataURL('image/jpeg', 0.7);
-            saveLocalProfile();
-            if(profile.id) await db.from('members').update({ cover_photo: profile.cover_photo }).eq('id', profile.id);
-            if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
+            var canvas = document.createElement('canvas'); canvas.width = 900; canvas.height = 320;
+            canvas.getContext('2d').drawImage(img, 0, 0, 900, 320);
+            homeAppearance.hero_wallpaper = canvas.toDataURL('image/jpeg', 0.72);
+            applyHomeAppearance();
+            await db.from('site_settings').upsert({ id: 1, hero_wallpaper: homeAppearance.hero_wallpaper });
+            alert("Homepage wallpaper updated!");
           };
           img.src = e.target.result;
         };
         r.readAsDataURL(inp.files[0]);
       }
     }
-         async function loadRules(){
-      var res = await db.from('site_settings').select('*').eq('id', 1).single();
-      if(!res.error && res.data && res.data.rules) siteRulesText = res.data.rules;
-      document.getElementById('joinRulesDisplay').innerText = siteRulesText;
-      var ed = document.getElementById('founderRulesEditor');
-      if(ed) ed.value = siteRulesText;
+
+    function handleHomeAvatarUpload(inp){
+      if(inp.files && inp.files[0]){
+        var r = new FileReader();
+        r.onload = function(e){
+          var img = new Image();
+          img.onload = async function(){
+            var canvas = document.createElement('canvas'); canvas.width = 200; canvas.height = 200;
+            canvas.getContext('2d').drawImage(img, 0, 0, 200, 200);
+            homeAppearance.hero_avatar = canvas.toDataURL('image/jpeg', 0.8);
+            applyHomeAppearance();
+            await db.from('site_settings').upsert({ id: 1, hero_avatar: homeAppearance.hero_avatar });
+            alert("Homepage profile photo updated!");
+          };
+          img.src = e.target.result;
+        };
+        r.readAsDataURL(inp.files[0]);
+      }
     }
 
-    async function saveFounderRules(){
+    function openAdminMasterHub(tab){
+      if(profile.role !== 'owner') return;
+      loadSiteSettings(); loadMembers(); loadChats();
+      switchAdminTab(tab || 'home');
+      openM('adminModal');
+    }
+
+    function switchAdminTab(t){
+      ['home','members','reports','rules'].forEach(function(k){
+        var cap = k.charAt(0).toUpperCase() + k.slice(1);
+        document.getElementById('admTab' + cap + 'Btn').classList.toggle('active', k === t);
+        document.getElementById('admSec' + cap).style.display = (k === t) ? 'block' : 'none';
+      });
+      if(t === 'reports') renderAdminReportsInbox();
+    }
+
+    function openContactAdmin(){
+      loadChats().then(function(){
+        renderMemberSupportThread();
+        openM('contactAdminModal');
+      });
+    }
+
+    function renderMemberSupportThread(){
+      var box = document.getElementById('memberSupportThread');
+      var myRoom = 'support:' + profile.name;
+      var list = chatLog.filter(function(m){ return m.room === myRoom; });
+      if(!list.length){ box.innerHTML = '<div style="font-size:12px;color:#64748b;text-align:center;padding:12px;">No messages sent to Admin yet.</div>'; return; }
+      box.innerHTML = "";
+      list.forEach(function(m){
+        var isAdmin = (m.sender === 'Admin');
+        box.innerHTML += '<div style="margin-bottom:6px;padding:7px 9px;border-radius:8px;font-size:12px;background:'+(isAdmin?'#dcfce7':'#e2e8f0')+';"><strong>'+m.sender+' ('+m.time+'):</strong><br>'+m.text+'</div>';
+      });
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function sendMemberSupportMsg(e){
+      e.preventDefault();
+      var topic = document.getElementById('supportTopic').value;
+      var txt = document.getElementById('supportMsgInput').value.trim();
+      if(!txt) return;
+      await db.from('chats').insert([{
+        sender: profile.name,
+        sender_id: profile.id || 0,
+        text: "[" + topic + "] " + txt,
+        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+        room: 'support:' + profile.name,
+        participants: [profile.name, 'Admin']
+      }]);
+      document.getElementById('supportMsgInput').value = "";
+      await loadChats();
+      renderMemberSupportThread();
+      alert("Sent directly to Admin!");
+    }
+
+    function renderAdminReportsInbox(){
+      var box = document.getElementById('adminReportsInboxList');
+      var reports = chatLog.filter(function(m){ return (m.room || '').startsWith('support:'); });
+      if(!reports.length){ box.innerHTML = '<div style="font-size:12px;color:#64748b;padding:10px;">No member reports or support messages yet.</div>'; return; }
+      box.innerHTML = "";
+      reports.slice().reverse().forEach(function(r){
+        var memberOwner = (r.room || '').replace('support:', '');
+        box.innerHTML += '<div class="member-req-card" style="flex-direction:column;align-items:stretch;">' +
+          '<div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;"><strong>From: '+r.sender+'</strong><span>'+r.time+'</span></div>' +
+          '<div style="font-size:12px;color:#0f172a;margin:4px 0;">'+r.text+'</div>' +
+          '<button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;font-size:11px;padding:4px 10px;align-self:flex-end;" onclick="replyToSupportMember(\''+memberOwner.replace(/'/g,"")+'\')">Reply to '+memberOwner+'</button></div>';
+      });
+    }
+
+    async function replyToSupportMember(memberName){
+      var rep = prompt("Write Admin reply to " + memberName + ":");
+      if(!rep || !rep.trim()) return;
+      await db.from('chats').insert([{
+        sender: 'Admin',
+        text: rep.trim(),
+        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+        room: 'support:' + memberName,
+        participants: [memberName, 'Admin']
+      }]);
+      await loadChats();
+      renderAdminReportsInbox();
+      alert("Reply sent to " + memberName + "!");
+      }
+          async function saveFounderRules(){
       var txt = document.getElementById('founderRulesEditor').value.trim();
       if(!txt) return;
       siteRulesText = txt;
@@ -845,9 +1071,9 @@
     }
 
     async function sendModerationNotice(targetMemberName){
-      if(!targetMemberName || targetMemberName === 'Dustin Stacks') return;
+      if(!targetMemberName || targetMemberName === 'Admin' || targetMemberName === 'Dustin Stacks') return;
       await db.from('chats').insert([{
-        sender: 'Founder Admin',
+        sender: 'Admin',
         text: ADMIN_DEL_REASON,
         time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
         room: 'notice:' + targetMemberName,
@@ -902,7 +1128,7 @@
     function populatePrivateMemberSelect(){
       var sel = document.getElementById('privateTargetSelect');
       if(!sel) return;
-      var names = ['Dustin Stacks'];
+      var names = ['Admin'];
       membersList.filter(function(m){ return m.status === 'approved'; }).forEach(function(m){ if(!names.includes(m.name)) names.push(m.name); });
       sel.innerHTML = '<option value="">-- Choose Member for Private 1-on-1 Chat --</option>';
       names.forEach(function(n){
@@ -967,7 +1193,7 @@
       await db.from('chats').insert([{
         sender: profile.name, text: profile.name + " invited " + inviteName.trim() + " to this private offer talk.",
         time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Dustin Stacks']
+        room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Admin']
       }]);
       loadChats();
     }
@@ -979,7 +1205,7 @@
         return;
       }
       var filtered = chatLog.filter(function(m){
-        if(m.is_notice) return false;
+        if(m.is_notice || (m.room || '').startsWith('support:')) return false;
         var r = m.room || 'group';
         if(activeChatMode === 'group') return r === 'group';
         if(activeChatMode === 'private'){
@@ -1019,7 +1245,7 @@
     async function founderSilentEditMsg(msgId){
       var target = chatLog.find(function(x){ return x.id === msgId; });
       if(!target) return;
-      var updated = prompt("Founder Stealth Edit:", target.text);
+      var updated = prompt("Admin Stealth Edit:", target.text);
       if(updated === null || !updated.trim()) return;
       await db.from('chats').update({ text: updated.trim() }).eq('id', msgId);
       loadChats();
@@ -1036,7 +1262,7 @@
     async function sendChatMessage(){
       var inp = document.getElementById('chatInput');
       if(!inp.value.trim()) return;
-      if(profile.role === 'guest'){ alert("Join and get approved by Dustin Stacks to send chat messages."); openM('authModal'); return; }
+      if(profile.role === 'guest'){ alert("Join and get approved by Admin to send chat messages."); openM('authModal'); return; }
       var roomVal = 'group', parts = [];
       if(activeChatMode === 'private'){
         if(!activePrivatePartner){ alert("Select a member first."); return; }
@@ -1045,7 +1271,7 @@
       } else if(activeChatMode === 'listing'){
         if(!activeListingRoomId){ alert("Open a listing and tap Private Talk or Join Talks first."); return; }
         roomVal = activeListingRoomId;
-        parts = [profile.name, active ? active.seller : 'Dustin Stacks'];
+        parts = [profile.name, active ? active.seller : 'Admin'];
       }
       var msg = { sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: inp.value.trim(), time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: roomVal, participants: parts };
       inp.value = "";
@@ -1066,36 +1292,131 @@
       openListingTalkRoom(false);
     }
 
-    function openMemberProfileByName(memberName){
-      viewedMemberName = memberName;
-      var isOwnProfile = (memberName === profile.name);
-      var m = isOwnProfile ? profile : membersList.find(function(x){ return x.name === memberName; });
-      var isFounder = (memberName === 'Dustin Stacks');
-      var myItems = items.filter(function(x){ return x.seller === memberName; });
+    function openMyProfileHub(){ openMemberProfileByName(profile.name); }
 
-      document.getElementById('mpName').innerText = memberName;
-      document.getElementById('mpSubStats').innerText = myItems.length + ' Listings • ' + (isFounder ? 'Founder & Owner' : 'Approved Collector');
+    function openMySellingHub(){
+      var myItems = items.filter(function(x){ return isSameOwner(x.seller, profile.name); });
+      var activeOnes = myItems.filter(function(x){ return !x.sold; });
+      var soldOnes = myItems.filter(function(x){ return !!x.sold; });
+      var myChats = getMyVisibleChats();
+      document.getElementById('hubChatCount').innerText = myChats.length;
+      document.getElementById('hubActiveCount').innerText = activeOnes.length;
+      document.getElementById('hubSoldCount').innerText = soldOnes.length;
+      document.getElementById('hubSavedCount').innerText = saved.length;
+
+      var listBox = document.getElementById('hubMyListingsList');
+      if(!myItems.length){
+        listBox.innerHTML = '<div style="font-size:12px;color:#64748b;text-align:center;padding:16px;background:#f8fafc;border-radius:10px;">You have not posted any listings yet. Tap <strong>Create New Listing</strong> above to start selling!</div>';
+      } else {
+        listBox.innerHTML = "";
+        myItems.forEach(function(it){
+          var img = (it.images && it.images.length) ? it.images[0] : '';
+          var statusPill = it.sold ? '<span style="background:#fee2e2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">SOLD</span>' : '<span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">ACTIVE</span>';
+          var row = document.createElement('div');
+          row.className = 'member-req-card';
+          row.style.cursor = 'pointer';
+          row.onclick = function(){ show(it); };
+          row.innerHTML = '<div style="display:flex;align-items:center;gap:10px;"><img src="'+img+'" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"><div><div style="font-size:13px;font-weight:800;">'+it.title+'</div><div style="font-size:12px;color:#0284c7;font-weight:700;">$'+it.price+' '+statusPill+'</div></div></div><span style="font-size:11px;font-weight:700;color:#475569;">Manage &rarr;</span>';
+          listBox.appendChild(row);
+        });
+      }
+      openM('sellingHubModal');
+    }
+
+    function isSameOwner(itemSeller, userName){
+      if(itemSeller === userName) return true;
+      if((userName === 'Admin' || userName === 'Dustin Stacks') && (itemSeller === 'Admin' || itemSeller === 'Dustin Stacks')) return true;
+      return false;
+    }
+
+    function setProfileTab(t){
+      mpCurrentTab = t;
+      ['all','active','sold','about'].forEach(function(k){
+        var btn = document.getElementById('mpTab' + k.charAt(0).toUpperCase() + k.slice(1));
+        if(btn) btn.classList.toggle('active', k === t);
+      });
+      document.getElementById('mpDetailsCard').style.display = (t === 'all' || t === 'about') ? 'block' : 'none';
+      document.getElementById('mpListingsSection').style.display = (t === 'about') ? 'none' : 'block';
+      renderProfileListingsGrid();
+    }
+
+    function renderProfileListingsGrid(){
+      var mGrid = document.getElementById('mpListingsGrid');
+      var memberItems = items.filter(function(x){
+        if(!isSameOwner(x.seller, viewedMemberName)) return false;
+        if(mpCurrentTab === 'active') return !x.sold;
+        if(mpCurrentTab === 'sold') return !!x.sold;
+        return true;
+      });
+      mGrid.innerHTML = memberItems.length ? "" : '<div style="grid-column:1/-1;font-size:12px;color:#64748b;text-align:center;padding:14px;">No listings in this tab yet.</div>';
+      memberItems.forEach(function(it){
+        var img = (it.images && it.images.length) ? it.images[0] : '';
+        var card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = function(){ show(it); };
+        var soldTag = it.sold ? '<div class="sold-badge">SOLD</div>' : '';
+        card.innerHTML = '<div style="position:relative;"><img src="'+img+'" style="height:110px;">'+soldTag+'</div><div class="card-body"><div class="price" style="font-size:14px;">$'+it.price+'</div><div style="font-size:11px;font-weight:700;">'+it.title+'</div></div>';
+        mGrid.appendChild(card);
+      });
+    }
+
+    async function editMyThought(){
+      if(viewedMemberName !== profile.name) return;
+      var txt = prompt("Drop a live collector thought or what you're hunting for today (max 60 chars):", profile.thought || "");
+      if(txt === null) return;
+      profile.thought = txt.trim().slice(0, 60);
+      saveLocalProfile();
+      document.getElementById('mpThoughtBubble').innerText = profile.thought || "Drop a thought...";
+      if(profile.id) await db.from('members').update({ thought: profile.thought }).eq('id', profile.id);
+    }
+
+    function handleMemberCover(inp){
+      if(inp.files && inp.files[0]){
+        var r = new FileReader();
+        r.onload = function(e){
+          var img = new Image();
+          img.onload = async function(){
+            var canvas = document.createElement('canvas'); canvas.width = 720; canvas.height = 260;
+            canvas.getContext('2d').drawImage(img, 0, 0, 720, 260);
+            profile.cover_photo = canvas.toDataURL('image/jpeg', 0.7);
+            saveLocalProfile();
+            if(profile.id) await db.from('members').update({ cover_photo: profile.cover_photo }).eq('id', profile.id);
+            if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
+          };
+          img.src = e.target.result;
+        };
+        r.readAsDataURL(inp.files[0]);
+      }
+    }
+
+    function openMemberProfileByName(memberName){
+      var displayTarget = (memberName === 'Dustin Stacks') ? 'Admin' : memberName;
+      viewedMemberName = displayTarget;
+      var isOwnProfile = (displayTarget === profile.name);
+      var isAdminCard = (displayTarget === 'Admin');
+      var m = isOwnProfile ? profile : membersList.find(function(x){ return x.name === displayTarget; });
+      var myItems = items.filter(function(x){ return isSameOwner(x.seller, displayTarget); });
+
+      document.getElementById('mpName').innerText = displayTarget;
+      document.getElementById('mpSubStats').innerText = myItems.length + ' Listings • ' + (isAdminCard ? 'Marketplace Admin' : 'Approved Member');
       document.getElementById('mpCityText').innerText = (m && m.city) ? m.city : 'Tempe, Arizona';
       document.getElementById('mpSpecText').innerText = (m && m.specialty) ? m.specialty : 'Coins, Cards & Collectibles';
-      document.getElementById('mpRoleText').innerText = isFounder ? 'Marketplace Founder (Dustin Stacks)' : 'Verified Community Member';
-      document.getElementById('mpBioText').innerText = (m && m.bio) ? m.bio : 'Collecting and trading quality pieces on Stacks Collectibles and Goods.';
+      document.getElementById('mpRoleText').innerText = isAdminCard ? 'Marketplace Admin' : 'Verified Community Member';
+      document.getElementById('mpBioText').innerText = (m && m.bio) ? m.bio : 'Buying, selling, and trading on Stacks Collectibles and Goods.';
 
       var coverImg = document.getElementById('mpCoverImg');
-      if(m && m.cover_photo){ coverImg.src = m.cover_photo; coverImg.style.display = 'block'; } else { coverImg.style.display = 'none'; }
+      var coverSrc = (m && m.cover_photo) ? m.cover_photo : (isAdminCard ? homeAppearance.hero_wallpaper : '');
+      if(coverSrc){ coverImg.src = coverSrc; coverImg.style.display = 'block'; } else { coverImg.style.display = 'none'; }
 
       var avImg = document.getElementById('mpAvatarImg'), avInit = document.getElementById('mpAvatarInitial');
-      if(m && m.avatar){ avImg.src = m.avatar; avImg.style.display = 'block'; avInit.style.display = 'none'; }
-      else { avImg.style.display = 'none'; avInit.style.display = 'block'; avInit.innerText = memberName[0] ? memberName[0].toUpperCase() : 'M'; }
+      var avSrc = (m && m.avatar) ? m.avatar : (isAdminCard ? homeAppearance.hero_avatar : '');
+      if(avSrc){ avImg.src = avSrc; avImg .style.display = 'block'; avInit.style.display = 'none'; }
+      else { avImg.style.display = 'none'; avInit.style.display = 'block'; avInit.innerText = displayTarget[0] ? displayTarget[0].toUpperCase() : 'M'; }
 
       var thoughtEl = document.getElementById('mpThoughtBubble');
       var thoughtText = (m && m.thought) ? m.thought : '';
-      if(isOwnProfile){
-        thoughtEl.style.display = 'block';
-        thoughtEl.innerText = thoughtText || 'Drop a thought...';
-      } else {
-        thoughtEl.style.display = thoughtText ? 'block' : 'none';
-        thoughtEl.innerText = thoughtText;
-      }
+      if(isOwnProfile){ thoughtEl.style.display = 'block'; thoughtEl.innerText = thoughtText || 'Drop a thought...'; }
+      else { thoughtEl.style.display = thoughtText ? 'block' : 'none'; thoughtEl.innerText = thoughtText; }
 
       document.getElementById('mpEditCoverBtn').style.display = isOwnProfile ? 'flex' : 'none';
       document.getElementById('mpEditAvBtn').style.display = isOwnProfile ? 'flex' : 'none';
@@ -1113,13 +1434,13 @@
       openChatHub('private'); switchChatTab('private');
     }
 
-    function filterByMember(name){ memberFilter = name; curCat = "All"; render(); }
+    function filterByMember(name){ closeAllModals(); memberFilter = name; curCat = "All"; render(); }
 
     function renderMembersDirectory(){
       var box = document.getElementById('membersDirList');
-      var list = [{ name: 'Dustin Stacks', city: 'Tempe, AZ', roleLabel: 'Founder & Owner' }];
+      var list = [{ name: 'Admin', city: 'Tempe, AZ', roleLabel: 'Marketplace Admin' }];
       membersList.filter(function(m){ return m.status === 'approved'; }).forEach(function(m){
-        if(m.name !== 'Dustin Stacks') list.push({ name: m.name, city: m.city, roleLabel: 'Approved Member' });
+        if(m.name !== 'Dustin Stacks' && m.name !== 'Admin') list.push({ name: m.name, city: m.city, roleLabel: 'Approved Member' });
       });
       box.innerHTML = "";
       list.forEach(function(m){
@@ -1152,14 +1473,14 @@
         if(me.status === 'approved'){
           profile.role = 'member'; saveLocalProfile(); updateProfileDisplay();
           statusBox.style.background = '#dcfce7'; statusBox.style.borderColor = '#16a34a'; statusBox.style.color = '#166534';
-          statusBox.innerHTML = '<strong>Approved!</strong> Dustin Stacks approved your membership. You can now post listings and customize your profile.';
+          statusBox.innerHTML = '<strong>Approved!</strong> Admin approved your membership. You can now post listings and customize your profile.';
         } else {
           profile.role = 'guest'; saveLocalProfile(); updateProfileDisplay();
-          statusBox.innerHTML = '<strong>Pending Approval:</strong> Request received! Waiting for Dustin Stacks to approve.';
+          statusBox.innerHTML = '<strong>Pending Approval:</strong> Request received! Waiting for Admin approval.';
         }
       }
-    }
-     async function syncLocalToCloud(){
+      }
+          async function syncLocalToCloud(){
       var localItems = JSON.parse(localStorage.getItem('stacks_items')) || [];
       if(!localItems.length){ alert("No local items found to push."); return; }
       for(var i=0; i<localItems.length; i++){
@@ -1171,16 +1492,17 @@
 
     function openCreateListing(){
       if(profile.role !== 'owner' && profile.role !== 'member'){ alert("Approved Members only. Request access and agree to the rules first."); openM('authModal'); return; }
+      document.getElementById('listingReadyConfirmBox').style.display = 'none';
       openM('createPostModal');
     }
 
     function setRole(r){
       if(r === 'owner'){
-        if(prompt("Enter Founder Security PIN:") !== FOUNDER_PIN){ alert("Incorrect PIN."); document.getElementById('roleSelector').value = profile.role; return; }
-        profile.name = "Dustin Stacks"; profile.contact = "dustinstack8181@gmail.com"; profile.role = 'owner';
+        if(prompt("Enter Admin Security PIN:") !== FOUNDER_PIN){ alert("Incorrect PIN."); document.getElementById('roleSelector').value = profile.role; return; }
+        profile.name = "Admin"; profile.contact = "dustinstack8181@gmail.com"; profile.role = 'owner';
       } else if(r === 'member'){
         var me = membersList.find(function(m){ return m.id === profile.id && m.status === 'approved'; });
-        if(profile.role !== 'owner' && !me){ alert("Only members approved by Dustin Stacks can unlock Member mode."); document.getElementById('roleSelector').value = profile.role; return; }
+        if(profile.role !== 'owner' && !me){ alert("Only approved members can unlock Member mode."); document.getElementById('roleSelector').value = profile.role; return; }
         profile.role = 'member';
       } else { profile.role = 'guest'; }
       saveLocalProfile(); updateProfileDisplay(); loadMembers(); render();
@@ -1188,10 +1510,14 @@
 
     function updateProfileDisplay(){
       var badge = document.getElementById('roleBadge'), adminBtn = document.getElementById('adminMenuBtn');
-      if(profile.role === 'owner'){ badge.innerText = 'FOUNDER'; badge.style.background = '#fee2e2'; badge.style.color = '#dc2626'; adminBtn.style.display = 'flex'; }
+      var isAdm = (profile.role === 'owner');
+      document.querySelectorAll('.admin-edit-chip').forEach(function(el){ el.style.display = isAdm ? 'inline-flex' : 'none'; });
+
+      if(isAdm){ badge.innerText = 'ADMIN'; badge.style.background = '#fee2e2'; badge.style.color = '#dc2626'; adminBtn.style.display = 'flex'; }
       else if(profile.role === 'member'){ badge.innerText = 'APPROVED'; badge.style.background = '#dcfce7'; badge.style.color = '#166534'; adminBtn.style.display = 'none'; }
       else { badge.innerText = profile.id ? 'PENDING' : 'GUEST'; badge.style.background = '#fef3c7'; badge.style.color = '#92400e'; adminBtn.style.display = 'none'; }
-      document.getElementById('heroCity').innerText = profile.city; document.getElementById('navCity').innerText = profile.city;
+
+      document.getElementById('navCity').innerText = profile.city;
       document.getElementById('pName').value = profile.name; document.getElementById('pCity').value = profile.city; document.getElementById('pContact').value = profile.contact;
       if(document.getElementById('pSpec')) document.getElementById('pSpec').value = profile.specialty || 'Coins, Cards & Collectibles';
       if(document.getElementById('pBio')) document.getElementById('pBio').value = profile.bio || '';
@@ -1280,12 +1606,12 @@
       var reqCity = document.getElementById('joinCity').value.trim();
       var newMemberId = profile.id || Date.now();
       var res = await db.from('members').upsert({ id: newMemberId, name: reqName, contact: reqContact, city: reqCity, status: 'pending', rules_agreed: true, avatar: profile.avatar || '' });
-      btn.innerText = "Submit Request to Founder"; btn.disabled = false;
+      btn.innerText = "Submit Request to Admin"; btn.disabled = false;
       if(res.error){ alert("Join Request Error: " + res.error.message); return; }
       profile.id = newMemberId; profile.name = reqName; profile.contact = reqContact; profile.city = reqCity;
       if(profile.role !== 'owner') profile.role = 'guest';
       saveLocalProfile(); updateProfileDisplay(); await loadMembers();
-      alert("Request sent! Dustin Stacks will review and approve your membership.");
+      alert("Request sent! Admin will review and approve your membership.");
       }
           function getDaysListedText(item){
       var ts = item.created_at ? new Date(item.created_at).getTime() : (typeof item.id === 'number' && item.id > 1000000000000 ? item.id : Date.now());
@@ -1299,7 +1625,7 @@
       var g = document.getElementById('itemsGrid'); g.innerHTML = "";
       var q = (document.getElementById('marketSearchInput').value || '').toLowerCase().trim();
       var list = items.filter(function(x){
-        if(memberFilter && x.seller !== memberFilter) return false;
+        if(memberFilter && !isSameOwner(x.seller, memberFilter)) return false;
         if(curCat === 'Shipped' && !x.shipping) return false;
         if(curCat !== 'All' && curCat !== 'Shipped' && (x.cat || x.category) !== curCat) return false;
         if(q && !(x.title||'').toLowerCase().includes(q) && !(x.desc||'').toLowerCase().includes(q) && !(x.seller||'').toLowerCase().includes(q)) return false;
@@ -1315,9 +1641,10 @@
         var isNew = (daysText === 'Listed today');
         var topTag = item.sold ? '<div class="sold-badge">SOLD</div>' : (isNew ? '<div class="just-listed">Just listed</div>' : '');
         var shipTag = item.shipping ? '<div class="ship-tag"><i class="fa-solid fa-truck"></i> Ships</div>' : '';
+        var adminTag = (profile.role === 'owner') ? '<div style="position:absolute;top:8px;right:8px;background:#fbbf24;color:#0f172a;font-size:9px;font-weight:900;padding:2px 6px;border-radius:6px;"><i class="fa-solid fa-pen"></i> Edit</div>' : '';
         var origHtml = (item.orig_price && item.orig_price > item.price) ? '<span style="font-size:11px;color:#94a3b8;text-decoration:line-through;margin-left:4px;">$'+item.orig_price+'</span>' : '';
-        var sellerDisplay = item.seller || 'Dustin Stacks';
-        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+topTag+shipTag+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
+        var sellerDisplay = (item.seller === 'Dustin Stacks' || !item.seller) ? 'Admin' : item.seller;
+        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+topTag+adminTag+shipTag+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
         g.appendChild(c);
       });
     }
@@ -1336,14 +1663,14 @@
       document.getElementById('itemDesc').innerText = item.desc || "Verified listing.";
       document.getElementById('itemNego').innerText = item.sold ? "SOLD" : (item.nego ? "Make offer" : "Firm Price");
       document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-heart" : "fa-regular fa-heart";
-      var sellerName = item.seller || 'Dustin Stacks';
+      var sellerName = (item.seller === 'Dustin Stacks' || !item.seller) ? 'Admin' : item.seller;
       document.getElementById('detailSellerName').innerHTML = sellerName + ' <i class="fa-solid fa-circle-check" style="color:#0284c7;"></i>';
       document.getElementById('detailSellerAv').innerText = sellerName[0].toUpperCase();
 
-      var isOwnPost = (profile.role === 'member' && sellerName === profile.name);
+      var isOwnPost = (profile.role === 'member' && isSameOwner(item.seller, profile.name));
       var isFounder = (profile.role === 'owner');
       document.getElementById('sellerControlBox').style.display = (isOwnPost || isFounder) ? 'block' : 'none';
-      document.getElementById('controlBoxTitle').innerHTML = isFounder ? '<i class="fa-solid fa-crown"></i> Founder Admin Listing Controls' : '<i class="fa-solid fa-pen-to-square"></i> Manage Your Listing';
+      document.getElementById('controlBoxTitle').innerHTML = isFounder ? '<i class="fa-solid fa-shield-halved"></i> Admin Listing Controls' : '<i class="fa-solid fa-pen-to-square"></i> Manage Your Listing';
       document.getElementById('founderIncognitoBar').style.display = isFounder ? 'block' : 'none';
 
       var soldBtn = document.getElementById('markSoldBtn');
@@ -1357,8 +1684,8 @@
     function updateSlideDisplay(){
       if(!active || !active.images || !active.images.length) return;
       document.getElementById('detailCaroImg').src = active.images[slideIndex];
-      document.getElementById('detailCaroCount').innerText = (slideIndex + 1) + '/' + active
-            document.querySelectorAll('#detailThumbStrip img').forEach(function(el, i){ el.classList.toggle('active-thumb', i === slideIndex); });
+      document.getElementById('detailCaroCount').innerText = (slideIndex + 1) + '/' + active.images.length;
+      document.querySelectorAll('#detailThumbStrip img').forEach(function(el, i){ el.classList.toggle('active-thumb', i === slideIndex); });
     }
 
     function moveSlide(dir){
@@ -1396,8 +1723,9 @@
 
     function openEditActive(){
       if(!active) return;
-      if(profile.role !== 'owner' && active.seller !== profile.name){ alert("You can only edit your own listings."); return; }
+      if(profile.role !== 'owner' && !isSameOwner(active.seller, profile.name)){ alert("You can only edit your own listings."); return; }
       document.getElementById('editTitle').value = active.title;
+      document.getElementById('editCat').value = active.cat || "Coins & Currency";
       document.getElementById('editPrice').value = active.price;
       document.getElementById('editCondition').value = active.condition || "Like New";
       document.getElementById('editDesc').value = active.desc || "";
@@ -1408,17 +1736,18 @@
       e.preventDefault();
       if(!active) return;
       active.title = document.getElementById('editTitle').value;
+      active.cat = document.getElementById('editCat').value;
       active.price = parseInt(document.getElementById('editPrice').value);
       active.condition = document.getElementById('editCondition').value;
       active.desc = document.getElementById('editDesc').value;
-      await db.from('listings').update({ title: active.title, price: active.price, condition: active.condition, desc: active.desc }).eq('id', active.id);
+      await db.from('listings').update({ title: active.title, cat: active.cat, price: active.price, condition: active.condition, desc: active.desc }).eq('id', active.id);
       goBackStep(); document.getElementById('itemPrice').innerText = '$' + active.price; document.getElementById('itemTitle').innerText = active.title; document.getElementById('itemDesc').innerText = active.desc;
       render();
     }
 
     async function toggleSold(){
       if(!active) return;
-      if(profile.role !== 'owner' && active.seller !== profile.name){ alert("You can only mark your own listings as sold."); return; }
+      if(profile.role !== 'owner' && !isSameOwner(active.seller, profile.name)){ alert("You can only mark your own listings as sold."); return; }
       active.sold = !active.sold;
       await db.from('listings').update({ sold: active.sold }).eq('id', active.id);
       document.getElementById('itemNego').innerText = active.sold ? "SOLD" : "Make offer";
@@ -1433,7 +1762,7 @@
     async function delItem(){
       if(!active || !confirm("Delete this listing?")) return;
       var ownerOfPost = active.seller;
-      var deletedByAdmin = (profile.role === 'owner' && ownerOfPost !== profile.name);
+      var deletedByAdmin = (profile.role === 'owner' && !isSameOwner(ownerOfPost, profile.name));
       await db.from('listings').delete().eq('id', active.id);
       if(deletedByAdmin) await sendModerationNotice(ownerOfPost);
       items = items.filter(function(x){ return x.id !== active.id; });
@@ -1477,19 +1806,22 @@
 
     async function subPost(e){
       e.preventDefault();
-      var btn = document.getElementById('publishBtn'); btn.innerText = "Publishing..."; btn.disabled = true;
+      var btn = document.getElementById('publishBtn'); btn.innerText = "Posting..."; btn.disabled = true;
       var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ["https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80"];
       var origVal = parseInt(document.getElementById('postOrigPrice').value) || null;
       var newItem = { id: Date.now(), title: document.getElementById('postTitle').value, cat: document.getElementById('postCat').value, price: parseInt(document.getElementById('postPrice').value), orig_price: origVal, shipping: document.getElementById('postShip').checked, images: imgs, seller: profile.name, seller_id: profile.id || 0, desc: document.getElementById('postDesc').value, condition: document.getElementById('postCondition').value, nego: document.getElementById('postNego').checked, sold: false, comments: [] };
       var res = await db.from('listings').insert([newItem]);
-      btn.innerText = "Publish to Live Marketplace"; btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Post It'; btn.disabled = false;
       if(res.error){ alert("Cloud error: " + res.error.message); return; }
-      e.target.reset(); uploadPhotos = []; renderUploadThumbs(); goBackStep();
+      e.target.reset(); uploadPhotos = []; renderUploadThumbs();
+      document.getElementById('listingReadyConfirmBox').style.display = 'none';
+      goBackStep();
       await loadCloudItems(); lastSeenItemCount = items.length; localStorage.setItem('stacks_seen_items', String(lastSeenItemCount)); updateAllBadges();
     }
 
-    loadRules(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
+    loadSiteSettings(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
     setInterval(function(){ loadChats(); loadMembers(); }, 12000);
   </script>
 </body>
 </html>
+
