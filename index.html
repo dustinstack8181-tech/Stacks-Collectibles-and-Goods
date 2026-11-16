@@ -835,53 +835,70 @@
       alert("Member request sent! Dustin Stacks will review and approve your account.");
     }
 
+        function getDaysListedText(item){
+      var ts = item.created_at ? new Date(item.created_at).getTime() : (typeof item.id === 'number' && item.id > 1000000000000 ? item.id : Date.now());
+      var days = Math.max(0, Math.floor((Date.now() - ts) / 86400000));
+      if(days === 0) return 'Listed today';
+      if(days === 1) return 'Listed 1 day ago';
+      return 'Listed ' + days + ' days ago';
+    }
+
     function render(){
-      var g = document.getElementById('itemsGrid');
-      g.innerHTML = "";
-      var list = items;
-      if(curCat === "Mine") {
-        list = items.filter(function(x){ return x.seller === profile.name; });
-      } else if(curCat !== "All") {
-        list = items.filter(function(x){ return x.cat === curCat; });
-      }
-
+      var g = document.getElementById('itemsGrid'); g.innerHTML = "";
+      var q = (document.getElementById('marketSearchInput').value || '').toLowerCase().trim();
+      var list = items.filter(function(x){
+        if(memberFilter && x.seller !== memberFilter) return false;
+        if(curCat === 'Shipped' && !x.shipping) return false;
+        if(curCat !== 'All' && curCat !== 'Shipped' && x.cat !== curCat) return false;
+        if(q && !(x.title||'').toLowerCase().includes(q) && !(x.desc||'').toLowerCase().includes(q) && !(x.seller||'').toLowerCase().includes(q)) return false;
+        return true;
+      });
       document.getElementById('invCount').innerText = items.filter(function(x){ return !x.sold; }).length;
-
-      if(!list.length){
-        g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;"><i class="fa-solid fa-box-open" style="font-size:28px;margin-bottom:8px;display:block;"></i>No active listings in this category yet.</div>';
-        return;
-      }
+      if(!list.length){ g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;">No matching listings found.</div>'; return; }
 
       list.forEach(function(item){
-        var c = document.createElement('div');
-        c.className = "card";
-        c.onclick = function(){ show(item); };
+        var c = document.createElement('div'); c.className = "card"; c.onclick = function(){ show(item); };
         var firstImg = (item.images && item.images.length) ? item.images[0] : "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80";
-        var countTag = (item.images && item.images.length > 1) ? '<span style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.65);color:#fff;font-size:10px;padding:2px 5px;border-radius:4px;"><i class="fa-solid fa-images"></i> '+item.images.length+'</span>' : '';
-        var soldBadge = item.sold ? '<div class="sold-badge">SOLD</div>' : '';
-
-        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+countTag+soldBadge+'</div><div class="card-body"><div style="display:flex;justify-content:space-between;align-items:center;"><div class="price">$'+item.price+'</div>'+(item.nego?'<span style="font-size:9px;background:#e0f2fe;color:#0284c7;padding:2px 5px;border-radius:4px;font-weight:700;">Negotiable</span>':'')+'</div><div style="font-size:12px;font-weight:700;margin:4px 0;line-height:1.2;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">Tempe, AZ &bull; '+item.seller+'</div></div>';
+        var daysText = getDaysListedText(item);
+        var isNew = (daysText === 'Listed today');
+        var topTag = item.sold ? '<div class="sold-badge">SOLD</div>' : (isNew ? '<div class="just-listed">Just listed</div>' : '');
+        var shipTag = item.shipping ? '<div class="ship-tag"><i class="fa-solid fa-truck"></i> Ships</div>' : '';
+        var origHtml = (item.orig_price && item.orig_price > item.price) ? '<span style="font-size:11px;color:#94a3b8;text-decoration:line-through;margin-left:4px;">$'+item.orig_price+'</span>' : '';
+        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+topTag+shipTag+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+item.seller+' &bull; '+daysText+'</div></div>';
         g.appendChild(c);
       });
     }
 
     function show(item){
-      active = item;
-      slideIndex = 0;
-      updateSlideDisplay();
-
+      active = item; slideIndex = 0; updateSlideDisplay();
+      var strip = document.getElementById('detailThumbStrip'); strip.innerHTML = "";
+      (item.images || []).forEach(function(src, idx){
+        strip.innerHTML += '<img src="'+src+'" class="'+(idx===0?'active-thumb':'')+'" onclick="slideIndex='+idx+';updateSlideDisplay();">';
+      });
       document.getElementById('itemPrice').innerText = '$' + item.price;
+      var origEl = document.getElementById('itemOrigPrice');
+      if(item.orig_price && item.orig_price > item.price){ origEl.innerText = '$' + item.orig_price; origEl.style.display = 'inline'; } else { origEl.style.display = 'none'; }
       document.getElementById('itemTitle').innerText = item.title;
-      document.getElementById('itemMeta').innerText = 'Listed by ' + item.seller + ' • ' + (item.condition || 'Like New') + (item.sold ? ' • [SOLD]' : '');
-      document.getElementById('itemDesc').innerText = item.desc || "Verified marketplace listing.";
-      document.getElementById('itemNego').innerText = item.sold ? "SOLD" : (item.nego ? "Negotiable" : "Firm Price");
-      document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
+      document.getElementById('itemMeta').innerText = getDaysListedText(item) + ' • ' + (item.condition || 'Like New') + (item.shipping ? ' • Shipping Available' : ' • Local Pickup (Tempe, AZ)');
+      document.getElementById('itemDesc').innerText = item.desc || "Verified listing.";
+      document.getElementById('itemNego').innerText = item.sold ? "SOLD" : (item.nego ? "Make offer" : "Firm Price");
+      document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-heart" : "fa-regular fa-heart";
+      document.getElementById('detailSellerName').innerHTML = item.seller + ' <i class="fa-solid fa-circle-check" style="color:#0284c7;"></i>';
+      document.getElementById('detailSellerAv').innerText = (item.seller || 'S')[0].toUpperCase();
 
-      var canManageItem = (profile.role === 'owner' || (profile.role === 'member' && item.seller === profile.name));
-      document.getElementById('sellerControlBox').style.display = canManageItem ? 'block' : 'none';
+      var isOwnPost = (profile.role === 'member' && item.seller === profile.name);
+      var isFounder = (profile.role === 'owner');
+      document.getElementById('sellerControlBox').style.display = (isOwnPost || isFounder) ? 'block' : 'none';
+      document.getElementById('controlBoxTitle').innerHTML = isFounder ? '<i class="fa-solid fa-crown"></i> Founder Admin Listing Controls' : '<i class="fa-solid fa-pen-to-square"></i> Manage Your Listing';
+      document.getElementById('founderIncognitoBar').style.display = isFounder ? 'block' : 'none';
 
-      renderComments();
-      openM('itemModal');
+      var soldBtn = document.querySelector('#sellerControlBox button[onclick="toggleSold()"]');
+      if(soldBtn){
+        soldBtn.innerHTML = item.sold ? '<i class="fa-solid fa-rotate-left"></i> Relist Active' : '<i class="fa-solid fa-tag"></i> Mark Sold';
+        soldBtn.style.background = item.sold ? '#16a34a' : '#f59e0b';
+      }
+
+      renderComments(); openM('itemModal');
     }
 
     function updateSlideDisplay(){
