@@ -11,51 +11,68 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
-    body{background:#f1f5f9;color:#0f172a;padding-bottom:78px;}
-    header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:40;padding:10px 14px;}
-    .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-    .brand-btn{display:flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;text-align:left;}
-    .logo-badge{width:38px;height:38px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #fbbf24;font-size:15px;overflow:hidden;}
+    body{background:#f1f5f9;color:#0f172a;padding-bottom:82px;}
+    header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:40;padding:12px 16px;}
+    .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+    .brand-btn{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;text-align:left;}
+    .logo-badge{width:42px;height:42px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #fbbf24;font-size:16px;overflow:hidden;}
     .logo-badge img,.hero-avatar img,.chat-av img,.seller-av img{width:100%;height:100%;object-fit:cover;}
-    .search-bar{display:flex;align-items:center;background:#f1f5f9;border-radius:20px;padding:7px 12px;gap:8px;}
-    .search-bar input{border:none;background:transparent;width:100%;font-size:13px;outline:none;color:#0f172a;}
-    .hero{max-width:1100px;margin:10px auto;padding:0 14px;}
-    .hero-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
-    .hero-top{display:flex;gap:12px;align-items:center;}
-    .hero-avatar{width:46px;height:46px;border-radius:50%;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;overflow:hidden;}
-    .filters{max-width:1100px;margin:8px auto;padding:0 14px;display:flex;gap:6px;overflow-x:auto;}
-    .pill{background:#fff;border:1px solid #cbd5e1;padding:6px 13px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;position:relative;}
+    .search-bar{display:flex;align-items:center;background:#f1f5f9;border-radius:22px;padding:9px 14px;gap:8px;border:1px solid #e2e8f0;}
+    .search-bar input{border:none;background:transparent;width:100%;font-size:14px;outline:none;color:#0f172a;}
+    .hero{max-width:1280px;margin:12px auto;padding:0 16px;}
+    .hero-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+    .hero-banner{height:115px;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#0284c7 100%);position:relative;overflow:hidden;}
+    .hero-banner img{width:100%;height:100%;object-fit:cover;}
+    .hero-inner{padding:0 16px 14px;position:relative;}
+    .hero-top{display:flex;gap:12px;align-items:flex-end;margin-top:-28px;margin-bottom:8px;}
+    .hero-avatar{width:68px;height:68px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;overflow:hidden;border:4px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.18);flex-shrink:0;}
+    .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+    .hero-btn-primary{background:#0284c7;color:#fff;border:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+    .hero-btn-sec{background:#e2e8f0;color:#0f172a;border:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+    .filters{max-width:1280px;margin:10px auto;padding:0 16px;display:flex;gap:8px;overflow-x:auto;}
+    .pill{background:#fff;border:1px solid #cbd5e1;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;position:relative;}
     .pill.active{background:#0f172a;color:#fff;border-color:#0f172a;}
-    .grid{max-width:1100px;margin:0 auto;padding:0 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(162px,1fr));gap:10px;}
-    .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;}
-    .card img{width:100%;height:145px;object-fit:cover;display:block;background:#e2e8f0;}
-    .card-body{padding:8px 10px;}
-    .price{font-size:16px;font-weight:800;color:#0f172a;}
-    .just-listed{position:absolute;top:7px;left:7px;background:rgba(255,255,255,0.92);color:#0f172a;font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
-    .sold-badge{position:absolute;top:7px;left:7px;background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;}
-    .ship-tag{position:absolute;bottom:6px;left:6px;background:rgba(15,23,42,0.8);color:#fff;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:700;}
-    .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:62px;z-index:35;}
-    .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;padding:4px 10px;}
-    .b-fab{width:46px;height:46px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;border:none;font-size:20px;transform:translateY(-10px);box-shadow:0 4px 10px rgba(2,132,199,0.35);cursor:pointer;}
+    .grid{max-width:1280px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:12px;}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;cursor:pointer;position:relative;box-shadow:0 1px 3px rgba(0,0,0,0.03);}
+    .card img{width:100%;height:165px;object-fit:cover;display:block;background:#e2e8f0;}
+    .card-body{padding:10px;}
+    .price{font-size:17px;font-weight:800;color:#0f172a;}
+    .just-listed{position:absolute;top:8px;left:8px;background:rgba(255,255,255,0.94);color:#0f172a;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
+    .sold-badge{position:absolute;top:8px;left:8px;background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;}
+    .ship-tag{position:absolute;bottom:7px;left:7px;background:rgba(15,23,42,0.85);color:#fff;font-size:10px;padding:2px 7px;border-radius:5px;font-weight:700;}
+    .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:66px;z-index:35;}
+    .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;position:relative;padding:4px 8px;}
+    .b-fab{width:48px;height:48px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;border:none;font-size:21px;transform:translateY(-10px);box-shadow:0 4px 12px rgba(2,132,199,0.38);cursor:pointer;}
     .num-badge{position:absolute;top:-4px;right:2px;background:#dc2626;color:#fff;font-size:10px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:none;align-items:center;justify-content:center;font-weight:800;border:2px solid #fff;}
     .inline-badge{background:#dc2626;color:#fff;font-size:11px;padding:1px 7px;border-radius:999px;font-weight:800;margin-left:6px;display:none;}
-    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.68);z-index:100;align-items:center;justify-content:center;padding:12px;}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.68);z-index:100;align-items:center;justify-content:center;padding:10px;}
     .modal-overlay.active{display:flex;}
-    .modal-box{background:#fff;border-radius:14px;width:100%;max-width:490px;max-height:92vh;overflow-y:auto;padding:14px;position:relative;}
+    .modal-box{background:#fff;border-radius:16px;width:100%;max-width:540px;max-height:94vh;overflow-y:auto;padding:15px;position:relative;}
     .modal-nav-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;}
-    .back-arrow-btn{background:#f1f5f9;border:1px solid #cbd5e1;color:#0f172a;padding:5px 11px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
-    .modal-close{background:none;border:none;font-size:22px;color:#64748b;cursor:pointer;line-height:1;}
+    .back-arrow-btn{background:#f1f5f9;border:1px solid #cbd5e1;color:#0f172a;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+    .modal-close{background:none;border:none;font-size:24px;color:#64748b;cursor:pointer;line-height:1;}
     .form-group{margin-bottom:10px;}
     .form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:#334155;}
     .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;}
-    .btn-submit{width:100%;padding:11px;background:#0284c7;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:6px;}
+    .btn-submit{width:100%;padding:11px;background:#0284c7;color:#fff;border:none;border-radius:9px;font-weight:700;cursor:pointer;margin-top:6px;font-size:14px;}
+    .fb-cover-wrap{height:150px;background:linear-gradient(135deg,#0f172a,#1e3a8a);border-radius:12px;position:relative;overflow:hidden;}
+    .fb-cover-wrap img{width:100%;height:100%;object-fit:cover;}
+    .fb-cam-btn{position:absolute;bottom:8px;right:8px;background:rgba(255,255,255,0.92);color:#0f172a;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.2);}
+    .fb-avatar-zone{display:flex;flex-direction:column;align-items:center;margin-top:-52px;position:relative;z-index:2;}
+    .thought-bubble{background:#fff;border:1px solid #cbd5e1;border-radius:18px;padding:5px 12px;font-size:12px;font-weight:600;color:#334155;box-shadow:0 2px 6px rgba(0,0,0,0.1);margin-bottom:6px;cursor:pointer;max-width:240px;text-align:center;}
+    .fb-avatar-circle{width:92px;height:92px;border-radius:50%;background:#0f172a;color:#fbbf24;border:4px solid #fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+    .fb-avatar-circle img{width:100%;height:100%;object-fit:cover;}
+    .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+    .stat-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:flex-start;}
+    .stat-num{font-size:22px;font-weight:800;color:#0f172a;line-height:1.1;}
+    .stat-lbl{font-size:12px;color:#475569;font-weight:600;margin-top:4px;}
     .upload-dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
     .upload-action-btn{border:2px dashed #94a3b8;border-radius:8px;padding:10px 4px;text-align:center;background:#f8fafc;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:#0f172a;}
     .thumb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;}
     .thumb-wrap{position:relative;width:100%;height:65px;border-radius:6px;overflow:hidden;border:1px solid #e2e8f0;}
     .thumb-wrap img{width:100%;height:100%;object-fit:cover;}
     .thumb-del{position:absolute;top:2px;right:2px;background:rgba(220,38,38,0.85);color:#fff;border:none;width:18px;height:18px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-    .carousel-wrap{position:relative;width:100%;height:225px;background:#0f172a;border-radius:10px;overflow:hidden;margin-bottom:8px;}
+    .carousel-wrap{position:relative;width:100%;height:230px;background:#0f172a;border-radius:10px;overflow:hidden;margin-bottom:8px;}
     .carousel-wrap img{width:100%;height:100%;object-fit:contain;}
     .caro-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);color:#fff;border:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
     .caro-count{position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;font-weight:700;}
@@ -77,16 +94,16 @@
     .chat-me{background:#0284c7;color:#fff;margin-left:auto;border-bottom-right-radius:2px;}
     .chat-them{background:#e2e8f0;color:#0f172a;border-bottom-left-radius:2px;}
     .chat-notice{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;width:100%;max-width:100%;font-size:12px;}
-    .member-req-card{background:#fff;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+    .member-req-card{background:#fff;border:1px solid #cbd5e1;border-radius:10px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
   </style>
 </head>
 <body>
-  <header>
+   <header>
     <div class="header-top">
       <button class="brand-btn" type="button" onclick="openM('menuModal')">
         <div class="logo-badge" id="navAvatar">SC</div>
         <div>
-          <div style="font-size:14px;font-weight:800;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#f1f5f9;color:#64748b;font-size:10px;padding:2px 5px;border-radius:4px;" id="roleBadge">GUEST</span></div>
+          <div style="font-size:15px;font-weight:900;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#f1f5f9;color:#64748b;font-size:10px;padding:2px 6px;border-radius:5px;" id="roleBadge">GUEST</span></div>
           <div style="font-size:11px;color:#64748b;"><i class="fa-solid fa-bars"></i> Menu &bull; <span id="navCity">Tempe, AZ</span></div>
         </div>
       </button>
@@ -95,29 +112,47 @@
           <i class="fa-solid fa-user-plus"></i> Join
           <span class="num-badge" id="topJoinBadge">0</span>
         </button>
-        <button class="pill" type="button" onclick="openM('profileModal')"><i class="fa-solid fa-gear"></i></button>
+        <button class="pill" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-id-badge"></i></button>
       </div>
     </div>
     <div class="search-bar">
       <i class="fa-solid fa-magnifying-glass" style="color:#64748b;"></i>
-      <input type="text" id="marketSearchInput" placeholder="What do you want to buy?" oninput="render()">
+      <input type="text" id="marketSearchInput" placeholder="Search coins, cards, diecasts, or members..." oninput="render()">
     </div>
   </header>
 
+  <div id="founderPendingAlert" style="display:none;max-width:1280px;margin:10px auto 0;padding:0 16px;">
+    <div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;cursor:pointer;" onclick="loadMembers();openM('adminModal')">
+      <span><i class="fa-solid fa-bell" style="color:#dc2626;"></i> <span id="pendingAlertCount">0</span> New Member Join Request(s) Waiting!</span>
+      <span style="background:#0f172a;color:#fff;padding:4px 10px;border-radius:8px;font-size:11px;">Review Now &rarr;</span>
+    </div>
+  </div>
+
   <div class="hero">
     <div class="hero-card">
-      <div class="hero-top">
-        <div class="hero-avatar" id="heroAvatar">DS</div>
-        <div>
-          <h1 style="font-size:15px;" id="brandTitle">Stacks Collectibles and Goods</h1>
-          <p style="font-size:12px;color:#64748b;">Founder: Dustin Stacks &bull; <span id="heroCity">Tempe, AZ</span></p>
-          <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#16a34a;font-weight:700;" id="syncStatus"><i class="fa-solid fa-cloud"></i> Live Cloud Sync</span></div>
+      <div class="hero-banner">
+        <div style="position:absolute;top:10px;right:12px;background:rgba(15,23,42,0.75);color:#fbbf24;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;border:1px solid rgba(251,191,36,0.4);">
+          <i class="fa-solid fa-shield-halved"></i> Verified Collector Club
         </div>
       </div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid #e2e8f0;padding-top:8px;margin-top:8px;font-size:12px;font-weight:600;">
-        <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Likes <button class="pill" type="button" style="padding:2px 6px;font-size:10px;margin-left:4px;" onclick="addLike()">+1</button></div>
-        <div><i class="fa-solid fa-boxes-stacked"></i> <span id="invCount">0</span> Active</div>
-        <div style="cursor:pointer;color:#0284c7;" onclick="openM('membersDirModal')"><i class="fa-solid fa-users"></i> <span id="userCount">1</span> Members</div>
+      <div class="hero-inner">
+        <div class="hero-top">
+          <div class="hero-avatar" id="heroAvatar">DS</div>
+          <div style="padding-bottom:2px;">
+            <h1 style="font-size:17px;font-weight:900;" id="brandTitle">Stacks Collectibles and Goods</h1>
+            <p style="font-size:12px;color:#64748b;">Founder: Dustin Stacks &bull; <span id="heroCity">Tempe, AZ</span></p>
+            <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#16a34a;font-weight:700;" id="syncStatus"><i class="fa-solid fa-cloud"></i> Live Cloud Sync</span></div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="hero-btn-primary" type="button" onclick="openMySellingHub()"><i class="fa-solid fa-chart-line"></i> My Selling Hub</button>
+          <button class="hero-btn-sec" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-user-pen"></i> My Profile &amp; Bio</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;border-top:1px solid #e2e8f0;padding-top:10px;font-size:12px;font-weight:700;">
+          <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Likes <button class="pill" type="button" style="padding:2px 7px;font-size:10px;margin-left:4px;" onclick="addLike()">+1</button></div>
+          <div><i class="fa-solid fa-boxes-stacked" style="color:#0284c7;"></i> <span id="invCount">0</span> Active</div>
+          <div style="cursor:pointer;color:#0284c7;" onclick="openM('membersDirModal')"><i class="fa-solid fa-users"></i> <span id="userCount">1</span> Members</div>
+        </div>
       </div>
     </div>
   </div>
@@ -132,7 +167,7 @@
   </div>
 
   <main class="grid" id="itemsGrid">
-    <div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading live marketplace...</div>
+    <div style="grid-column:1/-1;text-align:center;padding:35px;color:#64748b;font-size:13px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading live marketplace...</div>
   </main>
 
   <nav class="bottom-bar">
@@ -140,25 +175,137 @@
       <i class="fa-solid fa-store"></i>Market
       <span class="num-badge" id="marketBadge">0</span>
     </button>
+    <button class="b-item" type="button" onclick="openMySellingHub()">
+      <i class="fa-solid fa-tag"></i>Selling
+    </button>
+    <button class="b-fab" type="button" onclick="openCreateListing()"><i class="fa-solid fa-plus"></i></button>
     <button class="b-item" type="button" onclick="openChatHub('group')">
       <i class="fa-solid fa-comments"></i>Chat
       <span class="num-badge" id="inboxBadge">0</span>
     </button>
-    <button class="b-fab" type="button" onclick="openCreateListing()"><i class="fa-solid fa-plus"></i></button>
-    <button class="b-item" type="button" onclick="openM('savedModal')">
-      <i class="fa-solid fa-bookmark"></i>Saved
-      <span class="num-badge" id="savedBadge">0</span>
-    </button>
-    <button class="b-item" type="button" onclick="openM('menuModal')">
-      <i class="fa-solid fa-bars"></i>Menu
+    <button class="b-item" type="button" onclick="openMyProfileHub()">
+      <i class="fa-solid fa-circle-user"></i>Profile
       <span class="num-badge" id="menuBadge">0</span>
     </button>
   </nav>
 
   <input type="file" id="cameraShootInput" accept="image/*" capture="environment" style="display:none;" onchange="handleIncomingFiles(this.files)">
   <input type="file" id="galleryPickInput" accept="image/*" multiple style="display:none;" onchange="handleIncomingFiles(this.files)">
+  <input type="file" id="coverFile" accept="image/*" style="display:none;" onchange="handleMemberCover(this)">
+  <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleProfileAvatar(this)">
+    <div class="modal-overlay" id="memberProfileModal">
+    <div class="modal-box" style="padding:0;overflow-x:hidden;">
+      <div style="padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:13px;font-weight:800;color:#0f172a;">Collector Profile</span>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
 
-  <div class="modal-overlay" id="createPostModal">
+      <div class="fb-cover-wrap" id="mpCoverBox">
+        <img id="mpCoverImg" style="display:none;">
+        <button type="button" class="fb-cam-btn" id="mpEditCoverBtn" style="display:none;" onclick="document.getElementById('coverFile').click()"><i class="fa-solid fa-camera"></i></button>
+      </div>
+
+      <div class="fb-avatar-zone">
+        <div class="thought-bubble" id="mpThoughtBubble" onclick="editMyThought()">Drop a thought...</div>
+        <div class="fb-avatar-circle" id="mpAvatarWrap">
+          <img id="mpAvatarImg" style="display:none;">
+          <span id="mpAvatarInitial">DS</span>
+          <button type="button" class="fb-cam-btn" id="mpEditAvBtn" style="display:none;width:26px;height:26px;bottom:2px;right:2px;font-size:11px;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i></button>
+        </div>
+        <h2 style="font-size:20px;font-weight:900;margin-top:8px;" id="mpName">Dustin Stacks</h2>
+        <div style="font-size:12px;color:#64748b;font-weight:600;" id="mpSubStats">0 Active Listings &bull; Verified Collector</div>
+      </div>
+
+      <div style="padding:12px 14px;">
+        <div id="mpOwnButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+          <button class="hero-btn-primary" type="button" onclick="editMyThought()"><i class="fa-solid fa-comment-dots"></i> Drop a Thought</button>
+          <button class="hero-btn-sec" type="button" onclick="openM('profileModal')"><i class="fa-solid fa-pen"></i> Edit My Profile</button>
+        </div>
+        <div id="mpVisitorButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+          <button class="hero-btn-primary" type="button" onclick="startPrivateChatWithViewedMember()"><i class="fa-solid fa-paper-plane"></i> Private Message</button>
+          <button class="hero-btn-sec" type="button" onclick="closeAllModals();filterByMember(viewedMemberName);"><i class="fa-solid fa-store"></i> View in Market</button>
+        </div>
+
+        <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;">
+          <button class="pill active" id="mpTabAll" type="button" onclick="setProfileTab('all')">All</button>
+          <button class="pill" id="mpTabActive" type="button" onclick="setProfileTab('active')">Active</button>
+          <button class="pill" id="mpTabSold" type="button" onclick="setProfileTab('sold')">Sold</button>
+          <button class="pill" id="mpTabAbout" type="button" onclick="setProfileTab('about')">About &amp; Bio</button>
+        </div>
+
+        <div id="mpDetailsCard" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:12px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <strong style="font-size:14px;">Collector Details</strong>
+            <button type="button" id="mpInlineEditIcon" style="display:none;background:none;border:none;color:#0284c7;cursor:pointer;" onclick="openM('profileModal')"><i class="fa-solid fa-pen"></i></button>
+          </div>
+          <div style="margin-bottom:6px;color:#334155;"><i class="fa-solid fa-location-dot" style="width:20px;color:#64748b;"></i> Lives in <strong id="mpCityText">Tempe, Arizona</strong></div>
+          <div style="margin-bottom:6px;color:#334155;"><i class="fa-solid fa-gem" style="width:20px;color:#64748b;"></i> Collects: <strong id="mpSpecText">Coins, Cards &amp; Collectibles</strong></div>
+          <div style="margin-bottom:6px;color:#334155;"><i class="fa-solid fa-shield-check" style="width:20px;color:#16a34a;"></i> <span id="mpRoleText">Verified Marketplace Member</span></div>
+          <div id="mpBioText" style="margin-top:8px;padding-top:8px;border-top:1px solid #e2e8f0;color:#475569;font-size:12px;line-height:1.45;"></div>
+        </div>
+
+        <div id="mpListingsSection">
+          <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Storefront Listings</h3>
+          <div id="mpListingsGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="sellingHubModal">
+    <div class="modal-box">
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:15px;font-weight:900;">Selling Dashboard</span>
+        <button class="pill" type="button" style="padding:4px 9px;" onclick="openM('profileModal')"><i class="fa-solid fa-gear"></i></button>
+      </div>
+
+      <div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;">
+        <button class="pill active" type="button" onclick="openChatHub('listing')">Inbox &amp; Offers</button>
+        <button class="pill" type="button" onclick="openMyProfileHub()">Your Profile</button>
+        <button class="pill" type="button" onclick="openM('savedModal')">Saved Watchlist</button>
+      </div>
+
+      <button class="btn-submit" type="button" style="margin-bottom:14px;border-radius:24px;padding:12px;" onclick="openCreateListing()">
+        <i class="fa-solid fa-plus"></i> Create New Listing
+      </button>
+
+      <h3 style="font-size:15px;font-weight:900;margin-bottom:8px;">Your Overview</h3>
+      <div class="stat-grid">
+        <div class="stat-card" style="cursor:pointer;" onclick="openChatHub('listing')">
+          <div><div class="stat-num" id="hubChatCount">0</div><div class="stat-lbl">Offer threads</div></div>
+          <i class="fa-regular fa-comments" style="font-size:18px;color:#0284c7;"></i>
+        </div>
+        <div class="stat-card" style="cursor:pointer;" onclick="openMyProfileHub()">
+          <div><div class="stat-num" id="hubActiveCount">0</div><div class="stat-lbl">Your active listings</div></div>
+          <i class="fa-solid fa-tag" style="font-size:18px;color:#16a34a;"></i>
+        </div>
+        <div class="stat-card" style="cursor:pointer;" onclick="openMyProfileHub()">
+          <div><div class="stat-num" id="hubSoldCount">0</div><div class="stat-lbl">Your sold items</div></div>
+          <i class="fa-solid fa-circle-check" style="font-size:18px;color:#f59e0b;"></i>
+        </div>
+        <div class="stat-card" style="cursor:pointer;" onclick="openM('savedModal')">
+          <div><div class="stat-num" id="hubSavedCount">0</div><div class="stat-lbl">Saved items</div></div>
+          <i class="fa-solid fa-bookmark" style="font-size:18px;color:#7c3aed;"></i>
+        </div>
+      </div>
+
+      <h3 style="font-size:15px;font-weight:900;margin-bottom:8px;">Your Seller Performance</h3>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div><div class="stat-num">5 <i class="fa-solid fa-star" style="color:#f59e0b;font-size:16px;"></i></div><div class="stat-lbl">Seller rating<br><span style="font-size:10px;color:#94a3b8;">Verified member</span></div></div>
+        </div>
+        <div class="stat-card">
+          <div><div class="stat-num" id="hubTotalMembers">1</div><div class="stat-lbl">Club buyers<br><span style="font-size:10px;color:#94a3b8;">Active community</span></div></div>
+        </div>
+      </div>
+
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Manage Your Listings (Tap to Edit or Mark Sold)</h3>
+      <div id="hubMyListingsList"></div>
+    </div>
+  </div>
+    <div class="modal-overlay" id="createPostModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -208,7 +355,8 @@
       </form>
     </div>
   </div>
-    <div class="modal-overlay" id="itemModal">
+
+  <div class="modal-overlay" id="itemModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back to Market</button>
@@ -241,7 +389,7 @@
           <div class="seller-av" id="detailSellerAv">DS</div>
           <div>
             <div style="font-size:14px;font-weight:800;" id="detailSellerName">Dustin Stacks <i class="fa-solid fa-circle-check" style="color:#0284c7;"></i></div>
-            <div style="font-size:11px;color:#64748b;">Verified Member &bull; Tap to view all listings</div>
+            <div style="font-size:11px;color:#64748b;">Verified Member &bull; Tap to view profile &amp; listings</div>
             <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           </div>
         </div>
@@ -340,26 +488,6 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="memberProfileModal">
-    <div class="modal-box">
-      <div class="modal-nav-bar">
-        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
-      </div>
-      <div style="text-align:center;margin-bottom:10px;">
-        <div class="seller-av" id="mpAvatar" style="width:64px;height:64px;margin:0 auto 6px;font-size:22px;">DS</div>
-        <h2 style="font-size:17px;" id="mpName">Dustin Stacks</h2>
-        <div style="font-size:12px;color:#64748b;" id="mpMeta">Tempe, AZ &bull; Verified Member</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-        <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;" onclick="startPrivateChatWithViewedMember()"><i class="fa-solid fa-paper-plane"></i> Private Message</button>
-        <button class="pill" type="button" style="background:#0f172a;color:#fff;border:none;" onclick="closeAllModals();filterByMember(viewedMemberName);"><i class="fa-solid fa-store"></i> Filter Storefront</button>
-      </div>
-      <h3 style="font-size:13px;font-weight:800;margin-bottom:8px;">Listings by <span id="mpListOwner">Member</span></h3>
-      <div id="mpListingsGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
-    </div>
-  </div>
-
   <div class="modal-overlay" id="membersDirModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
@@ -395,7 +523,7 @@
             <option value="no">No, I do not agree</option>
           </select>
         </div>
-        <button type="submit" class="btn-submit">Submit Request to Founder</button>
+        <button type="submit" id="joinSubmitBtn" class="btn-submit">Submit Request to Founder</button>
       </form>
     </div>
   </div>
@@ -412,7 +540,10 @@
         <textarea id="founderRulesEditor" rows="3" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;"></textarea>
         <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;margin-top:6px;width:100%;" onclick="saveFounderRules()">Save Rules</button>
       </div>
-      <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;"><i class="fa-solid fa-user-clock" style="color:#dc2626;"></i> Pending Member Approvals (<span id="pendingMemberCountText">0</span>)</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <h3 style="font-size:13px;font-weight:800;"><i class="fa-solid fa-user-clock" style="color:#dc2626;"></i> Pending Approvals (<span id="pendingMemberCountText">0</span>)</h3>
+        <button type="button" class="pill" style="padding:3px 8px;font-size:10px;" onclick="loadMembers()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+      </div>
       <div id="pendingMembersList" style="margin-bottom:12px;"></div>
       <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;"><i class="fa-solid fa-users" style="color:#10b981;"></i> Approved Members</h3>
       <div id="approvedMembersList" style="margin-bottom:12px;"></div>
@@ -428,10 +559,11 @@
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
       <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-bars-staggered" style="color:#0284c7;"></i> Marketplace Menu</h2>
-      <div class="menu-row" onclick="openM('profileModal')"><span><i class="fa-solid fa-circle-user" style="color:#0284c7;width:24px;"></i> Profile &amp; Moderation Notices <span class="inline-badge" id="menuNoticeBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openMyProfileHub()"><span><i class="fa-solid fa-id-card" style="color:#0284c7;width:24px;"></i> My Collector Profile &amp; Storefront</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openMySellingHub()"><span><i class="fa-solid fa-chart-line" style="color:#16a34a;width:24px;"></i> My Selling Dashboard</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openM('profileModal')"><span><i class="fa-solid fa-bell" style="color:#dc2626;width:24px;"></i> Edit Profile &amp; Admin Notices <span class="inline-badge" id="menuNoticeBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="openM('membersDirModal')"><span><i class="fa-solid fa-users" style="color:#0284c7;width:24px;"></i> Browse Members &amp; Storefronts</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="closeAllModals();filterByMember(profile.name);"><span><i class="fa-solid fa-boxes-stacked" style="color:#6366f1;width:24px;"></i> My Active Listings</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openM('savedModal')"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved Items <span class="inline-badge" id="menuSavedBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openM('savedModal')"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved Items <span class="inline-badge" id="menuSavedBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd
       <div class="menu-row" onclick="openChatHub('group')"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Group &amp; Private Chats <span class="inline-badge" id="menuChatBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" id="adminMenuBtn" style="display:none;" onclick="loadMembers();openM('adminModal')"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> Founder Master Tools <span class="inline-badge" id="menuAdminBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="openM('safeModal')"><span><i class="fa-solid fa-hand-holding-heart" style="color:#06b6d4;width:24px;"></i> Safe Meetup Spots</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
@@ -446,26 +578,28 @@
     </div>
   </div>
 
-    <div class="modal-overlay" id="profileModal">
+  <div class="modal-overlay" id="profileModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Profile &amp; Account Notices</h2>
+      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Edit My Profile &amp; Collector Bio</h2>
       <form onsubmit="saveProf(event)">
         <div style="text-align:center;margin-bottom:10px;">
-          <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleProfileAvatar(this)">
           <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;cursor:pointer;" onclick="document.getElementById('avatarFile').click()">
             <img id="profPreview" style="width:100%;height:100%;object-fit:cover;display:none;">
             <div id="profInitial" style="color:#fff;font-size:22px;font-weight:800;line-height:68px;">GU</div>
           </div>
-          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i> Change Profile Photo</span>
+          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i> Change Avatar</span> &bull;
+          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('coverFile').click()"><i class="fa-solid fa-image"></i> Change Cover Banner</span>
         </div>
         <div class="form-group"><label>Display Name</label><input type="text" id="pName" required></div>
         <div class="form-group"><label>City / Location</label><input type="text" id="pCity" required></div>
+        <div class="form-group"><label>What Do You Collect? (Specialty)</label><input type="text" id="pSpec" placeholder="e.g. Morgan Dollars, Pokémon, Hot Wheels"></div>
+        <div class="form-group"><label>Collector Bio / About Me</label><textarea id="pBio" rows="2" placeholder="Tell members what you buy, sell, or trade..."></textarea></div>
         <div class="form-group"><label>Contact</label><input type="text" id="pContact" required></div>
-        <button type="submit" class="btn-submit">Save Profile</button>
+        <button type="submit" class="btn-submit">Save My Profile</button>
       </form>
       <hr style="margin:12px 0;border:0;border-top:1px solid #e2e8f0;">
       <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#dc2626;"><i class="fa-solid fa-bell"></i> Admin &amp; Profile Messages</h3>
@@ -504,14 +638,14 @@
     var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     var items = [], membersList = [], chatLog = [];
-    var defaultVisitor = { id: null, name: "Guest Visitor", city: "Tempe, AZ", contact: "", avatar: "", role: "guest", inGroup: true };
+    var defaultVisitor = { id: null, name: "Guest Visitor", city: "Tempe, AZ", contact: "", avatar: "", cover_photo: "", thought: "", bio: "", specialty: "Coins, Cards & Collectibles", role: "guest", inGroup: true };
     var profile = JSON.parse(localStorage.getItem('stacks_profile')) || defaultVisitor;
     if(typeof profile.inGroup === 'undefined') profile.inGroup = true;
     var lastSeenChatCount = parseInt(localStorage.getItem('stacks_seen_chats') || '0');
     var lastSeenItemCount = parseInt(localStorage.getItem('stacks_seen_items') || '0');
     var saved = JSON.parse(localStorage.getItem('stacks_saved')) || [];
     var uploadPhotos = [], active = null, slideIndex = 0, curCat = "All", memberFilter = "";
-    var activeChatMode = 'group', activePrivatePartner = '', activeListingRoomId = '', incognitoMode = false, viewedMemberName = '';
+    var activeChatMode = 'group', activePrivatePartner = '', activeListingRoomId = '', incognitoMode = false, viewedMemberName = '', mpCurrentTab = 'all';
     var siteRulesText = "1. Be respectful — zero hate talk, racism, or harassment.\n2. No spam, scam links, or fake listings.\n3. Honor agreed cash offers and safe public meetups.";
     var modalStack = [];
 
@@ -531,7 +665,7 @@
         modalStack.push(id);
         history.pushState({ modal: id }, "", "#view-" + id);
       }
-      if(id === 'authModal'){ loadRules(); checkMyApprovalStatus(); }
+      if(id === 'authModal'){ loadRules(); loadMembers(); checkMyApprovalStatus(); }
       if(id === 'membersDirModal') renderMembersDirectory();
       if(id === 'profileModal') renderProfileNotices();
     }
@@ -551,8 +685,7 @@
       document.querySelectorAll('.filters .pill').forEach(function(x, i){ x.classList.toggle('active', i === 0); });
       lastSeenItemCount = items.length;
       localStorage.setItem('stacks_seen_items', String(lastSeenItemCount));
-      updateAllBadges();
-      render();
+      updateAllBadges(); render();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -583,21 +716,119 @@
       var visibleChats = getMyVisibleChats();
       var unreadChats = Math.max(0, visibleChats.length - lastSeenChatCount);
       var newListings = Math.max(0, items.length - lastSeenItemCount);
-      var pendingMembers = (profile.role === 'owner') ? membersList.filter(function(m){ return m.status === 'pending'; }).length : 0;
+      var pendingMembers = membersList.filter(function(m){ return m.status === 'pending'; }).length;
       var myNotices = chatLog.filter(function(m){ return m.is_notice && m.room === 'notice:' + profile.name; }).length;
+      var showPending = (profile.role === 'owner') ? pendingMembers : 0;
 
       setBadgeCount('inboxBadge', unreadChats, false);
       setBadgeCount('menuChatBadge', unreadChats, true);
       setBadgeCount('marketBadge', newListings, false);
       setBadgeCount('savedBadge', saved.length, false);
       setBadgeCount('menuSavedBadge', saved.length, true);
-      setBadgeCount('menuAdminBadge', pendingMembers, true);
-      setBadgeCount('topJoinBadge', pendingMembers, false);
+      setBadgeCount('menuAdminBadge', showPending, true);
+      setBadgeCount('topJoinBadge', showPending, false);
       setBadgeCount('menuNoticeBadge', myNotices, true);
-      setBadgeCount('menuBadge', unreadChats + pendingMembers + myNotices, false);
+      setBadgeCount('menuBadge', unreadChats + showPending + myNotices, false);
+
+      var alertBox = document.getElementById('founderPendingAlert');
+      if(alertBox){
+        alertBox.style.display = (profile.role === 'owner' && pendingMembers > 0) ? 'block' : 'none';
+        document.getElementById('pendingAlertCount').innerText = pendingMembers;
+      }
     }
 
-    async function loadRules(){
+    function openMyProfileHub(){ openMemberProfileByName(profile.name); }
+
+    function openMySellingHub(){
+      var myItems = items.filter(function(x){ return x.seller === profile.name; });
+      var activeOnes = myItems.filter(function(x){ return !x.sold; });
+      var soldOnes = myItems.filter(function(x){ return !!x.sold; });
+      var myChats = getMyVisibleChats();
+      document.getElementById('hubChatCount').innerText = myChats.length;
+      document.getElementById('hubActiveCount').innerText = activeOnes.length;
+      document.getElementById('hubSoldCount').innerText = soldOnes.length;
+      document.getElementById('hubSavedCount').innerText = saved.length;
+      document.getElementById('hubTotalMembers').innerText = document.getElementById('userCount').innerText;
+
+      var listBox = document.getElementById('hubMyListingsList');
+      if(!myItems.length){
+        listBox.innerHTML = '<div style="font-size:12px;color:#64748b;text-align:center;padding:16px;background:#f8fafc;border-radius:10px;">You have not posted any listings yet. Tap <strong>Create New Listing</strong> above to start selling!</div>';
+      } else {
+        listBox.innerHTML = "";
+        myItems.forEach(function(it){
+          var img = (it.images && it.images.length) ? it.images[0] : '';
+          var statusPill = it.sold ? '<span style="background:#fee2e2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">SOLD</span>' : '<span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">ACTIVE</span>';
+          var row = document.createElement('div');
+          row.className = 'member-req-card';
+          row.style.cursor = 'pointer';
+          row.onclick = function(){ show(it); };
+          row.innerHTML = '<div style="display:flex;align-items:center;gap:10px;"><img src="'+img+'" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"><div><div style="font-size:13px;font-weight:800;">'+it.title+'</div><div style="font-size:12px;color:#0284c7;font-weight:700;">$'+it.price+' '+statusPill+'</div></div></div><span style="font-size:11px;font-weight:700;color:#475569;">Manage &rarr;</span>';
+          listBox.appendChild(row);
+        });
+      }
+      openM('sellingHubModal');
+    }
+
+    function setProfileTab(t){
+      mpCurrentTab = t;
+      ['all','active','sold','about'].forEach(function(k){
+        var btn = document.getElementById('mpTab' + k.charAt(0).toUpperCase() + k.slice(1));
+        if(btn) btn.classList.toggle('active', k === t);
+      });
+      document.getElementById('mpDetailsCard').style.display = (t === 'all' || t === 'about') ? 'block' : 'none';
+      document.getElementById('mpListingsSection').style.display = (t === 'about') ? 'none' : 'block';
+      renderProfileListingsGrid();
+    }
+
+    function renderProfileListingsGrid(){
+      var mGrid = document.getElementById('mpListingsGrid');
+      var memberItems = items.filter(function(x){
+        if(x.seller !== viewedMemberName) return false;
+        if(mpCurrentTab === 'active') return !x.sold;
+        if(mpCurrentTab === 'sold') return !!x.sold;
+        return true;
+      });
+      mGrid.innerHTML = memberItems.length ? "" : '<div style="grid-column:1/-1;font-size:12px;color:#64748b;text-align:center;padding:14px;">No listings in this tab yet.</div>';
+      memberItems.forEach(function(it){
+        var img = (it.images && it.images.length) ? it.images[0] : '';
+        var card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = function(){ show(it); };
+        var soldTag = it.sold ? '<div class="sold-badge">SOLD</div>' : '';
+        card.innerHTML = '<div style="position:relative;"><img src="'+img+'" style="height:110px;">'+soldTag+'</div><div class="card-body"><div class="price" style="font-size:14px;">$'+it.price+'</div><div style="font-size:11px;font-weight:700;">'+it.title+'</div></div>';
+        mGrid.appendChild(card);
+      });
+    }
+
+    async function editMyThought(){
+      if(viewedMemberName !== profile.name) return;
+      var txt = prompt("Drop a live collector thought or what you're hunting for today (max 60 chars):", profile.thought || "");
+      if(txt === null) return;
+      profile.thought = txt.trim().slice(0, 60);
+      saveLocalProfile();
+      document.getElementById('mpThoughtBubble').innerText = profile.thought || "Drop a thought...";
+      if(profile.id) await db.from('members').update({ thought: profile.thought }).eq('id', profile.id);
+    }
+
+    function handleMemberCover(inp){
+      if(inp.files && inp.files[0]){
+        var r = new FileReader();
+        r.onload = function(e){
+          var img = new Image();
+          img.onload = async function(){
+            var canvas = document.createElement('canvas'); canvas.width = 720; canvas.height = 260;
+            canvas.getContext('2d').drawImage(img, 0, 0, 720, 260);
+            profile.cover_photo = canvas.toDataURL('image/jpeg', 0.7);
+            saveLocalProfile();
+            if(profile.id) await db.from('members').update({ cover_photo: profile.cover_photo }).eq('id', profile.id);
+            if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
+          };
+          img.src = e.target.result;
+        };
+        r.readAsDataURL(inp.files[0]);
+      }
+    }
+         async function loadRules(){
       var res = await db.from('site_settings').select('*').eq('id', 1).single();
       if(!res.error && res.data && res.data.rules) siteRulesText = res.data.rules;
       document.getElementById('joinRulesDisplay').innerText = siteRulesText;
@@ -704,21 +935,9 @@
       renderChats();
     }
 
-    function toggleGroupMembership(){
-      profile.inGroup = !(profile.inGroup !== false);
-      saveLocalProfile();
-      switchChatTab('group');
-    }
-
-    function selectPrivateMember(name){
-      activePrivatePartner = name;
-      renderChats();
-    }
-
-    function getPrivateRoomKey(a, b){
-      var pair = [a, b].sort();
-      return 'dm:' + pair[0] + '__' + pair[1];
-    }
+    function toggleGroupMembership(){ profile.inGroup = !(profile.inGroup !== false); saveLocalProfile(); switchChatTab('group'); }
+    function selectPrivateMember(name){ activePrivatePartner = name; renderChats(); }
+    function getPrivateRoomKey(a, b){ var pair = [a, b].sort(); return 'dm:' + pair[0] + '__' + pair[1]; }
 
     function openListingTalkRoom(asIncognito){
       if(!active) return;
@@ -734,14 +953,10 @@
       if(profile.role === 'guest'){ alert("Only approved members can join listing talks."); openM('authModal'); return; }
       activeListingRoomId = 'listing:' + active.id;
       await db.from('chats').insert([{
-        sender: profile.name,
-        sender_id: profile.id || 0,
-        sender_avatar: profile.avatar || '',
+        sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '',
         text: profile.name + " joined the listing offer talk.",
         time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: activeListingRoomId,
-        participants: [active.seller, profile.name],
-        listing_title: active.title
+        room: activeListingRoomId, participants: [active.seller, profile.name], listing_title: active.title
       }]);
       openListingTalkRoom(false);
     }
@@ -750,17 +965,15 @@
       var inviteName = prompt("Enter the exact name of the member to add to this listing talk:");
       if(!inviteName || !activeListingRoomId) return;
       await db.from('chats').insert([{
-        sender: profile.name,
-        text: profile.name + " invited " + inviteName.trim() + " to this private offer talk.",
+        sender: profile.name, text: profile.name + " invited " + inviteName.trim() + " to this private offer talk.",
         time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: activeListingRoomId,
-        participants: [profile.name, inviteName.trim(), active ? active.seller : 'Dustin Stacks']
+        room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Dustin Stacks']
       }]);
       loadChats();
     }
-          function renderChats(){
-      var box = document.getElementById('chatMessages');
-      box.innerHTML = "";
+
+    function renderChats(){
+      var box = document.getElementById('chatMessages'); box.innerHTML = "";
       if(activeChatMode === 'group' && profile.inGroup === false){
         box.innerHTML = '<div style="text-align:center;color:#64748b;font-size:12px;margin-top:60px;">You left the Group Chat. Tap <strong>Rejoin Group Chat</strong> above anytime.</div>';
         return;
@@ -782,29 +995,22 @@
         }
         return false;
       });
-
-      if(!filtered.length){
-        box.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;margin-top:60px;">No messages in this thread yet.</div>';
-        return;
-      }
+      if(!filtered.length){ box.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;margin-top:60px;">No messages in this thread yet.</div>'; return; }
 
       filtered.forEach(function(m){
         var isMe = (m.sender === profile.name);
-        var row = document.createElement('div');
-        row.className = 'chat-row';
+        var row = document.createElement('div'); row.className = 'chat-row';
         var avHtml = m.sender_avatar ? '<img src="'+m.sender_avatar+'">' : (m.sender ? m.sender[0].toUpperCase() : '?');
         var controls = '';
-        if(isMe){
-          controls += ' <button type="button" style="border:none;background:none;color:#fee2e2;font-size:10px;cursor:pointer;text-decoration:underline;" onclick="deleteChatMsg('+m.id+', false)">Delete</button>';
-        } else if(profile.role === 'owner'){
+        if(isMe) controls += ' <button type="button" style="border:none;background:none;color:#fee2e2;font-size:10px;cursor:pointer;text-decoration:underline;" onclick="deleteChatMsg('+m.id+', false)">Delete</button>';
+        else if(profile.role === 'owner'){
           controls += ' <button type="button" style="border:none;background:none;color:#0284c7;font-size:10px;cursor:pointer;" onclick="founderSilentEditMsg('+m.id+')"><i class="fa-solid fa-pen"></i></button>';
           controls += ' <button type="button" style="border:none;background:none;color:#dc2626;font-size:10px;cursor:pointer;" onclick="deleteChatMsg('+m.id+', true)"><i class="fa-solid fa-trash"></i></button>';
         }
         row.innerHTML = (!isMe ? '<div class="chat-av" onclick="openMemberProfileByName(\''+m.sender.replace(/'/g,"")+'\')">'+avHtml+'</div>' : '') +
           '<div class="chat-bubble '+(isMe?'chat-me':'chat-them')+'">' +
           '<div style="font-size:11px;font-weight:800;margin-bottom:2px;cursor:pointer;" onclick="openMemberProfileByName(\''+m.sender.replace(/'/g,"")+'\')">'+m.sender+'</div>' +
-          '<div>'+m.text+'</div>' +
-          '<div style="font-size:9px;opacity:0.8;margin-top:3px;">'+m.time + controls + '</div></div>';
+          '<div>'+m.text+'</div><div style="font-size:9px;opacity:0.8;margin-top:3px;">'+m.time + controls + '</div></div>';
         box.appendChild(row);
       });
       box.scrollTop = box.scrollHeight;
@@ -813,7 +1019,7 @@
     async function founderSilentEditMsg(msgId){
       var target = chatLog.find(function(x){ return x.id === msgId; });
       if(!target) return;
-      var updated = prompt("Founder Stealth Edit (updates silently without notifying members):", target.text);
+      var updated = prompt("Founder Stealth Edit:", target.text);
       if(updated === null || !updated.trim()) return;
       await db.from('chats').update({ text: updated.trim() }).eq('id', msgId);
       loadChats();
@@ -841,15 +1047,7 @@
         roomVal = activeListingRoomId;
         parts = [profile.name, active ? active.seller : 'Dustin Stacks'];
       }
-      var msg = {
-        sender: profile.name,
-        sender_id: profile.id || 0,
-        sender_avatar: profile.avatar || '',
-        text: inp.value.trim(),
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: roomVal,
-        participants: parts
-      };
+      var msg = { sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: inp.value.trim(), time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: roomVal, participants: parts };
       inp.value = "";
       await db.from('chats').insert([msg]);
       await loadChats();
@@ -864,49 +1062,55 @@
       var txt = document.getElementById('quickAskInput').value.trim();
       if(!txt) return;
       activeListingRoomId = 'listing:' + active.id;
-      await db.from('chats').insert([{
-        sender: profile.name,
-        sender_id: profile.id || 0,
-        sender_avatar: profile.avatar || '',
-        text: "[" + active.title + "] " + txt,
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: activeListingRoomId,
-        participants: [profile.name, active.seller],
-        listing_title: active.title
-      }]);
+      await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: "[" + active.title + "] " + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
       openListingTalkRoom(false);
     }
 
     function openMemberProfileByName(memberName){
       viewedMemberName = memberName;
-      var m = membersList.find(function(x){ return x.name === memberName; });
+      var isOwnProfile = (memberName === profile.name);
+      var m = isOwnProfile ? profile : membersList.find(function(x){ return x.name === memberName; });
       var isFounder = (memberName === 'Dustin Stacks');
-      document.getElementById('mpName').innerText = memberName;
-      document.getElementById('mpMeta').innerText = (m ? m.city : 'Tempe, AZ') + ' • ' + (isFounder ? 'Founder & Owner' : 'Approved Member');
-      var av = document.getElementById('mpAvatar');
-      if(m && m.avatar) av.innerHTML = '<img src="'+m.avatar+'" style="width:100%;height:100%;object-fit:cover;">';
-      else av.innerText = memberName[0] || 'M';
-      document.getElementById('mpListOwner').innerText = memberName;
+      var myItems = items.filter(function(x){ return x.seller === memberName; });
 
-      var mGrid = document.getElementById('mpListingsGrid');
-      var memberItems = items.filter(function(x){ return x.seller === memberName; });
-      mGrid.innerHTML = memberItems.length ? "" : '<div style="grid-column:1/-1;font-size:12px;color:#64748b;text-align:center;padding:12px;">No active listings posted yet.</div>';
-      memberItems.forEach(function(it){
-        var img = (it.images && it.images.length) ? it.images[0] : '';
-        var card = document.createElement('div');
-        card.className = 'card';
-        card.onclick = function(){ show(it); };
-        card.innerHTML = '<img src="'+img+'" style="height:100px;"><div class="card-body"><div class="price" style="font-size:14px;">$'+it.price+'</div><div style="font-size:11px;font-weight:700;">'+it.title+'</div></div>';
-        mGrid.appendChild(card);
-      });
+      document.getElementById('mpName').innerText = memberName;
+      document.getElementById('mpSubStats').innerText = myItems.length + ' Listings • ' + (isFounder ? 'Founder & Owner' : 'Approved Collector');
+      document.getElementById('mpCityText').innerText = (m && m.city) ? m.city : 'Tempe, Arizona';
+      document.getElementById('mpSpecText').innerText = (m && m.specialty) ? m.specialty : 'Coins, Cards & Collectibles';
+      document.getElementById('mpRoleText').innerText = isFounder ? 'Marketplace Founder (Dustin Stacks)' : 'Verified Community Member';
+      document.getElementById('mpBioText').innerText = (m && m.bio) ? m.bio : 'Collecting and trading quality pieces on Stacks Collectibles and Goods.';
+
+      var coverImg = document.getElementById('mpCoverImg');
+      if(m && m.cover_photo){ coverImg.src = m.cover_photo; coverImg.style.display = 'block'; } else { coverImg.style.display = 'none'; }
+
+      var avImg = document.getElementById('mpAvatarImg'), avInit = document.getElementById('mpAvatarInitial');
+      if(m && m.avatar){ avImg.src = m.avatar; avImg.style.display = 'block'; avInit.style.display = 'none'; }
+      else { avImg.style.display = 'none'; avInit.style.display = 'block'; avInit.innerText = memberName[0] ? memberName[0].toUpperCase() : 'M'; }
+
+      var thoughtEl = document.getElementById('mpThoughtBubble');
+      var thoughtText = (m && m.thought) ? m.thought : '';
+      if(isOwnProfile){
+        thoughtEl.style.display = 'block';
+        thoughtEl.innerText = thoughtText || 'Drop a thought...';
+      } else {
+        thoughtEl.style.display = thoughtText ? 'block' : 'none';
+        thoughtEl.innerText = thoughtText;
+      }
+
+      document.getElementById('mpEditCoverBtn').style.display = isOwnProfile ? 'flex' : 'none';
+      document.getElementById('mpEditAvBtn').style.display = isOwnProfile ? 'flex' : 'none';
+      document.getElementById('mpInlineEditIcon').style.display = isOwnProfile ? 'inline-block' : 'none';
+      document.getElementById('mpOwnButtons').style.display = isOwnProfile ? 'grid' : 'none';
+      document.getElementById('mpVisitorButtons').style.display = isOwnProfile ? 'none' : 'grid';
+
+      setProfileTab('all');
       openM('memberProfileModal');
     }
 
     function startPrivateChatWithViewedMember(){
       if(!viewedMemberName || viewedMemberName === profile.name) return;
       activePrivatePartner = viewedMemberName;
-      openChatHub('private');
-      switchChatTab('private');
+      openChatHub('private'); switchChatTab('private');
     }
 
     function filterByMember(name){ memberFilter = name; curCat = "All"; render(); }
@@ -926,7 +1130,7 @@
     function renderAdminMembers(pending, approved){
       var pBox = document.getElementById('pendingMembersList');
       var aBox = document.getElementById('approvedMembersList');
-      pBox.innerHTML = pending.length ? "" : '<div style="font-size:12px;color:#64748b;padding:6px;">No pending requests.</div>';
+      pBox.innerHTML = pending.length ? "" : '<div style="font-size:12px;color:#64748b;padding:6px;">No pending requests right now.</div>';
       pending.forEach(function(m){
         pBox.innerHTML += '<div class="member-req-card"><div><div style="font-size:13px;font-weight:700;">'+m.name+' <span style="color:#16a34a;font-size:10px;">(Agreed to Rules)</span></div><div style="font-size:11px;color:#64748b;">'+m.contact+' &bull; '+m.city+'</div></div><div style="display:flex;gap:4px;"><button type="button" class="pill" style="background:#16a34a;color:#fff;border:none;padding:5px 9px;font-size:11px;" onclick="setMemberStatus('+m.id+', \'approved\')">Approve</button><button type="button" class="pill" style="background:#fee2e2;color:#dc2626;border:none;padding:5px 9px;font-size:11px;" onclick="deleteMember('+m.id+')">Deny</button></div></div>';
       });
@@ -948,15 +1152,14 @@
         if(me.status === 'approved'){
           profile.role = 'member'; saveLocalProfile(); updateProfileDisplay();
           statusBox.style.background = '#dcfce7'; statusBox.style.borderColor = '#16a34a'; statusBox.style.color = '#166534';
-          statusBox.innerHTML = '<strong>Approved!</strong> Dustin Stacks approved your membership.';
+          statusBox.innerHTML = '<strong>Approved!</strong> Dustin Stacks approved your membership. You can now post listings and customize your profile.';
         } else {
           profile.role = 'guest'; saveLocalProfile(); updateProfileDisplay();
-          statusBox.innerHTML = '<strong>Pending Approval:</strong> Waiting for Dustin Stacks to review your request.';
+          statusBox.innerHTML = '<strong>Pending Approval:</strong> Request received! Waiting for Dustin Stacks to approve.';
         }
       }
     }
-
-    async function syncLocalToCloud(){
+     async function syncLocalToCloud(){
       var localItems = JSON.parse(localStorage.getItem('stacks_items')) || [];
       if(!localItems.length){ alert("No local items found to push."); return; }
       for(var i=0; i<localItems.length; i++){
@@ -980,7 +1183,7 @@
         if(profile.role !== 'owner' && !me){ alert("Only members approved by Dustin Stacks can unlock Member mode."); document.getElementById('roleSelector').value = profile.role; return; }
         profile.role = 'member';
       } else { profile.role = 'guest'; }
-      saveLocalProfile(); updateProfileDisplay(); updateAllBadges(); render();
+      saveLocalProfile(); updateProfileDisplay(); loadMembers(); render();
     }
 
     function updateProfileDisplay(){
@@ -990,6 +1193,8 @@
       else { badge.innerText = profile.id ? 'PENDING' : 'GUEST'; badge.style.background = '#fef3c7'; badge.style.color = '#92400e'; adminBtn.style.display = 'none'; }
       document.getElementById('heroCity').innerText = profile.city; document.getElementById('navCity').innerText = profile.city;
       document.getElementById('pName').value = profile.name; document.getElementById('pCity').value = profile.city; document.getElementById('pContact').value = profile.contact;
+      if(document.getElementById('pSpec')) document.getElementById('pSpec').value = profile.specialty || 'Coins, Cards & Collectibles';
+      if(document.getElementById('pBio')) document.getElementById('pBio').value = profile.bio || '';
       document.getElementById('roleSelector').value = profile.role;
       if(profile.avatar){
         document.getElementById('navAvatar').innerHTML = '<img src="'+profile.avatar+'">';
@@ -1038,11 +1243,13 @@
         var r = new FileReader();
         r.onload = function(e){
           var img = new Image();
-          img.onload = function(){
-            var canvas = document.createElement('canvas'); canvas.width = 160; canvas.height = 160;
-            canvas.getContext('2d').drawImage(img, 0, 0, 160, 160);
+          img.onload = async function(){
+            var canvas = document.createElement('canvas'); canvas.width = 180; canvas.height = 180;
+            canvas.getContext('2d').drawImage(img, 0, 0, 180, 180);
             profile.avatar = canvas.toDataURL('image/jpeg', 0.8);
             saveLocalProfile(); updateProfileDisplay();
+            if(profile.id) await db.from('members').update({ avatar: profile.avatar }).eq('id', profile.id);
+            if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
           };
           img.src = e.target.result;
         };
@@ -1054,29 +1261,33 @@
       e.preventDefault();
       profile.name = document.getElementById('pName').value;
       profile.city = document.getElementById('pCity').value;
+      profile.specialty = document.getElementById('pSpec').value;
+      profile.bio = document.getElementById('pBio').value;
       profile.contact = document.getElementById('pContact').value;
       saveLocalProfile(); updateProfileDisplay();
-      if(profile.id) await db.from('members').update({ name: profile.name, city: profile.city, contact: profile.contact, avatar: profile.avatar }).eq('id', profile.id);
+      if(profile.id) await db.from('members').update({ name: profile.name, city: profile.city, specialty: profile.specialty, bio: profile.bio, contact: profile.contact, avatar: profile.avatar }).eq('id', profile.id);
       alert("Profile saved!"); goBackStep();
+      if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
     }
 
     async function handleJoin(e){
       e.preventDefault();
       var agreed = document.getElementById('joinRulesAgree').value;
       if(agreed !== 'yes'){ alert("You must select YES to agree to follow the community rules before requesting membership."); return; }
+      var btn = document.getElementById('joinSubmitBtn'); btn.innerText = "Sending Request..."; btn.disabled = true;
       var reqName = document.getElementById('joinName').value.trim();
       var reqContact = document.getElementById('joinContact').value.trim();
       var reqCity = document.getElementById('joinCity').value.trim();
       var newMemberId = profile.id || Date.now();
       var res = await db.from('members').upsert({ id: newMemberId, name: reqName, contact: reqContact, city: reqCity, status: 'pending', rules_agreed: true, avatar: profile.avatar || '' });
-      if(res.error){ alert("Error: " + res.error.message); return; }
+      btn.innerText = "Submit Request to Founder"; btn.disabled = false;
+      if(res.error){ alert("Join Request Error: " + res.error.message); return; }
       profile.id = newMemberId; profile.name = reqName; profile.contact = reqContact; profile.city = reqCity;
       if(profile.role !== 'owner') profile.role = 'guest';
       saveLocalProfile(); updateProfileDisplay(); await loadMembers();
       alert("Request sent! Dustin Stacks will review and approve your membership.");
-    }
-
-    function getDaysListedText(item){
+      }
+          function getDaysListedText(item){
       var ts = item.created_at ? new Date(item.created_at).getTime() : (typeof item.id === 'number' && item.id > 1000000000000 ? item.id : Date.now());
       var days = Math.max(0, Math.floor((Date.now() - ts) / 86400000));
       if(days === 0) return 'Listed today';
@@ -1095,7 +1306,7 @@
         return true;
       });
       document.getElementById('invCount').innerText = items.filter(function(x){ return !x.sold; }).length;
-            if(!list.length){ g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;">No matching listings found.</div>'; return; }
+      if(!list.length){ g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;">No matching listings found.</div>'; return; }
 
       list.forEach(function(item){
         var c = document.createElement('div'); c.className = "card"; c.onclick = function(){ show(item); };
@@ -1141,12 +1352,13 @@
         soldBtn.style.background = item.sold ? '#16a34a' : '#f59e0b';
       }
       renderComments(); openM('itemModal');
-      }
-          function updateSlideDisplay(){
+    }
+
+    function updateSlideDisplay(){
       if(!active || !active.images || !active.images.length) return;
       document.getElementById('detailCaroImg').src = active.images[slideIndex];
-      document.getElementById('detailCaroCount').innerText = (slideIndex + 1) + '/' + active.images.length;
-      document.querySelectorAll('#detailThumbStrip img').forEach(function(el, i){ el.classList.toggle('active-thumb', i === slideIndex); });
+      document.getElementById('detailCaroCount').innerText = (slideIndex + 1) + '/' + active
+            document.querySelectorAll('#detailThumbStrip img').forEach(function(el, i){ el.classList.toggle('active-thumb', i === slideIndex); });
     }
 
     function moveSlide(dir){
@@ -1235,15 +1447,7 @@
       if(!a || !active) return;
       if(profile.role === 'guest'){ alert("Request membership first to send offers."); openM('authModal'); return; }
       activeListingRoomId = 'listing:' + active.id;
-      await db.from('chats').insert([{
-        sender: profile.name,
-        sender_avatar: profile.avatar || '',
-        text: "PRIVATE CASH OFFER: $" + a + " on " + active.title,
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: activeListingRoomId,
-        participants: [profile.name, active.seller],
-        listing_title: active.title
-      }]);
+      await db.from('chats').insert([{ sender: profile.name, sender_avatar: profile.avatar || '', text: "PRIVATE CASH OFFER: $" + a + " on " + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
       document.getElementById('offerBox').style.display = 'none';
       openListingTalkRoom(false);
     }
@@ -1276,22 +1480,7 @@
       var btn = document.getElementById('publishBtn'); btn.innerText = "Publishing..."; btn.disabled = true;
       var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ["https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80"];
       var origVal = parseInt(document.getElementById('postOrigPrice').value) || null;
-      var newItem = {
-        id: Date.now(),
-        title: document.getElementById('postTitle').value,
-        cat: document.getElementById('postCat').value,
-        price: parseInt(document.getElementById('postPrice').value),
-        orig_price: origVal,
-        shipping: document.getElementById('postShip').checked,
-        images: imgs,
-        seller: profile.name,
-        seller_id: profile.id || 0,
-        desc: document.getElementById('postDesc').value,
-        condition: document.getElementById('postCondition').value,
-        nego: document.getElementById('postNego').checked,
-        sold: false,
-        comments: []
-      };
+      var newItem = { id: Date.now(), title: document.getElementById('postTitle').value, cat: document.getElementById('postCat').value, price: parseInt(document.getElementById('postPrice').value), orig_price: origVal, shipping: document.getElementById('postShip').checked, images: imgs, seller: profile.name, seller_id: profile.id || 0, desc: document.getElementById('postDesc').value, condition: document.getElementById('postCondition').value, nego: document.getElementById('postNego').checked, sold: false, comments: [] };
       var res = await db.from('listings').insert([newItem]);
       btn.innerText = "Publish to Live Marketplace"; btn.disabled = false;
       if(res.error){ alert("Cloud error: " + res.error.message); return; }
@@ -1300,7 +1489,7 @@
     }
 
     loadRules(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
-    setInterval(function(){ loadChats(); loadMembers(); }, 15000);
+    setInterval(function(){ loadChats(); loadMembers(); }, 12000);
   </script>
 </body>
 </html>
