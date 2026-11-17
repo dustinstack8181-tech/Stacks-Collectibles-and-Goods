@@ -29,9 +29,9 @@
     .hero-inner{padding:0 15px 14px;position:relative;}
     .hero-top{display:flex;gap:12px;align-items:flex-end;margin-top:-32px;margin-bottom:8px;position:relative;z-index:4;}
     .hero-avatar{width:74px;height:74px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;overflow:hidden;border:4px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);flex-shrink:0;position:relative;}
-    .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
-    .hero-btn-primary{background:#0284c7;color:#fff;border:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
-    .hero-btn-sec{background:#e2e8f0;color:#0f172a;border:none;padding:9px 12px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+    .hero-actions{display:grid;grid-template-columns:1fr 1fr 0.8fr;gap:8px;margin:10px 0;}
+    .hero-btn-primary{background:#0284c7;color:#fff;border:none;padding:9px 10px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
+    .hero-btn-sec{background:#e2e8f0;color:#0f172a;border:none;padding:9px 10px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
     .filters{max-width:1280px;margin:10px auto;padding:0 15px;display:flex;gap:8px;overflow-x:auto;}
     .pill{background:#fff;border:1px solid #cbd5e1;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;position:relative;}
     .pill.active{background:#0f172a;color:#fff;border-color:#0f172a;}
@@ -101,7 +101,7 @@
   </style>
 </head>
 <body>
-   <header>
+    <header>
     <div class="header-top">
       <button class="brand-btn" type="button" onclick="openM('menuModal')">
         <div class="logo-badge" id="navAvatar">SC</div>
@@ -165,8 +165,9 @@
           </div>
         </div>
         <div class="hero-actions">
-          <button class="hero-btn-primary" type="button" onclick="openMySellingHub()"><i class="fa-solid fa-chart-line"></i> My Selling Hub</button>
-          <button class="hero-btn-sec" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-user-pen"></i> My Profile &amp; Bio</button>
+          <button class="hero-btn-primary" type="button" onclick="openMySellingHub()"><i class="fa-solid fa-chart-line"></i> Selling Hub</button>
+          <button class="hero-btn-sec" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-user-pen"></i> My Profile</button>
+          <button class="hero-btn-sec" type="button" style="background:#dbeafe;color:#1d4ed8;" onclick="openShareSheet('home', null)"><i class="fa-solid fa-share-nodes"></i> Share</button>
         </div>
         <div style="display:flex;justify-content:space-between;border-top:1px solid #e2e8f0;padding-top:10px;font-size:12px;font-weight:700;">
           <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Likes <button class="pill" type="button" style="padding:2px 7px;font-size:10px;margin-left:4px;" onclick="addLike()">+1</button></div>
@@ -317,8 +318,7 @@
       <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Manage Your Listings (Tap to Edit or Mark Sold)</h3>
       <div id="hubMyListingsList"></div>
     </div>
-  </div>
-    <div class="modal-overlay" id="createPostModal">
+  <  <div class="modal-overlay" id="createPostModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -350,11 +350,8 @@
             <option>Other</option>
           </select>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div class="form-group"><label>3. Price ($)</label><input type="number" id="postPrice" enterkeyhint="next" onkeydown="jumpField(event, 'postOrigPrice')" placeholder="50" required></div>
-          <div class="form-group"><label>4. Compare Price ($)</label><input type="number" id="postOrigPrice" enterkeyhint="next" onkeydown="jumpField(event, 'postCondition')" placeholder="Optional"></div>
-        </div>
-        <div class="form-group"><label>5. Item Condition</label>
+        <div class="form-group"><label>3. Price ($)</label><input type="number" id="postPrice" enterkeyhint="next" onkeydown="jumpField(event, 'postCondition')" placeholder="50" required></div>
+        <div class="form-group"><label>4. Item Condition</label>
           <select id="postCondition" onchange="document.getElementById('postDesc').focus()">
             <option>Like New</option><option>New</option><option>Good</option><option>Fair</option>
           </select>
@@ -368,7 +365,7 @@
           <label for="postShip" style="margin:0;font-size:12px;">Shipping Available</label>
         </div>
         <div class="form-group">
-          <label>6. Description</label>
+          <label>5. Description</label>
           <textarea id="postDesc" rows="3" enterkeyhint="done" onkeydown="handleDescEnter(event)" placeholder="Condition, strike luster, specs..." required></textarea>
         </div>
 
@@ -382,13 +379,14 @@
         </div>
       </form>
     </div>
-    </div>
+  </div>
+ </div>
     <div class="modal-overlay" id="itemModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <div style="display:flex;gap:8px;align-items:center;">
-          <button class="pill" type="button" style="padding:4px 9px;" onclick="shareCurrentItem()"><i class="fa-solid fa-share-nodes"></i></button>
+          <button class="pill" type="button" style="padding:4px 9px;" onclick="shareCurrentItem()"><i class="fa-solid fa-share-nodes"></i> Share</button>
           <button class="pill" type="button" style="padding:4px 9px;" onclick="toggleSave()"><i class="fa-regular fa-heart" id="saveIcon"></i></button>
           <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
         </div>
@@ -652,6 +650,7 @@
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
       <div class="menu-row" onclick="goHomeMarket()"><span><i class="fa-solid fa-house" style="color:#0284c7;width:24px;"></i> Home Marketplace</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="openShareSheet('home', null)"><span><i class="fa-solid fa-share-nodes" style="color:#1877f2;width:24px;"></i> Share Marketplace &amp; Invite Friends</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="openMyProfileHub()"><span><i class="fa-solid fa-id-card" style="color:#0284c7;width:24px;"></i> My Profile &amp; Storefront</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="openMySellingHub()"><span><i class="fa-solid fa-chart-line" style="color:#16a34a;width:24px;"></i> My Selling Dashboard</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
       <div class="menu-row" onclick="openM('profileModal')"><span><i class="fa-solid fa-bell" style="color:#dc2626;width:24px;"></i> Edit Profile &amp; Notices <span class="inline-badge" id="menuNoticeBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
@@ -722,6 +721,28 @@
       <p style="font-size:12px;line-height:1.5;color:#334155;margin-bottom:8px;">Meet during daylight hours in monitored public spaces. Recommended Tempe / East Valley locations:</p>
       <div style="background:#f8fafc;padding:8px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-bottom:6px;"><strong>Tempe Police Station (Safe Zone)</strong><br>120 E 5th St, Tempe, AZ</div>
       <div style="background:#f8fafc;padding:8px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;"><strong>Public Bank / Grocery Parking</strong><br>Well-lit daytime parking lots with active cameras.</div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="shareSheetModal">
+    <div class="modal-box">
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Share to Social &amp; Friends</span>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:12px;">
+        <div style="font-size:13px;font-weight:800;color:#0f172a;" id="shareSheetTitle">Stacks Collectibles and Goods</div>
+        <div style="font-size:11px;color:#64748b;word-break:break-all;margin-top:3px;" id="shareSheetUrlText">https://stacksgoods.com</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <button type="button" class="hero-btn-primary" style="background:#1877f2;" onclick="execShareChannel('facebook')"><i class="fa-brands fa-facebook"></i> Share to Facebook</button>
+        <button type="button" class="hero-btn-primary" style="background:#0084ff;" onclick="execShareChannel('messenger')"><i class="fa-brands fa-facebook-messenger"></i> Messenger</button>
+        <button type="button" class="hero-btn-sec" style="background:#dcfce7;color:#166534;" onclick="execShareChannel('sms')"><i class="fa-solid fa-comment-sms"></i> Text / SMS</button>
+        <button type="button" class="hero-btn-sec" style="background:#fef3c7;color:#92400e;" onclick="execShareChannel('email')"><i class="fa-solid fa-envelope"></i> Email</button>
+      </div>
+      <button type="button" class="btn-submit" style="background:#0f172a;margin-bottom:8px;" onclick="execShareChannel('copy')"><i class="fa-solid fa-link"></i> <span id="copyShareBtnText">Copy Direct Link</span></button>
+      <button type="button" class="hero-btn-sec" style="width:100%;padding:11px;" onclick="execShareChannel('native')"><i class="fa-solid fa-share-from-square"></i> More Apps (Phone Share Menu)</button>
     </div>
   </div>
     <script>
@@ -1103,6 +1124,11 @@
       }
       if(lastSeenItemCount === 0 && items.length > 0){ lastSeenItemCount = items.length; localStorage.setItem('stacks_seen_items', String(lastSeenItemCount)); }
       render(); renderSaved(); updateAllBadges();
+      var sharedId = new URLSearchParams(window.location.search).get('item');
+      if(sharedId && !active){
+        var targetIt = items.find(function(x){ return String(x.id) === String(sharedId); });
+        if(targetIt) show(targetIt);
+      }
     }
 
     async function loadChats(){
@@ -1290,9 +1316,8 @@
       activeListingRoomId = 'listing:' + active.id;
       await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: "[" + active.title + "] " + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
       openListingTalkRoom(false);
-    }
-
-    function openMyProfileHub(){ openMemberProfileByName(profile.name); }
+      }
+          function openMyProfileHub(){ openMemberProfileByName(profile.name); }
 
     function openMySellingHub(){
       var myItems = items.filter(function(x){ return isSameOwner(x.seller, profile.name); });
@@ -1410,7 +1435,7 @@
 
       var avImg = document.getElementById('mpAvatarImg'), avInit = document.getElementById('mpAvatarInitial');
       var avSrc = (m && m.avatar) ? m.avatar : (isAdminCard ? homeAppearance.hero_avatar : '');
-      if(avSrc){ avImg.src = avSrc; avImg .style.display = 'block'; avInit.style.display = 'none'; }
+      if(avSrc){ avImg.src = avSrc; avImg.style.display = 'block'; avInit.style.display = 'none'; }
       else { avImg.style.display = 'none'; avInit.style.display = 'block'; avInit.innerText = displayTarget[0] ? displayTarget[0].toUpperCase() : 'M'; }
 
       var thoughtEl = document.getElementById('mpThoughtBubble');
@@ -1612,8 +1637,9 @@
       if(profile.role !== 'owner') profile.role = 'guest';
       saveLocalProfile(); updateProfileDisplay(); await loadMembers();
       alert("Request sent! Admin will review and approve your membership.");
-      }
-          function getDaysListedText(item){
+    }
+
+    function getDaysListedText(item){
       var ts = item.created_at ? new Date(item.created_at).getTime() : (typeof item.id === 'number' && item.id > 1000000000000 ? item.id : Date.now());
       var days = Math.max(0, Math.floor((Date.now() - ts) / 86400000));
       if(days === 0) return 'Listed today';
@@ -1642,14 +1668,14 @@
         var topTag = item.sold ? '<div class="sold-badge">SOLD</div>' : (isNew ? '<div class="just-listed">Just listed</div>' : '');
         var shipTag = item.shipping ? '<div class="ship-tag"><i class="fa-solid fa-truck"></i> Ships</div>' : '';
         var adminTag = (profile.role === 'owner') ? '<div style="position:absolute;top:8px;right:8px;background:#fbbf24;color:#0f172a;font-size:9px;font-weight:900;padding:2px 6px;border-radius:6px;"><i class="fa-solid fa-pen"></i> Edit</div>' : '';
+        var cardShareBtn = '<button type="button" onclick="openShareSheet(\'item\', '+item.id+', event)" style="position:absolute;bottom:7px;right:7px;background:rgba(255,255,255,0.95);color:#0f172a;border:none;padding:4px 8px;border-radius:14px;display:flex;align-items:center;gap:4px;font-size:10px;font-weight:800;box-shadow:0 1px 4px rgba(0,0,0,0.28);cursor:pointer;"><i class="fa-solid fa-share-nodes" style="color:#0284c7;"></i> Share</button>';
         var origHtml = (item.orig_price && item.orig_price > item.price) ? '<span style="font-size:11px;color:#94a3b8;text-decoration:line-through;margin-left:4px;">$'+item.orig_price+'</span>' : '';
         var sellerDisplay = (item.seller === 'Dustin Stacks' || !item.seller) ? 'Admin' : item.seller;
-        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+topTag+adminTag+shipTag+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
+        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+topTag+adminTag+shipTag+cardShareBtn+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
         g.appendChild(c);
       });
-    }
-
-    function show(item){
+      }
+          function show(item){
       active = item; slideIndex = 0; updateSlideDisplay();
       var strip = document.getElementById('detailThumbStrip'); strip.innerHTML = "";
       (item.images || []).forEach(function(src, idx){
@@ -1799,16 +1825,70 @@
       });
     }
 
+    var currentShareData = { title: 'Stacks Collectibles and Goods', text: 'Check out Stacks Collectibles and Goods — buy, sell & trade coins, cards, and collectibles with local members!', url: 'https://stacksgoods.com' };
+
+    function openShareSheet(mode, itemId, e){
+      if(e) e.stopPropagation();
+      var baseUrl = window.location.origin + window.location.pathname;
+      if(mode === 'item' && itemId){
+        var it = items.find(function(x){ return String(x.id) === String(itemId); });
+        if(!it) return;
+        currentShareData = {
+          title: it.title + ' - $' + it.price,
+          text: 'Check out ' + it.title + ' ($' + it.price + ') on Stacks Collectibles and Goods!',
+          url: baseUrl + '?item=' + it.id
+        };
+      } else {
+        currentShareData = {
+          title: 'Stacks Collectibles and Goods',
+          text: 'Join Stacks Collectibles and Goods — buy, sell & trade coins, cards, diecasts & collectibles!',
+          url: baseUrl
+        };
+      }
+      document.getElementById('shareSheetTitle').innerText = currentShareData.title;
+      document.getElementById('shareSheetUrlText').innerText = currentShareData.url;
+      document.getElementById('copyShareBtnText').innerText = 'Copy Direct Link';
+      openM('shareSheetModal');
+    }
+
+    function execShareChannel(channel){
+      var u = encodeURIComponent(currentShareData.url);
+      var t = encodeURIComponent(currentShareData.text + ' ' + currentShareData.url);
+      if(channel === 'facebook'){
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + u + '&quote=' + encodeURIComponent(currentShareData.text), '_blank');
+      } else if(channel === 'messenger'){
+        if(navigator.share){
+          navigator.share({ title: currentShareData.title, text: currentShareData.text, url: currentShareData.url }).catch(function(){});
+        } else {
+          window.open('fb-messenger://share/?link=' + u, '_blank');
+        }
+      } else if(channel === 'sms'){
+        window.location.href = 'sms:?&body=' + t;
+      } else if(channel === 'email'){
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(currentShareData.title) + '&body=' + t;
+      } else if(channel === 'copy'){
+        if(navigator.clipboard) navigator.clipboard.writeText(currentShareData.url);
+        document.getElementById('copyShareBtnText').innerText = 'Copied Link!';
+      } else if(channel === 'native'){
+        if(navigator.share){
+          navigator.share({ title: currentShareData.title, text: currentShareData.text, url: currentShareData.url }).catch(function(){});
+        } else {
+          if(navigator.clipboard) navigator.clipboard.writeText(currentShareData.url);
+          alert('Link copied! Paste it into any app:\n' + currentShareData.url);
+        }
+      }
+    }
+
     function shareCurrentItem(){
-      if(navigator.share) navigator.share({ title: active.title, url: window.location.href });
-      else { navigator.clipboard.writeText(window.location.href); alert("Link copied!"); }
+      if(!active) return;
+      openShareSheet('item', active.id, null);
     }
 
     async function subPost(e){
       e.preventDefault();
       var btn = document.getElementById('publishBtn'); btn.innerText = "Posting..."; btn.disabled = true;
       var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ["https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80"];
-      var origVal = parseInt(document.getElementById('postOrigPrice').value) || null;
+      var origVal = null;
       var newItem = { id: Date.now(), title: document.getElementById('postTitle').value, cat: document.getElementById('postCat').value, price: parseInt(document.getElementById('postPrice').value), orig_price: origVal, shipping: document.getElementById('postShip').checked, images: imgs, seller: profile.name, seller_id: profile.id || 0, desc: document.getElementById('postDesc').value, condition: document.getElementById('postCondition').value, nego: document.getElementById('postNego').checked, sold: false, comments: [] };
       var res = await db.from('listings').insert([newItem]);
       btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Post It'; btn.disabled = false;
@@ -1824,4 +1904,3 @@
   </script>
 </body>
 </html>
-
