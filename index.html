@@ -1222,9 +1222,7 @@
         room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Admin']
       }]);
       loadChats();
-    }
-
-    function renderChats(){
+        function renderChats(){
       var box = document.getElementById('chatMessages'); box.innerHTML = "";
       if(activeChatMode === 'group' && profile.inGroup === false){
         box.innerHTML = '<div style="text-align:center;color:#64748b;font-size:12px;margin-top:60px;">You left the Group Chat. Tap <strong>Rejoin Group Chat</strong> above anytime.</div>';
@@ -1316,8 +1314,9 @@
       activeListingRoomId = 'listing:' + active.id;
       await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: "[" + active.title + "] " + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
       openListingTalkRoom(false);
-      }
-          function openMyProfileHub(){ openMemberProfileByName(profile.name); }
+    }
+
+    function openMyProfileHub(){ openMemberProfileByName(profile.name); }
 
     function openMySellingHub(){
       var myItems = items.filter(function(x){ return isSameOwner(x.seller, profile.name); });
@@ -1904,3 +1903,4 @@
   </script>
 </body>
 </html>
+    
