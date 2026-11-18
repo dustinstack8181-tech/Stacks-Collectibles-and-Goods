@@ -10,267 +10,261 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent;}
     body{background:#f1f5f9;color:#0f172a;padding-bottom:82px;}
     header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:40;padding:11px 15px;}
     .header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
     .brand-btn{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;text-align:left;}
-    .logo-badge{width:42px;height:42px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #fbbf24;font-size:16px;overflow:hidden;}
+    .logo-badge{width:42px;height:42px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;border:2px solid #fbbf24;overflow:hidden;flex-shrink:0;}
     .logo-badge img,.hero-avatar img,.chat-av img,.seller-av img{width:100%;height:100%;object-fit:cover;}
     .search-bar{display:flex;align-items:center;background:#f1f5f9;border-radius:22px;padding:9px 14px;gap:8px;border:1px solid #e2e8f0;}
     .search-bar input{border:none;background:transparent;width:100%;font-size:14px;outline:none;color:#0f172a;}
     .hero{max-width:1280px;margin:12px auto;padding:0 15px;}
     .hero-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-    .hero-banner{height:155px;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#0284c7 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:14px;}
+    .hero-banner{height:155px;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#0284c7 100%);position:relative;display:flex;align-items:center;justify-content:center;padding:14px;overflow:hidden;}
     .hero-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
     .hero-banner-tint{position:absolute;inset:0;background:rgba(15,23,42,0.38);z-index:2;}
-    .hero-overlay-caption{position:relative;z-index:3;color:#fff;font-size:16px;font-weight:900;text-align:center;text-shadow:0 2px 6px rgba(0,0,0,0.75);max-width:90%;line-height:1.3;}
-    .admin-edit-chip{display:none;background:#fbbf24;color:#0f172a;border:none;border-radius:14px;padding:4px 9px;font-size:10px;font-weight:900;cursor:pointer;align-items:center;gap:4px;box-shadow:0 2px 6px rgba(0,0,0,0.28);z-index:5;}
+    .hero-overlay-caption{position:relative;z-index:3;color:#fff;font-size:16px;font-weight:900;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,0.85);max-width:92%;line-height:1.3;}
+    .admin-edit-chip{display:none;background:#fbbf24;color:#0f172a;border:none;border-radius:14px;padding:4px 9px;font-size:10px;font-weight:900;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.3);align-items:center;gap:4px;}
     .hero-inner{padding:0 15px 14px;position:relative;}
     .hero-top{display:flex;gap:12px;align-items:flex-end;margin-top:-32px;margin-bottom:8px;position:relative;z-index:4;}
-    .hero-avatar{width:74px;height:74px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;overflow:hidden;border:4px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.2);flex-shrink:0;position:relative;}
+    .hero-avatar{width:74px;height:74px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;border:4px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,0.18);overflow:hidden;flex-shrink:0;position:relative;}
     .hero-actions{display:grid;grid-template-columns:1fr 1fr 0.8fr;gap:8px;margin:10px 0;}
-    .hero-btn-primary{background:#0284c7;color:#fff;border:none;padding:9px 10px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
-    .hero-btn-sec{background:#e2e8f0;color:#0f172a;border:none;padding:9px 10px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
+    .hero-btn-primary{background:#0284c7;color:#fff;border:none;padding:9px 10px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
+    .hero-btn-sec{background:#e2e8f0;color:#0f172a;border:none;padding:9px 10px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
     .filters{max-width:1280px;margin:10px auto;padding:0 15px;display:flex;gap:8px;overflow-x:auto;}
-    .pill{background:#fff;border:1px solid #cbd5e1;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;position:relative;}
+    .pill{background:#fff;border:1px solid #cbd5e1;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;color:#0f172a;}
     .pill.active{background:#0f172a;color:#fff;border-color:#0f172a;}
     .grid{max-width:1280px;margin:0 auto;padding:0 15px;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}
-    .card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;cursor:pointer;position:relative;box-shadow:0 1px 3px rgba(0,0,0,0.03);}
-    .card img{width:100%;height:162px;object-fit:cover;display:block;background:#e2e8f0;}
+    .card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;cursor:pointer;position:relative;}
+    .card img{width:100%;height:160px;object-fit:cover;display:block;background:#e2e8f0;}
     .card-body{padding:10px;}
     .price{font-size:17px;font-weight:800;color:#0f172a;}
-    .just-listed{position:absolute;top:8px;left:8px;background:rgba(255,255,255,0.94);color:#0f172a;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
-    .sold-badge{position:absolute;top:8px;left:8px;background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;}
-    .ship-tag{position:absolute;bottom:7px;left:7px;background:rgba(15,23,42,0.85);color:#fff;font-size:10px;padding:2px 7px;border-radius:5px;font-weight:700;}
-        .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;height:66px;z-index:35;}
-    .b-item{background:none;border:none;color:#64748b;font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;position:relative;padding:4px 8px;}
-    .b-fab{width:48px;height:48px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;border:none;font-size:21px;transform:translateY(-10px);box-shadow:0 4px 12px rgba(2,132,199,0.38);cursor:pointer;}
-    .num-badge{position:absolute;top:-4px;right:2px;background:#dc2626;color:#fff;font-size:10px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:none;align-items:center;justify-content:center;font-weight:800;border:2px solid #fff;}
-    .inline-badge{background:#dc2626;color:#fff;font-size:11px;padding:1px 7px;border-radius:999px;font-weight:800;margin-left:6px;display:none;}
-    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.68);z-index:100;align-items:center;justify-content:center;padding:10px;}
+    .just-listed{position:absolute;top:8px;left:8px;background:rgba(255,255,255,0.94);color:#0f172a;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.15);}
+    .sold-badge{position:absolute;top:8px;left:8px;background:#dc2626;color:#fff;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;}
+    .ship-tag{position:absolute;bottom:7px;left:7px;background:rgba(15,23,42,0.85);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;}
+    .bottom-bar{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;align-items:center;padding:6px 0 8px;z-index:45;}
+    .b-item{background:none;border:none;color:#64748b;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;position:relative;min-width:52px;}
+    .b-item.active{color:#0284c7;}
+    .b-sell{width:46px;height:46px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:-18px;box-shadow:0 4px 10px rgba(2,132,199,0.4);}
+    .num-badge{position:absolute;top:-4px;right:2px;background:#dc2626;color:#fff;font-size:10px;min-width:16px;height:16px;padding:0 4px;border-radius:10px;display:none;align-items:center;justify-content:center;font-weight:800;}
+    .inline-badge{background:#dc2626;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:800;margin-left:6px;display:none;}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:60;align-items:center;justify-content:center;padding:10px;}
     .modal-overlay.active{display:flex;}
     .modal-box{background:#fff;border-radius:16px;width:100%;max-width:540px;max-height:94vh;overflow-y:auto;padding:15px;position:relative;}
     .modal-nav-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #e2e8f0;}
-    .back-arrow-btn{background:#f1f5f9;border:1px solid #cbd5e1;color:#0f172a;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
-    .modal-close{background:#f1f5f9;border:1px solid #cbd5e1;width:32px;height:32px;border-radius:50%;font-size:19px;color:#0f172a;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-weight:700;}
+    .back-arrow-btn{background:#f1f5f9;border:1px solid #cbd5e1;color:#0f172a;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:5px;}
+    .modal-close{background:#f1f5f9;border:1px solid #cbd5e1;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
     .form-group{margin-bottom:10px;}
     .form-group label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:#334155;}
-    .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;}
-    .btn-submit{width:100%;padding:12px;background:#0284c7;color:#fff;border:none;border-radius:9px;font-weight:800;cursor:pointer;margin-top:6px;font-size:14px;}
-    .fb-cover-wrap{height:150px;background:linear-gradient(135deg,#0f172a,#1e3a8a);border-radius:12px;position:relative;overflow:hidden;}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;}
+    .btn-submit{width:100%;padding:12px;background:#0284c7;color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;margin-top:4px;font-size:13px;}
+    .fb-cover-wrap{height:150px;background:linear-gradient(135deg,#0f172a,#1e3a8a,#0284c7);border-radius:12px;position:relative;overflow:hidden;}
     .fb-cover-wrap img{width:100%;height:100%;object-fit:cover;}
-    .fb-cam-btn{position:absolute;bottom:8px;right:8px;background:rgba(255,255,255,0.92);color:#0f172a;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.2);}
+    .fb-cam-btn{position:absolute;bottom:8px;right:8px;background:rgba(255,255,255,0.92);color:#0f172a;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.25);font-size:13px;}
     .fb-avatar-zone{display:flex;flex-direction:column;align-items:center;margin-top:-52px;position:relative;z-index:2;}
-    .thought-bubble{background:#fff;border:1px solid #cbd5e1;border-radius:18px;padding:5px 12px;font-size:12px;font-weight:600;color:#334155;box-shadow:0 2px 6px rgba(0,0,0,0.1);margin-bottom:6px;cursor:pointer;max-width:240px;text-align:center;}
-    .fb-avatar-circle{width:92px;height:92px;border-radius:50%;background:#0f172a;color:#fbbf24;border:4px solid #fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+    .thought-bubble{background:#fff;border:1px solid #cbd5e1;border-radius:18px;padding:5px 12px;font-size:12px;font-weight:700;color:#0f172a;box-shadow:0 3px 10px rgba(0,0,0,0.12);margin-bottom:4px;max-width:230px;text-align:center;cursor:pointer;}
+    .fb-avatar-circle{width:96px;height:96px;border-radius:50%;background:#0f172a;color:#fbbf24;border:4px solid #fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;overflow:hidden;position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.18);}
     .fb-avatar-circle img{width:100%;height:100%;object-fit:cover;}
     .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-    .stat-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:flex-start;}
-    .stat-num{font-size:22px;font-weight:800;color:#0f172a;line-height:1.1;}
+    .stat-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+    .stat-num{font-size:22px;font-weight:900;color:#0f172a;line-height:1.1;}
     .stat-lbl{font-size:12px;color:#475569;font-weight:600;margin-top:4px;}
     .upload-dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
-    .upload-action-btn{border:2px dashed #94a3b8;border-radius:8px;padding:10px 4px;text-align:center;background:#f8fafc;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:#0f172a;}
-    .thumb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;}
-    .thumb-wrap{position:relative;width:100%;height:65px;border-radius:6px;overflow:hidden;border:1px solid #e2e8f0;}
+    .upload-action-btn{border:2px dashed #94a3b8;border-radius:10px;padding:12px 6px;text-align:center;background:#f8fafc;cursor:pointer;font-size:12px;font-weight:700;color:#0f172a;display:flex;flex-direction:column;align-items:center;gap:5px;}
+    .thumb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px;}
+    .thumb-wrap{position:relative;width:100%;height:58px;border-radius:6px;overflow:hidden;border:1px solid #cbd5e1;}
     .thumb-wrap img{width:100%;height:100%;object-fit:cover;}
-    .thumb-del{position:absolute;top:2px;right:2px;background:rgba(220,38,38,0.85);color:#fff;border:none;width:18px;height:18px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-    .carousel-wrap{position:relative;width:100%;height:230px;background:#0f172a;border-radius:10px;overflow:hidden;margin-bottom:8px;}
+    .thumb-del{position:absolute;top:2px;right:2px;background:rgba(220,38,38,0.9);color:#fff;border:none;width:18px;height:18px;border-radius:50%;font-size:11px;font-weight:bold;cursor:pointer;}
+    .carousel-wrap{position:relative;width:100%;height:260px;background:#0f172a;border-radius:10px;overflow:hidden;margin-bottom:8px;}
     .carousel-wrap img{width:100%;height:100%;object-fit:contain;}
-    .caro-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.55);color:#fff;border:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-    .caro-count{position:absolute;bottom:6px;right:8px;background:rgba(0,0,0,0.65);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;font-weight:700;}
-    .detail-strip{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;padding-bottom:2px;}
-    .detail-strip img{width:50px;height:50px;border-radius:6px;object-fit:cover;border:2px solid transparent;cursor:pointer;flex-shrink:0;}
+    .caro-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.88);border:none;width:30px;height:30px;border-radius:50%;font-size:15px;font-weight:bold;cursor:pointer;}
+    .caro-count{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.7);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;}
+    .detail-strip{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;}
+    .detail-strip img{width:46px;height:46px;border-radius:6px;object-fit:cover;border:2px solid transparent;cursor:pointer;}
     .detail-strip img.active-thumb{border-color:#0284c7;}
-    .seller-card{display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin:10px 0;cursor:pointer;}
-    .seller-av{width:42px;height:42px;border-radius:50%;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;overflow:hidden;flex-shrink:0;}
-    .quick-ask-bar{display:flex;gap:6px;background:#f1f5f9;padding:6px;border-radius:24px;margin-bottom:10px;border:1px solid #cbd5e1;}
-    .quick-ask-bar input{border:none;background:transparent;padding:4px 10px;font-size:13px;flex:1;outline:none;}
-    .comment-bubble{background:#f1f5f9;border-radius:8px;padding:8px;margin-bottom:6px;font-size:12px;display:flex;justify-content:space-between;align-items:center;gap:6px;}
-    .menu-row{display:flex;justify-content:space-between;align-items:center;padding:12px 4px;border-bottom:1px solid #e2e8f0;cursor:pointer;font-size:14px;font-weight:600;}
-    .chat-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;background:#e2e8f0;padding:4px;border-radius:10px;margin-bottom:8px;}
-    .chat-tab-btn{border:none;background:transparent;padding:7px 4px;border-radius:7px;font-size:11px;font-weight:800;cursor:pointer;color:#475569;}
-    .chat-tab-btn.active{background:#fff;color:#0f172a;box-shadow:0 1px 2px rgba(0,0,0,0.08);}
-    .chat-row{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start;}
-    .chat-av{width:32px;height:32px;border-radius:50%;background:#0f172a;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;cursor:pointer;}
-    .chat-bubble{max-width:82%;padding:8px 11px;border-radius:12px;font-size:13px;line-height:1.35;position:relative;}
-    .chat-me{background:#0284c7;color:#fff;margin-left:auto;border-bottom-right-radius:2px;}
-    .chat-them{background:#e2e8f0;color:#0f172a;border-bottom-left-radius:2px;}
-    .chat-notice{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;width:100%;max-width:100%;font-size:12px;}
-    .member-req-card{background:#fff;border:1px solid #cbd5e1;border-radius:10px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+    .seller-card{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border:1px solid #e2e8f0;padding:10px;border-radius:10px;margin:10px 0;cursor:pointer;}
+    .seller-av{width:40px;height:40px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;overflow:hidden;flex-shrink:0;}
+    .quick-ask-bar{display:flex;gap:6px;background:#f1f5f9;padding:6px;border-radius:10px;margin-bottom:10px;}
+    .quick-ask-bar input{flex:1;border:none;background:transparent;font-size:12px;padding:4px 6px;outline:none;}
+    .chat-box{height:230px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:8px;}
+    .chat-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-end;}
+    .chat-av{width:28px;height:28px;border-radius:50%;background:#0f172a;color:#fbbf24;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;cursor:pointer;}
+    .chat-bubble{padding:8px 11px;border-radius:12px;font-size:12px;max-width:78%;word-wrap:break-word;}
+    .chat-me{background:#0284c7;color:#fff;margin-left:auto;}
+    .chat-them{background:#e2e8f0;color:#0f172a;}
+    .chat-notice{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;max-width:95%;}
+    .menu-row{display:flex;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid #f1f5f9;cursor:pointer;font-size:14px;font-weight:600;}
+    .comment-bubble{background:#f1f5f9;padding:7px 10px;border-radius:8px;font-size:12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+    .member-req-card{display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;padding:8px 10px;border-radius:8px;margin-bottom:6px;}
+    .admin-tab-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px;}
+    .admin-tab-btn{padding:7px 4px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;text-align:center;}
+    .admin-tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a;}
   </style>
 </head>
 <body>
-    <header>
+
+  <input type="file" id="cameraShootInput" accept="image/*" capture="environment" style="display:none;" onchange="handleIncomingFiles(this.files)">
+  <input type="file" id="galleryPickInput" accept="image/*" multiple style="display:none;" onchange="handleIncomingFiles(this.files)">
+  <input type="file" id="homeBannerInput" accept="image/*" style="display:none;" onchange="handleHomeWallpaperUpload(this)">
+  <input type="file" id="homeAvatarInput" accept="image/*" style="display:none;" onchange="handleHomeAvatarUpload(this)">
+  <input type="file" id="memberCoverInput" accept="image/*" style="display:none;" onchange="handleMemberCover(this)">
+  <input type="file" id="memberAvatarInput" accept="image/*" style="display:none;" onchange="handleProfileAvatar(this)">
+
+  <header>
     <div class="header-top">
-      <button class="brand-btn" type="button" onclick="openM('menuModal')">
+      <button class="brand-btn" type="button" onclick="gotoMarket()">
         <div class="logo-badge" id="navAvatar">SC</div>
         <div>
-          <div style="font-size:15px;font-weight:900;">Stacks <span style="color:#0284c7;">Collectibles</span> <span style="background:#f1f5f9;color:#64748b;font-size:10px;padding:2px 6px;border-radius:5px;" id="roleBadge">GUEST</span></div>
-          <div style="font-size:11px;color:#64748b;"><i class="fa-solid fa-bars"></i> Menu &bull; <span id="navCity">Tempe, AZ</span></div>
+          <div style="font-size:17px;font-weight:900;color:#0284c7;line-height:1.1;">Stacks Collectibles <span id="roleBadge" style="font-size:10px;background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:6px;vertical-align:middle;">GUEST</span></div>
+          <div style="font-size:11px;color:#64748b;">&#9776; Menu &bull; <span id="navCity">Tempe, AZ</span></div>
         </div>
       </button>
       <div style="display:flex;gap:6px;">
-        <button class="pill" type="button" onclick="openM('authModal')" id="authTopBtn">
+        <button class="pill" type="button" style="padding:6px 10px;position:relative;" onclick="openM('authModal')">
           <i class="fa-solid fa-user-plus"></i> Join
           <span class="num-badge" id="topJoinBadge">0</span>
         </button>
-        <button class="pill" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-id-badge"></i></button>
+        <button class="pill" type="button" style="padding:6px 10px;position:relative;" onclick="openM('menuModal')">
+          <i class="fa-solid fa-bars"></i>
+          <span class="num-badge" id="menuBadge">0</span>
+        </button>
       </div>
     </div>
     <div class="search-bar">
       <i class="fa-solid fa-magnifying-glass" style="color:#64748b;"></i>
-      <input type="text" id="marketSearchInput" placeholder="What are you looking for? (Coins, Cards, Other...)" oninput="render()">
+      <input type="text" id="marketSearchInput" oninput="render()" placeholder="What are you looking for? (Coins, Cards, Other...)">
     </div>
   </header>
 
-  <div id="siteAnnouncementBar" style="display:none;max-width:1280px;margin:10px auto 0;padding:0 15px;">
-    <div style="background:#0f172a;color:#fbbf24;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;gap:8px;">
-      <span><i class="fa-solid fa-bullhorn"></i> <span id="siteAnnouncementText"></span></span>
-      <button type="button" class="admin-edit-chip" onclick="openAdminMasterHub('home')"><i class="fa-solid fa-pen"></i> Edit</button>
-    </div>
-  </div>
-
-  <div id="founderPendingAlert" style="display:none;max-width:1280px;margin:10px auto 0;padding:0 15px;">
-    <div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;cursor:pointer;" onclick="openAdminMasterHub('members')">
-      <span><i class="fa-solid fa-bell" style="color:#dc2626;"></i> <span id="pendingAlertCount">0</span> Admin Alert(s) / Member Requests!</span>
-      <span style="background:#0f172a;color:#fff;padding:4px 10px;border-radius:8px;font-size:11px;">Open Admin Tools &rarr;</span>
-    </div>
-  </div>
-
-  <div class="hero">
+  <section class="hero">
     <div class="hero-card">
-      <div class="hero-banner" id="homeBannerBox">
-        <img id="homeWallpaperImg" style="display:none;">
+      <div class="hero-banner" id="heroBannerBox">
+        <img id="homeWallpaperImg" style="display:none;" src="">
         <div class="hero-banner-tint"></div>
         <div class="hero-overlay-caption" id="homeOverlayText">Verified Collector Marketplace &amp; Trading Club</div>
-        <div style="position:absolute;top:10px;right:10px;display:flex;gap:6px;z-index:5;">
-          <button type="button" class="admin-edit-chip" onclick="document.getElementById('homeWallpaperFile').click()"><i class="fa-solid fa-image"></i> Wallpaper</button>
+        <div style="position:absolute;top:8px;right:8px;z-index:5;display:flex;gap:5px;">
+          <button type="button" class="admin-edit-chip" onclick="document.getElementById('homeBannerInput').click()"><i class="fa-solid fa-image"></i> Wallpaper</button>
           <button type="button" class="admin-edit-chip" onclick="quickEditHomeOverlay()"><i class="fa-solid fa-pen"></i> Text</button>
+          <button type="button" class="admin-edit-chip" style="background:#ef4444;color:#fff;" onclick="clearHomeWallpaper()"><i class="fa-solid fa-trash"></i></button>
         </div>
       </div>
+
       <div class="hero-inner">
         <div class="hero-top">
-          <div class="hero-avatar" id="heroAvatarWrap" onclick="openMemberProfileByName('Admin')" style="cursor:pointer;">
-            <img id="heroAvatarImg" style="display:none;">
-            <span id="heroAvatarInitial">AD</span>
+          <div class="hero-avatar" id="heroAvatarBox">
+            <img id="homeAvatarImg" style="display:none;" src="">
+            <span id="homeAvatarInitial">AD</span>
           </div>
-          <div style="padding-bottom:2px;flex:1;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-              <h1 style="font-size:17px;font-weight:900;" id="brandTitle">Stacks Collectibles and Goods</h1>
-              <button type="button" class="admin-edit-chip" onclick="openAdminMasterHub('home')"><i class="fa-solid fa-pen"></i> Edit Page</button>
+          <div style="flex:1;padding-bottom:2px;">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <h1 style="font-size:17px;font-weight:900;line-height:1.15;" id="brandTitle">Stacks Collectibles and Goods</h1>
+              <button type="button" class="admin-edit-chip" onclick="document.getElementById('homeAvatarInput').click()"><i class="fa-solid fa-camera"></i> Photo</button>
             </div>
-            <p style="font-size:12px;color:#64748b;" id="brandSubtitle">Admin: Dustin Stacks &bull; Tempe, AZ</p>
-            <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span style="color:#16a34a;font-weight:700;" id="syncStatus"><i class="fa-solid fa-cloud"></i> Live Cloud Sync</span></div>
+            <div style="font-size:12px;color:#475569;margin-top:2px;" id="brandSubtitle">Admin: Dustin Stacks &bull; Tempe, AZ</div>
+            <div style="font-size:11px;color:#f59e0b;margin-top:2px;">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <span style="color:#16a34a;font-weight:700;margin-left:4px;" id="syncStatus"><i class="fa-solid fa-cloud"></i> Live Cloud Sync</span>
+            </div>
           </div>
         </div>
+
+        <div id="siteAnnouncementBar" style="display:none;background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:7px 10px;border-radius:8px;font-size:12px;font-weight:700;margin-bottom:8px;">
+          <i class="fa-solid fa-bullhorn"></i> <span id="siteAnnouncementText"></span>
+        </div>
+
         <div class="hero-actions">
           <button class="hero-btn-primary" type="button" onclick="openMySellingHub()"><i class="fa-solid fa-chart-line"></i> Selling Hub</button>
           <button class="hero-btn-sec" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-user-pen"></i> My Profile</button>
-          <button class="hero-btn-sec" type="button" style="background:#dbeafe;color:#1d4ed8;" onclick="openShareSheet('home', null)"><i class="fa-solid fa-share-nodes"></i> Share</button>
+          <button class="hero-btn-sec" type="button" onclick="openShareSheet('site', null, event)" style="background:#e0f2fe;color:#0284c7;"><i class="fa-solid fa-share-nodes"></i> Share</button>
         </div>
-        <div style="display:flex;justify-content:space-between;border-top:1px solid #e2e8f0;padding-top:10px;font-size:12px;font-weight:700;">
-          <div><i class="fa-solid fa-heart" style="color:#dc2626;"></i> <span id="siteLikes">142</span> Likes <button class="pill" type="button" style="padding:2px 7px;font-size:10px;margin-left:4px;" onclick="addLike()">+1</button></div>
-          <div><i class="fa-solid fa-boxes-stacked" style="color:#0284c7;"></i> <span id="invCount">0</span> Active</div>
-          <div style="cursor:pointer;color:#0284c7;" onclick="openM('membersDirModal')"><i class="fa-solid fa-users"></i> <span id="userCount">1</span> Members</div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid #f1f5f9;font-size:12px;font-weight:700;color:#334155;">
+          <div><i class="fa-solid fa-heart" style="color:#ef4444;"></i> <span id="siteLikes">142</span> Likes <button type="button" class="pill" style="padding:2px 7px;font-size:11px;margin-left:3px;" onclick="addLike()">+1</button></div>
+          <div style="cursor:pointer;" onclick="gotoMarket()"><i class="fa-solid fa-store" style="color:#0284c7;"></i> <span id="invCount">0</span> Active</div>
+          <div style="cursor:pointer;" onclick="openM('membersDirModal')"><i class="fa-solid fa-users" style="color:#0284c7;"></i> <span id="userCount">1</span> Members</div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <div class="filters">
-    <button class="pill active" type="button" onclick="setCat(this, 'All')">For You</button>
-    <button class="pill" type="button" onclick="setCat(this, 'Shipped')"><i class="fa-solid fa-truck-fast"></i> Shipped</button>
-    <button class="pill" type="button" onclick="setCat(this, 'Coins & Currency')">Coins</button>
-    <button class="pill" type="button" onclick="setCat(this, 'Trading Cards')">Cards</button>
-    <button class="pill" type="button" onclick="setCat(this, 'Collectibles & Toys')">Collectibles</button>
-    <button class="pill" type="button" onclick="setCat(this, 'Electronics & Audio')">Car Audio</button>
-    <button class="pill" type="button" onclick="setCat(this, 'Other')">Other</button>
+    <button class="pill active" type="button" onclick="setCat(this,'All')">For You</button>
+    <button class="pill" type="button" onclick="setCat(this,'Shipped')"><i class="fa-solid fa-truck"></i> Shipped</button>
+    <button class="pill" type="button" onclick="setCat(this,'Coins & Currency')">Coins</button>
+    <button class="pill" type="button" onclick="setCat(this,'Trading Cards')">Cards</button>
+    <button class="pill" type="button" onclick="setCat(this,'Collectibles & Toys')">Collectibles</button>
+    <button class="pill" type="button" onclick="setCat(this,'Electronics & Audio')">Audio</button>
+    <button class="pill" type="button" onclick="setCat(this,'Other')">Other</button>
   </div>
 
   <main class="grid" id="itemsGrid">
-    <div style="grid-column:1/-1;text-align:center;padding:35px;color:#64748b;font-size:13px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading live marketplace...</div>
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:#64748b;font-size:13px;"><i class="fa-solid fa-spinner fa-spin"></i> Loading live marketplace...</div>
   </main>
 
   <nav class="bottom-bar">
-    <button class="b-item" type="button" onclick="goHomeMarket()">
-      <i class="fa-solid fa-store"></i>Home
-      <span class="num-badge" id="marketBadge">0</span>
-    </button>
-    <button class="b-item" type="button" onclick="openMySellingHub()">
-      <i class="fa-solid fa-tag"></i>Selling
-    </button>
-    <button class="b-fab" type="button" onclick="openCreateListing()"><i class="fa-solid fa-plus"></i></button>
-    <button class="b-item" type="button" onclick="openChatHub('group')">
-      <i class="fa-solid fa-comments"></i>Chat
-      <span class="num-badge" id="inboxBadge">0</span>
-    </button>
-    <button class="b-item" type="button" onclick="openMyProfileHub()">
-      <i class="fa-solid fa-circle-user"></i>Profile
-      <span class="num-badge" id="menuBadge">0</span>
-    </button>
+    <button class="b-item active" type="button" onclick="gotoMarket()"><i class="fa-solid fa-store" style="font-size:16px;"></i>Home<span class="num-badge" id="marketBadge">0</span></button>
+    <button class="b-item" type="button" onclick="openMySellingHub()"><i class="fa-solid fa-tag" style="font-size:16px;"></i>Selling</button>
+    <button class="b-item" type="button" onclick="openCreateListing()"><div class="b-sell"><i class="fa-solid fa-plus"></i></div></button>
+    <button class="b-item" type="button" onclick="openChatHub('group')"><i class="fa-solid fa-comments" style="font-size:16px;"></i>Chat<span class="num-badge" id="inboxBadge">0</span></button>
+    <button class="b-item" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-circle-user" style="font-size:16px;"></i>Profile</button>
   </nav>
 
-  <input type="file" id="cameraShootInput" accept="image/*" capture="environment" style="display:none;" onchange="handleIncomingFiles(this.files)">
-  <input type="file" id="galleryPickInput" accept="image/*" multiple style="display:none;" onchange="handleIncomingFiles(this.files)">
-  <input type="file" id="coverFile" accept="image/*" style="display:none;" onchange="handleMemberCover(this)">
-  <input type="file" id="avatarFile" accept="image/*" style="display:none;" onchange="handleProfileAvatar(this)">
-  <input type="file" id="homeWallpaperFile" accept="image/*" style="display:none;" onchange="handleHomeWallpaperUpload(this)">
-  <input type="file" id="homeAvatarFile" accept="image/*" style="display:none;" onchange="handleHomeAvatarUpload(this)">
-    <div class="modal-overlay" id="memberProfileModal">
-    <div class="modal-box" style="padding:0;overflow-x:hidden;">
-      <div style="padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;">
-        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:13px;font-weight:800;color:#0f172a;">Member Profile</span>
-        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+  <div class="modal-overlay" id="memberProfileModal">
+    <div class="modal-box" style="padding:0;overflow:hidden;">
+      <div style="padding:12px 15px 0;">
+        <div class="modal-nav-bar" style="margin-bottom:8px;">
+          <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <span style="font-size:13px;font-weight:800;">Member Profile</span>
+          <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+        </div>
       </div>
 
-      <div class="fb-cover-wrap" id="mpCoverBox">
-        <img id="mpCoverImg" style="display:none;">
-        <button type="button" class="fb-cam-btn" id="mpEditCoverBtn" style="display:none;" onclick="document.getElementById('coverFile').click()"><i class="fa-solid fa-camera"></i></button>
-      </div>
-
-      <div class="fb-avatar-zone">
-        <div class="thought-bubble" id="mpThoughtBubble" onclick="editMyThought()">Drop a thought...</div>
-        <div class="fb-avatar-circle" id="mpAvatarWrap">
-          <img id="mpAvatarImg" style="display:none;">
-          <span id="mpAvatarInitial">AD</span>
-          <button type="button" class="fb-cam-btn" id="mpEditAvBtn" style="display:none;width:26px;height:26px;bottom:2px;right:2px;font-size:11px;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i></button>
-        </div>
-        <h2 style="font-size:20px;font-weight:900;margin-top:8px;" id="mpName">Admin</h2>
-        <div style="font-size:12px;color:#64748b;font-weight:600;" id="mpSubStats">0 Listings &bull; Verified Member</div>
-      </div>
-
-      <div style="padding:12px 14px;">
-        <div id="mpOwnButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-          <button class="hero-btn-primary" type="button" onclick="editMyThought()"><i class="fa-solid fa-comment-dots"></i> Drop a Thought</button>
-          <button class="hero-btn-sec" type="button" onclick="openM('profileModal')"><i class="fa-solid fa-pen"></i> Edit My Profile</button>
-        </div>
-        <div id="mpVisitorButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-          <button class="hero-btn-primary" type="button" onclick="startPrivateChatWithViewedMember()"><i class="fa-solid fa-paper-plane"></i> Private Message</button>
-          <button class="hero-btn-sec" type="button" onclick="filterByMember(viewedMemberName)"><i class="fa-solid fa-store"></i> View in Market</button>
+      <div style="padding:0 12px;">
+        <div class="fb-cover-wrap">
+          <img id="mpCoverImg" style="display:none;" src="">
+          <button type="button" id="mpEditCoverBtn" class="fb-cam-btn" style="display:none;" onclick="document.getElementById('memberCoverInput').click()"><i class="fa-solid fa-camera"></i></button>
         </div>
 
-        <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;">
-          <button class="pill active" id="mpTabAll" type="button" onclick="setProfileTab('all')">All</button>
-          <button class="pill" id="mpTabActive" type="button" onclick="setProfileTab('active')">Active</button>
-          <button class="pill" id="mpTabSold" type="button" onclick="setProfileTab('sold')">Sold</button>
-          <button class="pill" id="mpTabAbout" type="button" onclick="setProfileTab('about')">About &amp; Bio</button>
-        </div>
-
-        <div id="mpDetailsCard" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:12px;font-size:13px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <strong style="font-size:14px;">Member Details</strong>
-            <button type="button" id="mpInlineEditIcon" style="display:none;background:none;border:none;color:#0284c7;cursor:pointer;" onclick="openM('profileModal')"><i class="fa-solid fa-pen"></i></button>
+        <div class="fb-avatar-zone">
+          <div class="thought-bubble" id="mpThoughtBubble" onclick="editMyThought()">Drop a thought...</div>
+          <div class="fb-avatar-circle">
+            <img id="mpAvatarImg" style="display:none;" src="">
+            <span id="mpAvatarInitial">M</span>
+            <button type="button" id="mpEditAvBtn" class="fb-cam-btn" style="width:26px;height:26px;bottom:2px;right:2px;font-size:11px;display:none;" onclick="document.getElementById('memberAvatarInput').click()"><i class="fa-solid fa-camera"></i></button>
           </div>
-          <div style="margin-bottom:6px;color:#334155;"><i class="fa-solid fa-location-dot" style="width:20px;color:#64748b;"></i> Lives in <strong id="mpCityText">Tempe, Arizona</strong></div>
-          <div style="margin-bottom:6px;color:#334155;"><i class="fa-solid fa-gem" style="width:20px;color:#64748b;"></i> Collects: <strong id="mpSpecText">Coins, Cards &amp; Collectibles</strong></div>
-          <div style="margin-bottom:6px;color:#334155;"><i class="fa-solid fa-shield-check" style="width:20px;color:#16a34a;"></i> <span id="mpRoleText">Verified Marketplace Member</span></div>
-          <div id="mpBioText" style="margin-top:8px;padding-top:8px;border-top:1px solid #e2e8f0;color:#475569;font-size:12px;line-height:1.45;"></div>
+          <h2 style="font-size:21px;font-weight:900;margin-top:6px;display:flex;align-items:center;gap:6px;">
+            <span id="mpName">Member</span>
+            <i class="fa-solid fa-pen" id="mpInlineEditIcon" style="font-size:13px;color:#0284c7;cursor:pointer;display:none;" onclick="openM('profileModal')"></i>
+          </h2>
+          <div style="font-size:12px;color:#475569;font-weight:700;margin-top:2px;" id="mpSubStats">0 Listings &bull; Verified Collector</div>
         </div>
 
-        <div id="mpListingsSection">
-          <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Storefront Listings</h3>
+        <div id="mpOwnButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;">
+          <button type="button" class="hero-btn-primary" onclick="openCreateListing()"><i class="fa-solid fa-plus"></i> Add Listing</button>
+          <button type="button" class="hero-btn-sec" onclick="openM('profileModal')"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+        </div>
+        <div id="mpVisitorButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;">
+          <button type="button" class="hero-btn-primary" onclick="startPrivateChatWithViewedMember()"><i class="fa-solid fa-message"></i> Message</button>
+          <button type="button" class="hero-btn-sec" onclick="filterByMember(viewedMemberName)"><i class="fa-solid fa-store"></i> Storefront</button>
+        </div>
+
+        <div style="display:flex;gap:8px;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-bottom:10px;overflow-x:auto;">
+          <button type="button" class="pill active" id="mpTabAll" onclick="setProfileTab('all')">All</button>
+          <button type="button" class="pill" id="mpTabActive" onclick="setProfileTab('active')">Active</button>
+          <button type="button" class="pill" id="mpTabSold" onclick="setProfileTab('sold')">Sold</button>
+          <button type="button" class="pill" id="mpTabAbout" onclick="setProfileTab('about')">About</button>
+        </div>
+
+        <div id="mpDetailsCard" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:11px;margin-bottom:12px;font-size:12px;line-height:1.75;color:#1e293b;">
+          <div><i class="fa-solid fa-location-dot" style="color:#64748b;width:18px;"></i> Lives in <strong id="mpCityText">Tempe, Arizona</strong></div>
+          <div><i class="fa-solid fa-gem" style="color:#0284c7;width:18px;"></i> Collects: <strong id="mpSpecText">Coins, Cards &amp; Collectibles</strong></div>
+          <div><i class="fa-solid fa-shield-check" style="color:#16a34a;width:18px;"></i> <span id="mpRoleText">Verified Community Member</span></div>
+          <div style="margin-top:5px;color:#475569;font-style:italic;" id="mpBioText">Buying, selling, and trading on Stacks Collectibles and Goods.</div>
+        </div>
+
+        <div id="mpListingsSection" style="padding-bottom:15px;">
+          <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Member Listings</h3>
           <div id="mpListingsGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
         </div>
       </div>
@@ -278,47 +272,43 @@
   </div>
 
   <div class="modal-overlay" id="sellingHubModal">
-    <div class="modal-box">
+    <div class="modal-box" style="background:#f8fafc;">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:15px;font-weight:900;">Selling Dashboard</span>
+        <span style="font-size:14px;font-weight:800;">Selling Hub</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
 
-      <div style="display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;">
-        <button class="pill active" type="button" onclick="openChatHub('listing')">Inbox &amp; Offers</button>
-        <button class="pill" type="button" onclick="openMyProfileHub()">Your Profile</button>
-        <button class="pill" type="button" onclick="openM('savedModal')">Saved Watchlist</button>
-      </div>
-
-      <button class="btn-submit" type="button" style="margin-bottom:14px;border-radius:24px;padding:12px;" onclick="openCreateListing()">
+      <button type="button" class="btn-submit" style="padding:13px;font-size:14px;border-radius:12px;margin-bottom:12px;" onclick="openCreateListing()">
         <i class="fa-solid fa-plus"></i> Create New Listing
       </button>
 
-      <h3 style="font-size:15px;font-weight:900;margin-bottom:8px;">Your Overview</h3>
+      <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Your Marketplace Overview</h3>
       <div class="stat-grid">
-        <div class="stat-card" style="cursor:pointer;" onclick="openChatHub('listing')">
-          <div><div class="stat-num" id="hubChatCount">0</div><div class="stat-lbl">Offer threads</div></div>
-          <i class="fa-regular fa-comments" style="font-size:18px;color:#0284c7;"></i>
+        <div class="stat-card" onclick="openChatHub('listing')">
+          <div><div class="stat-num" id="hubChatCount">0</div><div class="stat-lbl">Chats to answer</div></div>
+          <i class="fa-solid fa-comments" style="font-size:20px;color:#0284c7;"></i>
         </div>
-        <div class="stat-card" style="cursor:pointer;" onclick="openMyProfileHub()">
-          <div><div class="stat-num" id="hubActiveCount">0</div><div class="stat-lbl">Your active listings</div></div>
-          <i class="fa-solid fa-tag" style="font-size:18px;color:#16a34a;"></i>
+        <div class="stat-card" onclick="openMyProfileHub()">
+          <div><div class="stat-num" id="hubActiveCount">0</div><div class="stat-lbl">Active listings</div></div>
+          <i class="fa-solid fa-tags" style="font-size:20px;color:#16a34a;"></i>
         </div>
-        <div class="stat-card" style="cursor:pointer;" onclick="openMyProfileHub()">
-          <div><div class="stat-num" id="hubSoldCount">0</div><div class="stat-lbl">Your sold items</div></div>
-          <i class="fa-solid fa-circle-check" style="font-size:18px;color:#f59e0b;"></i>
+        <div class="stat-card" onclick="openMyProfileHub()">
+          <div><div class="stat-num" id="hubSoldCount">0</div><div class="stat-lbl">Sold items</div></div>
+          <i class="fa-solid fa-circle-check" style="font-size:20px;color:#f59e0b;"></i>
         </div>
-        <div class="stat-card" style="cursor:pointer;" onclick="openM('savedModal')">
+        <div class="stat-card" onclick="openM('savedModal')">
           <div><div class="stat-num" id="hubSavedCount">0</div><div class="stat-lbl">Saved items</div></div>
-          <i class="fa-solid fa-bookmark" style="font-size:18px;color:#7c3aed;"></i>
+          <i class="fa-solid fa-heart" style="font-size:20px;color:#ef4444;"></i>
         </div>
       </div>
 
       <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Manage Your Listings (Tap to Edit or Mark Sold)</h3>
       <div id="hubMyListingsList"></div>
     </div>
-  <  <div class="modal-overlay" id="createPostModal">
+  </div>
+
+  <div class="modal-overlay" id="createPostModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -381,7 +371,7 @@
     </div>
   </div>
 
-    <div class="modal-overlay" id="itemModal">
+  <div class="modal-overlay" id="itemModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -402,7 +392,7 @@
 
       <h2 style="font-size:17px;margin-bottom:4px;" id="itemTitle"></h2>
       <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
-        <span style="font-size:22px;font-weight:800;color:#0f172a;" id="itemPrice">$0</span>
+        <span style="font-size:20px;font-weight:900;color:#0f172a;" id="itemPrice">$0</span>
         <span style="font-size:14px;color:#94a3b8;text-decoration:line-through;display:none;" id="itemOrigPrice"></span>
         <span style="font-size:12px;color:#16a34a;font-weight:700;" id="itemNego">Make offer</span>
       </div>
@@ -418,7 +408,7 @@
             <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           </div>
         </div>
-        <i class="fa-solid fa-chevron-right" style="color:#64748b;"></i>
+        <i class="fa-solid fa-chevron-right" style="color:#94a3b8;"></i>
       </div>
 
       <div class="quick-ask-bar">
@@ -427,35 +417,36 @@
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;">
-        <button class="pill" type="button" style="background:#0f172a;color:#fff;" onclick="openOffer()"><i class="fa-solid fa-handshake"></i> Make Offer</button>
+        <button class="pill" type="button" style="background:#0f172a;color:#fff;" onclick="openOffer()"><i class="fa-solid fa-hand-holding-dollar"></i> Offer</button>
         <button class="pill" type="button" style="background:#0284c7;color:#fff;" onclick="openListingTalkRoom(false)"><i class="fa-solid fa-lock"></i> Private Talk</button>
-        <button class="pill" type="button" style="background:#7c3aed;color:#fff;" onclick="joinListingTalk()"><i class="fa-solid fa-user-plus"></i> Join Talks</button>
+        <button class="pill" type="button" style="background:#10b981;color:#fff;" onclick="joinListingTalk()"><i class="fa-solid fa-users"></i> Join Talks</button>
       </div>
 
       <div id="founderIncognitoBar" style="display:none;margin-bottom:10px;">
-        <button class="pill" type="button" style="width:100%;background:#1e293b;color:#fbbf24;border:1px solid #fbbf24;" onclick="openListingTalkRoom(true)"><i class="fa-solid fa-user-secret"></i> Admin Incognito: Inspect Offer Talks Silently</button>
+        <button type="button" class="pill" style="width:100%;background:#1e293b;color:#fbbf24;border:none;padding:7px;" onclick="openListingTalkRoom(true)"><i class="fa-solid fa-user-secret"></i> Admin Stealth Inspect Listing Talks</button>
       </div>
 
-      <div id="offerBox" style="display:none;background:#f8fafc;border:1px solid #e2e8f0;padding:8px;border-radius:8px;margin-bottom:10px;">
-        <input type="number" id="offerAmt" placeholder="Enter cash offer ($)" style="padding:7px;width:70%;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;">
-        <button class="pill" type="button" style="background:#16a34a;color:#fff;border:none;" onclick="sendOffer()">Send Offer</button>
+      <div id="offerBox" style="display:none;background:#f8fafc;padding:9px;border-radius:8px;margin-bottom:10px;">
+        <input type="number" id="offerAmt" placeholder="Offer amount ($)" style="width:65%;padding:7px;border:1px solid #cbd5e1;border-radius:6px;">
+        <button type="button" class="pill" style="background:#16a34a;color:#fff;" onclick="sendOffer()">Send Offer</button>
       </div>
 
-      <div id="sellerControlBox" style="display:none;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:12px;">
-        <div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:6px;" id="controlBoxTitle"><i class="fa-solid fa-pen-to-square"></i> Manage Your Listing</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-          <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;font-size:11px;" onclick="openEditActive()"><i class="fa-solid fa-pen"></i> Edit Post</button>
-          <button class="pill" type="button" id="markSoldBtn" style="background:#f59e0b;color:#fff;border:none;font-size:11px;" onclick="toggleSold()"><i class="fa-solid fa-tag"></i> Mark Sold</button>
-          <button class="pill" type="button" style="background:#fee2e2;color:#dc2626;border:none;font-size:11px;" onclick="delItem()"><i class="fa-solid fa-trash"></i> Delete</button>
+      <div id="sellerControlBox" style="display:none;background:#fef3c7;border:1px solid #f59e0b;padding:9px;border-radius:8px;margin-bottom:10px;">
+        <div style="font-size:11px;font-weight:800;color:#92400e;margin-bottom:6px;" id="controlBoxTitle"><i class="fa-solid fa-shield-halved"></i> Listing Controls</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;">
+          <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;font-size:11px;" onclick="openEditActive()"><i class="fa-solid fa-pen"></i> Edit</button>
+          <button type="button" id="markSoldBtn" class="pill" style="background:#f59e0b;color:#fff;border:none;font-size:11px;" onclick="toggleSold()"><i class="fa-solid fa-tag"></i> Mark Sold</button>
+          <button type="button" class="pill" style="background:#dc2626;color:#fff;border:none;font-size:11px;" onclick="delItem()"><i class="fa-solid fa-trash"></i> Delete</button>
         </div>
       </div>
 
-      <hr style="margin:10px 0;border:0;border-top:1px solid #e2e8f0;">
-      <h3 style="font-size:13px;font-weight:700;margin-bottom:6px;"><i class="fa-solid fa-comments"></i> Public Q&amp;A</h3>
-      <div id="itemCommentsList"></div>
-      <div style="display:flex;gap:6px;margin-top:6px;">
-        <input type="text" id="newCommentInput" placeholder="Ask a public question..." style="padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;flex:1;">
-        <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;" onclick="submitComment()">Post</button>
+      <div style="border-top:1px solid #e2e8f0;padding-top:10px;">
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;">Public Questions</h3>
+        <div id="itemCommentsList"></div>
+        <div style="display:flex;gap:6px;margin-top:6px;">
+          <input type="text" id="newCommentInput" placeholder="Ask a public question..." style="flex:1;padding:7px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;">
+          <button type="button" class="pill" style="background:#0284c7;color:#fff;" onclick="submitComment()">Post</button>
+        </div>
       </div>
     </div>
   </div>
@@ -464,9 +455,9 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Edit Listing</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-pen-to-square" style="color:#0284c7;"></i> Edit Listing Details</h2>
       <form onsubmit="saveEditedItem(event)">
         <div class="form-group"><label>Title</label><input type="text" id="editTitle" required></div>
         <div class="form-group"><label>Category</label>
@@ -480,39 +471,47 @@
             <option>Like New</option><option>New</option><option>Good</option><option>Fair</option>
           </select>
         </div>
-        <div class="form-group"><label>Description</label><textarea id="editDesc" rows="3"></textarea></div>
-        <button type="submit" class="btn-submit">Save Changes</button>
+        <div class="form-group"><label>Description</label><textarea id="editDesc" rows="3" required></textarea></div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
       </form>
     </div>
   </div>
-    <div class="modal-overlay" id="inboxModal">
+
+  <div class="modal-overlay" id="inboxModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Community &amp; Offer Chats</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <div class="chat-tabs">
-        <button class="chat-tab-btn active" id="tabGroupBtn" type="button" onclick="switchChatTab('group')"><i class="fa-solid fa-users"></i> Group Chat</button>
-        <button class="chat-tab-btn" id="tabPrivateBtn" type="button" onclick="switchChatTab('private')"><i class="fa-solid fa-user-lock"></i> Private 1-on-1</button>
-        <button class="chat-tab-btn" id="tabListingBtn" type="button" onclick="switchChatTab('listing')"><i class="fa-solid fa-handshake"></i> Offer Talks</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px;">
+        <button type="button" id="tabGroupBtn" class="pill active" style="font-size:11px;padding:6px 4px;" onclick="switchChatTab('group')">Group Chat</button>
+        <button type="button" id="tabPrivateBtn" class="pill" style="font-size:11px;padding:6px 4px;" onclick="switchChatTab('private')">Private 1-on-1</button>
+        <button type="button" id="tabListingBtn" class="pill" style="font-size:11px;padding:6px 4px;" onclick="switchChatTab('listing')">Listing Talks</button>
       </div>
-      <div id="groupControlBar" style="display:flex;justify-content:space-between;align-items:center;background:#f8fafc;padding:6px 8px;border-radius:8px;margin-bottom:6px;font-size:11px;">
-        <span><i class="fa-solid fa-circle" style="color:#16a34a;font-size:8px;"></i> Community Group Chat</span>
-        <button class="pill" type="button" style="padding:3px 8px;font-size:10px;background:#fee2e2;color:#dc2626;border:none;" id="leaveGroupBtn" onclick="toggleGroupMembership()">Leave Chat</button>
+
+      <div id="groupControlBar" style="display:flex;justify-content:space-between;align-items:center;background:#f1f5f9;padding:6px 9px;border-radius:8px;margin-bottom:8px;font-size:11px;">
+        <span>Approved Members Community Room</span>
+        <button type="button" id="leaveGroupBtn" class="pill" style="padding:3px 8px;font-size:10px;background:#fee2e2;color:#dc2626;border:none;" onclick="toggleGroupMembership()">Leave Chat</button>
       </div>
-      <div id="privatePickerBar" style="display:none;margin-bottom:6px;">
-        <select id="privateTargetSelect" onchange="selectPrivateMember(this.value)" style="width:100%;padding:7px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;font-weight:700;"></select>
+
+      <div id="privatePickerBar" style="display:none;margin-bottom:8px;">
+        <select id="privateTargetSelect" onchange="selectPrivateMember(this.value)" style="width:100%;padding:7px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;">
+          <option value="">-- Choose Member for Private 1-on-1 Chat --</option>
+        </select>
       </div>
-      <div id="listingTalkBar" style="display:none;background:#f8fafc;padding:6px 8px;border-radius:8px;margin-bottom:6px;font-size:11px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:4px;">
-          <span id="listingRoomLabel" style="font-weight:700;color:#0f172a;">Private Listing Offer Talk</span>
-          <button class="pill" type="button" style="padding:3px 8px;font-size:10px;background:#7c3aed;color:#fff;border:none;" onclick="inviteMemberToTalk()">+ Add Member by Name</button>
+
+      <div id="listingTalkBar" style="display:none;background:#e0f2fe;border:1px solid #0284c7;padding:7px 9px;border-radius:8px;margin-bottom:8px;font-size:11px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong id="listingRoomLabel">Private Listing Offer Talk</strong>
+          <button type="button" class="pill" style="padding:3px 8px;font-size:10px;background:#0284c7;color:#fff;border:none;" onclick="inviteMemberToTalk()">+ Add Member</button>
         </div>
       </div>
-      <div id="chatMessages" style="height:250px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:8px;padding:10px;background:#f8fafc;margin-bottom:8px;"></div>
+
+      <div class="chat-box" id="chatMessages"></div>
       <div id="chatComposerRow" style="display:flex;gap:6px;">
-        <input type="text" id="chatInput" placeholder="Write a message..." style="padding:8px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;flex:1;">
-        <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;" onclick="sendChatMessage()">Send</button>
+        <input type="text" id="chatInput" placeholder="Write a message..." style="flex:1;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;">
+        <button class="pill" type="button" style="background:#0284c7;color:#fff;" onclick="sendChatMessage()">Send</button>
       </div>
     </div>
   </div>
@@ -521,26 +520,24 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:14px;font-weight:800;">Contact Admin / Report Issue</span>
+        <span style="font-size:14px;font-weight:800;">Contact Admin</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <p style="font-size:12px;color:#475569;margin-bottom:10px;">Send a private message directly to the Admin to report an issue, rule violation, or request help. You will receive the Admin's reply right here.</p>
-      <div id="memberSupportThread" style="max-height:190px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:8px;padding:8px;background:#f8fafc;margin-bottom:10px;"></div>
+      <p style="font-size:12px;color:#475569;margin-bottom:8px;">Report an issue, scam link, or message Admin directly.</p>
+      <div class="chat-box" id="memberSupportThread" style="height:170px;"></div>
       <form onsubmit="sendMemberSupportMsg(event)">
-        <div class="form-group">
-          <label>Issue Type</label>
+        <div class="form-group"><label>Topic</label>
           <select id="supportTopic">
-            <option>Report a Listing or Member</option>
+            <option>Report Scam / Bad Post</option>
             <option>Account / Approval Help</option>
-            <option>Bug / Website Issue</option>
-            <option>General Question for Admin</option>
+            <option>Listing Question</option>
+            <option>Other</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Message to Admin</label>
-          <textarea id="supportMsgInput" rows="3" placeholder="Describe the issue clearly..." required></textarea>
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="supportMsgInput" placeholder="Type message to Admin..." style="flex:1;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;" required>
+          <button type="submit" class="pill" style="background:#0284c7;color:#fff;">Send</button>
         </div>
-        <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Send to Admin</button>
       </form>
     </div>
   </div>
@@ -549,66 +546,59 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:15px;font-weight:900;"><i class="fa-solid fa-shield-halved" style="color:#eab308;"></i> Admin Master Tools</span>
+        <span style="font-size:14px;font-weight:800;color:#dc2626;"><i class="fa-solid fa-shield-halved"></i> Admin Master Hub</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#e2e8f0;padding:4px;border-radius:10px;margin-bottom:12px;">
-        <button class="chat-tab-btn active" id="admTabHomeBtn" type="button" onclick="switchAdminTab('home')">Home Page</button>
-        <button class="chat-tab-btn" id="admTabMembersBtn" type="button" onclick="switchAdminTab('members')">Members <span id="admPendMini"></span></button>
-        <button class="chat-tab-btn" id="admTabReportsBtn" type="button" onclick="switchAdminTab('reports')">Reports <span id="admRepMini"></span></button>
-        <button class="chat-tab-btn" id="admTabRulesBtn" type="button" onclick="switchAdminTab('rules')">Rules &amp; Tools</button>
+      <div class="admin-tab-bar">
+        <button type="button" id="admTabHome" class="admin-tab-btn active" onclick="switchAdminTab('home')">Homepage</button>
+        <button type="button" id="admTabMembers" class="admin-tab-btn" onclick="switchAdminTab('members')">Members <span class="inline-badge" id="admMemMini">0</span></button>
+        <button type="button" id="admTabReports" class="admin-tab-btn" onclick="switchAdminTab('reports')">Reports <span class="inline-badge" id="admRepMini">0</span></button>
+        <button type="button" id="admTabRules" class="admin-tab-btn" onclick="switchAdminTab('rules')">Rules</button>
       </div>
 
       <div id="admSecHome">
-        <h3 style="font-size:13px;font-weight:800;margin-bottom:8px;"><i class="fa-solid fa-paintbrush" style="color:#0284c7;"></i> Live Homepage &amp; Wallpaper Editor</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-          <button type="button" class="hero-btn-primary" onclick="document.getElementById('homeWallpaperFile').click()"><i class="fa-solid fa-image"></i> Upload Wallpaper</button>
-          <button type="button" class="hero-btn-sec" onclick="document.getElementById('homeAvatarFile').click()"><i class="fa-solid fa-circle-user"></i> Upload Left Photo</button>
+        <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:10px;margin-bottom:10px;">
+          <div style="font-size:12px;font-weight:800;margin-bottom:6px;">Homepage Wallpaper &amp; Profile Photo</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+            <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;" onclick="document.getElementById('homeBannerInput').click()"><i class="fa-solid fa-image"></i> Upload Wallpaper</button>
+            <button type="button" class="pill" style="background:#0f172a;color:#fbbf24;border:none;" onclick="document.getElementById('homeAvatarInput').click()"><i class="fa-solid fa-camera"></i> Upload Photo</button>
+          </div>
+          <div class="form-group"><label>Text Over Wallpaper</label><input type="text" id="admOverlayInput" placeholder="Verified Collector Marketplace & Trading Club"></div>
+          <div class="form-group"><label>Marketplace Title</label><input type="text" id="admTitleInput" placeholder="Stacks Collectibles and Goods"></div>
+          <div class="form-group"><label>Subtitle / Location</label><input type="text" id="admSubtitleInput" placeholder="Admin: Dustin Stacks • Tempe, AZ"></div>
+          <div class="form-group"><label>Live Announcement Banner (Optional)</label><input type="text" id="admAnnounceInput" placeholder="e.g. Weekend Coin & Card Show Sunday!"></div>
+          <button type="button" class="btn-submit" onclick="saveHomeAppearance()"><i class="fa-solid fa-floppy-disk"></i> Save Live Homepage</button>
         </div>
-        <div class="form-group"><label>Wallpaper Overlay Text (Written on Wallpaper)</label><input type="text" id="admOverlayInput" placeholder="e.g. Verified Collector Marketplace & Trading Club"></div>
-        <div class="form-group"><label>Homepage Main Title</label><input type="text" id="admTitleInput" placeholder="Stacks Collectibles and Goods"></div>
-        <div class="form-group"><label>Homepage Subtitle</label><input type="text" id="admSubtitleInput" placeholder="Admin: Dustin Stacks • Tempe, AZ"></div>
-        <div class="form-group"><label>Top Announcement Banner (Leave blank to hide)</label><input type="text" id="admAnnounceInput" placeholder="e.g. Weekend Coin & Card Show Sunday!"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <button type="button" class="hero-btn-sec" onclick="clearHomeWallpaper()">Reset Wallpaper</button>
-          <button type="button" class="btn-submit" style="margin-top:0;" onclick="saveHomeAppearance()">Save to Live Home</button>
-        </div>
+        <button type="button" class="pill" style="width:100%;background:#0f172a;color:#fff;padding:9px;" onclick="syncLocalToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Push Local Items to Live Cloud</button>
       </div>
 
       <div id="admSecMembers" style="display:none;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-          <h3 style="font-size:13px;font-weight:800;"><i class="fa-solid fa-user-clock" style="color:#dc2626;"></i> Pending Approvals (<span id="pendingMemberCountText">0</span>)</h3>
-          <button type="button" class="pill" style="padding:3px 8px;font-size:10px;" onclick="loadMembers()"><i class="fa-solid fa-rotate"></i> Refresh</button>
-        </div>
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#0284c7;">Pending Requests (<span id="pendingMemberCountText">0</span>)</h3>
         <div id="pendingMembersList" style="margin-bottom:12px;"></div>
-        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;"><i class="fa-solid fa-users" style="color:#10b981;"></i> Approved Members</h3>
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#16a34a;">Approved Members</h3>
         <div id="approvedMembersList"></div>
       </div>
 
       <div id="admSecReports" style="display:none;">
-        <h3 style="font-size:13px;font-weight:800;margin-bottom:8px;"><i class="fa-solid fa-envelope-open-text" style="color:#dc2626;"></i> Member Reports &amp; Support Inbox</h3>
-        <div id="adminReportsInboxList" style="max-height:290px;overflow-y:auto;"></div>
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#dc2626;">Member Reports &amp; Help Messages</h3>
+        <div id="adminReportsInboxList"></div>
       </div>
 
       <div id="admSecRules" style="display:none;">
-        <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:10px;">
-          <label style="font-size:12px;font-weight:800;display:block;margin-bottom:4px;"><i class="fa-solid fa-scroll"></i> Edit Member Join Rules</label>
-          <textarea id="founderRulesEditor" rows="3" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;"></textarea>
-          <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;margin-top:6px;width:100%;" onclick="saveFounderRules()">Save Rules</button>
-        </div>
-        <button class="pill" type="button" style="background:#0f172a;color:#fbbf24;border:none;width:100%;padding:10px;font-weight:700;margin-bottom:8px;" onclick="openChatHub('group')"><i class="fa-solid fa-user-secret"></i> Stealth Chat Editor (Group &amp; Private)</button>
-        <button class="pill" type="button" style="background:#0284c7;color:#fff;border:none;width:100%;padding:10px;font-weight:700;" onclick="syncLocalToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Push Local Phone Items to Cloud</button>
+        <div class="form-group"><label>Edit Community Rules</label><textarea id="founderRulesEditor" rows="5"></textarea></div>
+        <button type="button" class="btn-submit" onclick="saveFounderRules()">Save Live Rules</button>
       </div>
     </div>
   </div>
-    <div class="modal-overlay" id="membersDirModal">
+
+  <div class="modal-overlay" id="membersDirModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Community Members</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-users" style="color:#0284c7;"></i> Community Members</h2>
       <div id="membersDirList"></div>
     </div>
   </div>
@@ -617,24 +607,26 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Join Community</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:6px;"><i class="fa-solid fa-user-plus" style="color:#0284c7;"></i> Request Member Access</h2>
+      <div id="founderPendingAlert" style="display:none;background:#fef2f2;border:1px solid #ef4444;color:#991b1b;padding:9px;border-radius:8px;font-size:12px;margin-bottom:10px;cursor:pointer;" onclick="openAdminMasterHub('members')">
+        <strong><i class="fa-solid fa-bell"></i> Admin Alert:</strong> <span id="pendingAlertCount">0</span> new request/report waiting. Tap here to review.
+      </div>
       <div id="memberApprovalStatusBox" style="display:none;background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:9px;border-radius:8px;font-size:12px;margin-bottom:10px;"></div>
-      <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px;margin-bottom:10px;">
-        <div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:4px;"><i class="fa-solid fa-scale-balanced" style="color:#0284c7;"></i> Community Rules (Required)</div>
-        <div id="joinRulesDisplay" style="font-size:12px;color:#334155;line-height:1.45;white-space:pre-line;"></div>
+      <div style="background:#f8fafc;border:1px solid #cbd5e1;padding:10px;border-radius:8px;margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:800;margin-bottom:4px;"><i class="fa-solid fa-scale-balanced"></i> Community Rules (Required)</div>
+        <div id="joinRulesDisplay" style="font-size:11px;color:#334155;line-height:1.45;white-space:pre-line;"></div>
       </div>
       <form onsubmit="handleJoin(event)">
-        <div class="form-group"><label>Your Full Name</label><input type="text" id="joinName" placeholder="e.g. John Miller" required></div>
-        <div class="form-group"><label>Email or Phone</label><input type="text" id="joinContact" placeholder="john@example.com" required></div>
-        <div class="form-group"><label>City / Location</label><input type="text" id="joinCity" value="Tempe, AZ" required></div>
-        <div class="form-group">
-          <label>Do you agree to follow these rules?</label>
+        <div class="form-group"><label>Your Display Name</label><input type="text" id="joinName" placeholder="e.g. Alex Rivera" required></div>
+        <div class="form-group"><label>Email or Phone Number</label><input type="text" id="joinContact" placeholder="alex@email.com" required></div>
+        <div class="form-group"><label>City / State</label><input type="text" id="joinCity" value="Tempe, AZ" required></div>
+        <div class="form-group"><label>Do you agree to follow all community rules?</label>
           <select id="joinRulesAgree" required>
             <option value="">-- Select Yes or No --</option>
-            <option value="yes">Yes, I agree to follow all rules</option>
-            <option value="no">No, I do not agree</option>
+            <option value="yes">YES - I agree to follow all rules</option>
+            <option value="no">NO - I do not agree</option>
           </select>
         </div>
         <button type="submit" id="joinSubmitBtn" class="btn-submit">Submit Request to Admin</button>
@@ -649,20 +641,20 @@
         <span style="font-size:14px;font-weight:800;">Marketplace Menu</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <div class="menu-row" onclick="goHomeMarket()"><span><i class="fa-solid fa-house" style="color:#0284c7;width:24px;"></i> Home Marketplace</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openShareSheet('home', null)"><span><i class="fa-solid fa-share-nodes" style="color:#1877f2;width:24px;"></i> Share Marketplace &amp; Invite Friends</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openMyProfileHub()"><span><i class="fa-solid fa-id-card" style="color:#0284c7;width:24px;"></i> My Profile &amp; Storefront</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openMySellingHub()"><span><i class="fa-solid fa-chart-line" style="color:#16a34a;width:24px;"></i> My Selling Dashboard</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openM('profileModal')"><span><i class="fa-solid fa-bell" style="color:#dc2626;width:24px;"></i> Edit Profile &amp; Notices <span class="inline-badge" id="menuNoticeBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openM('membersDirModal')"><span><i class="fa-solid fa-users" style="color:#0284c7;width:24px;"></i> Browse Members</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openM('savedModal')"><span><i class="fa-solid fa-heart" style="color:#dc2626;width:24px;"></i> Saved Watchlist <span class="inline-badge" id="menuSavedBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openChatHub('group')"><span><i class="fa-solid fa-comments" style="color:#10b981;width:24px;"></i> Group &amp; Private Chats <span class="inline-badge" id="menuChatBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" onclick="openContactAdmin()"><span><i class="fa-solid fa-headset" style="color:#f59e0b;width:24px;"></i> Contact Admin / Report Issue</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
-      <div class="menu-row" id="adminMenuBtn" style="display:none;background:#fefce8;border-radius:8px;padding:12px 8px;" onclick="openAdminMasterHub('home')"><span><i class="fa-solid fa-shield-halved" style="color:#eab308;width:24px;"></i> <strong>Admin Master Tools</strong> <span class="inline-badge" id="menuAdminBadge">0</span></span><i class="fa-solid fa-chevron-right" style="color:#0f172a;"></i></div>
-      <div class="menu-row" onclick="openM('safeModal')"><span><i class="fa-solid fa-hand-holding-heart" style="color:#06b6d4;width:24px;"></i> Safe Meetup Spots</span><i class="fa-solid fa-chevron-right" style="color:#cbd5e1;"></i></div>
+      <div class="menu-row" onclick="gotoMarket()"><span class="fa-solid fa-house" style="color:#0284c7;width:20px;"></span> Browse All Listings <span class="inline-badge" id="menuMarketBadge">0</span></div>
+      <div class="menu-row" onclick="openShareSheet('site', null, event)"><span class="fa-solid fa-share-nodes" style="color:#0284c7;width:20px;"></span> Share Marketplace &amp; Invite Friends</div>
+      <div class="menu-row" onclick="openMyProfileHub()"><span class="fa-solid fa-id-card" style="color:#0284c7;width:20px;"></span> My Profile Page</div>
+      <div class="menu-row" onclick="openMySellingHub()"><span class="fa-solid fa-chart-line" style="color:#16a34a;width:20px;"></span> My Selling Hub</div>
+      <div class="menu-row" onclick="openM('profileModal')"><span class="fa-solid fa-bell" style="color:#dc2626;width:20px;"></span> Admin Notices <span class="inline-badge" id="menuNoticeBadge">0</span></div>
+      <div class="menu-row" onclick="openM('membersDirModal')"><span class="fa-solid fa-users" style="color:#0284c7;width:20px;"></span> Community Members</div>
+      <div class="menu-row" onclick="openM('savedModal')"><span class="fa-solid fa-heart" style="color:#ef4444;width:20px;"></span> Saved Items <span class="inline-badge" id="menuSavedBadge">0</span></div>
+      <div class="menu-row" onclick="openChatHub('group')"><span class="fa-solid fa-comments" style="color:#10b981;width:20px;"></span> Community Chat <span class="inline-badge" id="menuChatBadge">0</span></div>
+      <div class="menu-row" onclick="openContactAdmin()"><span class="fa-solid fa-headset" style="color:#f59e0b;width:20px;"></span> Contact Admin / Report</div>
+      <div class="menu-row" id="adminMenuBtn" style="display:none;background:#fef2f2;border-radius:8px;padding:12px 8px;" onclick="openAdminMasterHub('home')"><span class="fa-solid fa-shield-halved" style="color:#dc2626;width:20px;"></span> <strong>Admin Master Hub</strong> <span class="inline-badge" id="menuAdminBadge">0</span></div>
+      <div class="menu-row" onclick="openM('safeModal')"><span class="fa-solid fa-hand-holding-heart" style="color:#0284c7;width:20px;"></span> Safety &amp; Local Pickup</div>
       <div style="margin-top:14px;">
         <label style="font-size:12px;font-weight:700;">Account Mode / Admin Unlock</label>
-        <select id="roleSelector" onchange="setRole(this.value)" style="width:100%;padding:8px;margin-top:4px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;">
+        <select id="roleSelector" onchange="setRole(this.value)" style="width:100%;padding:9px;margin-top:4px;border:1px solid #cbd5e1;border-radius:8px;">
           <option value="guest">Guest / Pending Approval</option>
           <option value="member">Approved Member</option>
           <option value="owner">Admin / Owner (PIN Required)</option>
@@ -675,28 +667,29 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Edit Profile &amp; Notices</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Edit My Profile &amp; Bio</h2>
+      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Edit Profile Details</h2>
       <form onsubmit="saveProf(event)">
         <div style="text-align:center;margin-bottom:10px;">
-          <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;cursor:pointer;" onclick="document.getElementById('avatarFile').click()">
+          <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;">
             <img id="profPreview" style="width:100%;height:100%;object-fit:cover;display:none;">
-            <div id="profInitial" style="color:#fff;font-size:22px;font-weight:800;line-height:68px;">GU</div>
+            <div id="profInitial" style="color:#fff;font-size:22px;font-weight:900;line-height:68px;">GU</div>
           </div>
-          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('avatarFile').click()"><i class="fa-solid fa-camera"></i> Change Avatar</span> &bull;
-          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('coverFile').click()"><i class="fa-solid fa-image"></i> Change Cover Banner</span>
+          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('memberAvatarInput').click()">Change Profile Photo</span> &bull;
+          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('memberCoverInput').click()">Change Cover Banner</span>
         </div>
         <div class="form-group"><label>Display Name</label><input type="text" id="pName" required></div>
         <div class="form-group"><label>City / Location</label><input type="text" id="pCity" required></div>
-        <div class="form-group"><label>What Do You Collect? (Specialty)</label><input type="text" id="pSpec" placeholder="e.g. Morgan Dollars, Pokémon, Hot Wheels"></div>
+        <div class="form-group"><label>What Do You Collect? (Specialty)</label><input type="text" id="pSpec" placeholder="Coins, Pokémon, Hot Wheels..."></div>
         <div class="form-group"><label>Bio / About Me</label><textarea id="pBio" rows="2" placeholder="Tell members what you buy, sell, or trade..."></textarea></div>
         <div class="form-group"><label>Contact</label><input type="text" id="pContact" required></div>
         <button type="submit" class="btn-submit">Save My Profile</button>
       </form>
       <hr style="margin:12px 0;border:0;border-top:1px solid #e2e8f0;">
-      <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#dc2626;"><i class="fa-solid fa-bell"></i> Admin &amp; Profile Messages</h3>
-      <div id="profileNoticesList" style="max-height:150px;overflow-y:auto;"></div>
+      <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#dc2626;"><i class="fa-solid fa-bell"></i> Admin Notices</h3>
+      <div id="profileNoticesList" style="max-height:140px;overflow-y:auto;"></div>
     </div>
   </div>
 
@@ -704,6 +697,7 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Saved Items</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
       <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-bookmark" style="color:#0284c7;"></i> Saved Watchlist</h2>
@@ -715,12 +709,13 @@
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;">Safety &amp; Pickup</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:8px;"><i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i> Verified Safe Exchange Spots</h2>
-      <p style="font-size:12px;line-height:1.5;color:#334155;margin-bottom:8px;">Meet during daylight hours in monitored public spaces. Recommended Tempe / East Valley locations:</p>
-      <div style="background:#f8fafc;padding:8px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;margin-bottom:6px;"><strong>Tempe Police Station (Safe Zone)</strong><br>120 E 5th St, Tempe, AZ</div>
-      <div style="background:#f8fafc;padding:8px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;"><strong>Public Bank / Grocery Parking</strong><br>Well-lit daytime parking lots with active cameras.</div>
+      <h2 style="font-size:16px;margin-bottom:8px;"><i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i> Verified Local Meetup</h2>
+      <p style="font-size:12px;line-height:1.5;color:#334155;margin-bottom:8px;">Meet during daylight hours at monitored public locations:</p>
+      <div style="background:#f8fafc;padding:9px;border-radius:8px;border:1px solid #e2e8f0;font-size:12px;margin-bottom:6px;"><strong>Tempe Police Dept. Lobby</strong> &bull; 120 E 5th St, Tempe, AZ</div>
+      <div style="background:#f8fafc;padding:9px;border-radius:8px;border:1px solid #e2e8f0;font-size:12px;"><strong>Local Bank &amp; Retail Plazas</strong> &bull; Tempe / Mesa / Phoenix</div>
     </div>
   </div>
 
@@ -735,8 +730,8 @@
         <div style="font-size:13px;font-weight:800;color:#0f172a;" id="shareSheetTitle">Stacks Collectibles and Goods</div>
         <div style="font-size:11px;color:#64748b;word-break:break-all;margin-top:3px;" id="shareSheetUrlText">https://stacksgoods.com</div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-        <button type="button" class="hero-btn-primary" style="background:#1877f2;" onclick="execShareChannel('facebook')"><i class="fa-brands fa-facebook"></i> Share to Facebook</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <button type="button" class="hero-btn-primary" style="background:#1877f2;" onclick="execShareChannel('facebook')"><i class="fa-brands fa-facebook"></i> Facebook</button>
         <button type="button" class="hero-btn-primary" style="background:#0084ff;" onclick="execShareChannel('messenger')"><i class="fa-brands fa-facebook-messenger"></i> Messenger</button>
         <button type="button" class="hero-btn-sec" style="background:#dcfce7;color:#166534;" onclick="execShareChannel('sms')"><i class="fa-solid fa-comment-sms"></i> Text / SMS</button>
         <button type="button" class="hero-btn-sec" style="background:#fef3c7;color:#92400e;" onclick="execShareChannel('email')"><i class="fa-solid fa-envelope"></i> Email</button>
@@ -745,24 +740,25 @@
       <button type="button" class="hero-btn-sec" style="width:100%;padding:11px;" onclick="execShareChannel('native')"><i class="fa-solid fa-share-from-square"></i> More Apps (Phone Share Menu)</button>
     </div>
   </div>
-    <script>
+
+  <script>
     var SUPABASE_URL = 'https://rxjueszszoggbdhichhq.supabase.co';
-    var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
+    var SUPABASE_KEY = 'sb_publishable_genFiiMp6bJKZOX9MyInAw_alukdVJR';
     var FOUNDER_PIN = '1309';
-    var ADMIN_DEL_REASON = "An admin has deleted your post/message due to spam post, hate talk, racism, or admin discretion.";
+    var ADMIN_DEL_REASON = 'An admin has deleted your post/message due to spam post, hate talk, racism, or admin discretion.';
     var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     var items = [], membersList = [], chatLog = [];
-    var defaultVisitor = { id: null, name: "Guest Visitor", city: "Tempe, AZ", contact: "", avatar: "", cover_photo: "", thought: "", bio: "", specialty: "Coins, Cards & Collectibles", role: "guest", inGroup: true };
+    var defaultVisitor = { id: null, name: 'Guest Visitor', city: 'Tempe, AZ', contact: '', avatar: '', cover_photo: '', specialty: 'Coins, Cards & Collectibles', bio: '', thought: '', role: 'guest', inGroup: true };
     var profile = JSON.parse(localStorage.getItem('stacks_profile')) || defaultVisitor;
     if(profile.name === 'Dustin Stacks' && profile.role === 'owner') profile.name = 'Admin';
     if(typeof profile.inGroup === 'undefined') profile.inGroup = true;
     var lastSeenChatCount = parseInt(localStorage.getItem('stacks_seen_chats') || '0');
     var lastSeenItemCount = parseInt(localStorage.getItem('stacks_seen_items') || '0');
     var saved = JSON.parse(localStorage.getItem('stacks_saved')) || [];
-    var uploadPhotos = [], active = null, slideIndex = 0, curCat = "All", memberFilter = "";
+    var uploadPhotos = [], active = null, slideIndex = 0, curCat = 'All', memberFilter = '';
     var activeChatMode = 'group', activePrivatePartner = '', activeListingRoomId = '', incognitoMode = false, viewedMemberName = '', mpCurrentTab = 'all';
-    var siteRulesText = "1. Be respectful — zero hate talk, racism, or harassment.\n2. No spam, scam links, or fake listings.\n3. Honor agreed cash offers and safe public meetups.";
+    var siteRulesText = '1. Be respectful - zero hate talk, racism, or harassment.\n2. No spam, scam links, or fake listings.\n3. Admin decisions on posts and approvals are final.';
     var homeAppearance = { hero_title: 'Stacks Collectibles and Goods', hero_subtitle: 'Admin: Dustin Stacks • Tempe, AZ', hero_wallpaper: '', hero_overlay_text: 'Verified Collector Marketplace & Trading Club', hero_avatar: '', announcement: '' };
     var modalStack = [];
 
@@ -786,7 +782,7 @@
       modalStack = modalStack.filter(function(x){ return x !== id; });
       modalStack.push(id);
       renderActiveModal();
-      history.pushState({ modal: id }, "", "#view-" + id);
+      history.pushState({ modal: id }, '', '#view-' + id);
       if(id === 'authModal'){ loadSiteSettings(); loadMembers(); checkMyApprovalStatus(); }
       if(id === 'membersDirModal') renderMembersDirectory();
       if(id === 'profileModal') renderProfileNotices();
@@ -796,20 +792,20 @@
       if(modalStack.length > 0){
         modalStack.pop();
         renderActiveModal();
-        if(window.location.hash) history.replaceState({}, "", window.location.pathname);
+        if(window.location.hash) history.replaceState({}, '', window.location.pathname);
       }
     }
 
     function closeAllModals(){
       modalStack = [];
       renderActiveModal();
-      if(window.location.hash) history.replaceState({}, "", window.location.pathname);
+      if(window.location.hash) history.replaceState({}, '', window.location.pathname);
     }
 
-    function goHomeMarket(){
+    function gotoMarket(){
       closeAllModals();
-      curCat = "All"; memberFilter = "";
-      document.getElementById('marketSearchInput').value = "";
+      curCat = 'All'; memberFilter = '';
+      document.getElementById('marketSearchInput').value = '';
       document.querySelectorAll('.filters .pill').forEach(function(x, i){ x.classList.toggle('active', i === 0); });
       lastSeenItemCount = items.length;
       localStorage.setItem('stacks_seen_items', String(lastSeenItemCount));
@@ -887,10 +883,11 @@
         alertBox.style.display = (profile.role === 'owner' && adminAlerts > 0) ? 'block' : 'none';
         document.getElementById('pendingAlertCount').innerText = adminAlerts;
       }
-      if(document.getElementById('admPendMini')) document.getElementById('admPendMini').innerText = pendingMembers ? '('+pendingMembers+')' : '';
+      if(document.getElementById('admMemMini')) document.getElementById('admMemMini').innerText = pendingMembers ? '('+pendingMembers+')' : '';
       if(document.getElementById('admRepMini')) document.getElementById('admRepMini').innerText = supportCount ? '('+supportCount+')' : '';
     }
-          async function loadSiteSettings(){
+
+    async function loadSiteSettings(){
       var res = await db.from('site_settings').select('*').eq('id', 1).single();
       if(!res.error && res.data){
         if(res.data.rules) siteRulesText = res.data.rules;
@@ -915,9 +912,9 @@
       if(homeAppearance.hero_wallpaper){ wpImg.src = homeAppearance.hero_wallpaper; wpImg.style.display = 'block'; }
       else { wpImg.style.display = 'none'; }
 
-      var hAvImg = document.getElementById('heroAvatarImg'), hAvInit = document.getElementById('heroAvatarInitial');
-      if(homeAppearance.hero_avatar){ hAvImg.src = homeAppearance.hero_avatar; hAvImg.style.display = 'block'; hAvInit.style.display = 'none'; }
-      else { hAvImg.style.display = 'none'; hAvInit.style.display = 'block'; }
+      var havImg = document.getElementById('homeAvatarImg'), havInit = document.getElementById('homeAvatarInitial');
+      if(homeAppearance.hero_avatar){ havImg.src = homeAppearance.hero_avatar; havImg.style.display = 'block'; havInit.style.display = 'none'; }
+      else { havImg.style.display = 'none'; havInit.style.display = 'block'; }
 
       var annBar = document.getElementById('siteAnnouncementBar');
       if(homeAppearance.announcement){ annBar.style.display = 'block'; document.getElementById('siteAnnouncementText').innerText = homeAppearance.announcement; }
@@ -944,12 +941,12 @@
         hero_avatar: homeAppearance.hero_avatar,
         announcement: homeAppearance.announcement
       });
-      alert("Live homepage updated for everyone!");
+      alert('Live homepage updated for everyone!');
     }
 
     async function quickEditHomeOverlay(){
       if(profile.role !== 'owner') return;
-      var txt = prompt("Write text to display across your homepage wallpaper:", homeAppearance.hero_overlay_text);
+      var txt = prompt('Write text to display across your homepage wallpaper:', homeAppearance.hero_overlay_text);
       if(txt === null) return;
       homeAppearance.hero_overlay_text = txt.trim();
       applyHomeAppearance();
@@ -973,7 +970,7 @@
             homeAppearance.hero_wallpaper = canvas.toDataURL('image/jpeg', 0.72);
             applyHomeAppearance();
             await db.from('site_settings').upsert({ id: 1, hero_wallpaper: homeAppearance.hero_wallpaper });
-            alert("Homepage wallpaper updated!");
+            alert('Homepage wallpaper updated!');
           };
           img.src = e.target.result;
         };
@@ -992,7 +989,7 @@
             homeAppearance.hero_avatar = canvas.toDataURL('image/jpeg', 0.8);
             applyHomeAppearance();
             await db.from('site_settings').upsert({ id: 1, hero_avatar: homeAppearance.hero_avatar });
-            alert("Homepage profile photo updated!");
+            alert('Homepage profile photo updated!');
           };
           img.src = e.target.result;
         };
@@ -1010,7 +1007,7 @@
     function switchAdminTab(t){
       ['home','members','reports','rules'].forEach(function(k){
         var cap = k.charAt(0).toUpperCase() + k.slice(1);
-        document.getElementById('admTab' + cap + 'Btn').classList.toggle('active', k === t);
+        document.getElementById('admTab' + cap).classList.toggle('active', k === t);
         document.getElementById('admSec' + cap).style.display = (k === t) ? 'block' : 'none';
       });
       if(t === 'reports') renderAdminReportsInbox();
@@ -1027,11 +1024,11 @@
       var box = document.getElementById('memberSupportThread');
       var myRoom = 'support:' + profile.name;
       var list = chatLog.filter(function(m){ return m.room === myRoom; });
-      if(!list.length){ box.innerHTML = '<div style="font-size:12px;color:#64748b;text-align:center;padding:12px;">No messages sent to Admin yet.</div>'; return; }
-      box.innerHTML = "";
+      if(!list.length){ box.innerHTML = '<div style="font-size:12px;color:#64748b;text-align:center;padding:12px;">No messages with Admin yet.</div>'; return; }
+      box.innerHTML = '';
       list.forEach(function(m){
         var isAdmin = (m.sender === 'Admin');
-        box.innerHTML += '<div style="margin-bottom:6px;padding:7px 9px;border-radius:8px;font-size:12px;background:'+(isAdmin?'#dcfce7':'#e2e8f0')+';"><strong>'+m.sender+' ('+m.time+'):</strong><br>'+m.text+'</div>';
+        box.innerHTML += '<div style="margin-bottom:7px;padding:7px 9px;border-radius:8px;font-size:12px;background:'+(isAdmin?'#e0f2fe':'#e2e8f0')+';"><strong>'+m.sender+':</strong> '+m.text+' <div style="font-size:9px;color:#64748b;">'+m.time+'</div></div>';
       });
       box.scrollTop = box.scrollHeight;
     }
@@ -1044,33 +1041,33 @@
       await db.from('chats').insert([{
         sender: profile.name,
         sender_id: profile.id || 0,
-        text: "[" + topic + "] " + txt,
+        text: '[' + topic + '] ' + txt,
         time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
         room: 'support:' + profile.name,
         participants: [profile.name, 'Admin']
       }]);
-      document.getElementById('supportMsgInput').value = "";
+      document.getElementById('supportMsgInput').value = '';
       await loadChats();
       renderMemberSupportThread();
-      alert("Sent directly to Admin!");
+      alert('Sent directly to Admin!');
     }
 
     function renderAdminReportsInbox(){
       var box = document.getElementById('adminReportsInboxList');
       var reports = chatLog.filter(function(m){ return (m.room || '').startsWith('support:'); });
-      if(!reports.length){ box.innerHTML = '<div style="font-size:12px;color:#64748b;padding:10px;">No member reports or support messages yet.</div>'; return; }
-      box.innerHTML = "";
+      if(!reports.length){ box.innerHTML = '<div style="font-size:12px;color:#64748b;padding:10px;">No member reports or help messages yet.</div>'; return; }
+      box.innerHTML = '';
       reports.slice().reverse().forEach(function(r){
         var memberOwner = (r.room || '').replace('support:', '');
         box.innerHTML += '<div class="member-req-card" style="flex-direction:column;align-items:stretch;">' +
           '<div style="display:flex;justify-content:space-between;font-size:11px;color:#64748b;"><strong>From: '+r.sender+'</strong><span>'+r.time+'</span></div>' +
           '<div style="font-size:12px;color:#0f172a;margin:4px 0;">'+r.text+'</div>' +
-          '<button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;font-size:11px;padding:4px 10px;align-self:flex-end;" onclick="replyToSupportMember(\''+memberOwner.replace(/'/g,"")+'\')">Reply to '+memberOwner+'</button></div>';
+          '<button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;font-size:11px;padding:4px 8px;align-self:flex-start;" onclick="replyToSupportMember(\''+memberOwner.replace(/'/g,"")+'\')">Reply to '+memberOwner+'</button></div>';
       });
     }
 
     async function replyToSupportMember(memberName){
-      var rep = prompt("Write Admin reply to " + memberName + ":");
+      var rep = prompt('Write Admin reply to ' + memberName + ':');
       if(!rep || !rep.trim()) return;
       await db.from('chats').insert([{
         sender: 'Admin',
@@ -1081,14 +1078,15 @@
       }]);
       await loadChats();
       renderAdminReportsInbox();
-      alert("Reply sent to " + memberName + "!");
-      }
-          async function saveFounderRules(){
+      alert('Reply sent to ' + memberName + '!');
+    }
+
+    async function saveFounderRules(){
       var txt = document.getElementById('founderRulesEditor').value.trim();
       if(!txt) return;
       siteRulesText = txt;
       await db.from('site_settings').upsert({ id: 1, rules: txt });
-      alert("Member join rules updated!");
+      alert('Member join rules updated!');
     }
 
     async function sendModerationNotice(targetMemberName){
@@ -1107,7 +1105,7 @@
       var box = document.getElementById('profileNoticesList');
       var list = chatLog.filter(function(m){ return m.is_notice && m.room === 'notice:' + profile.name; });
       if(!list.length){ box.innerHTML = '<div style="font-size:12px;color:#64748b;">No admin notices on your profile.</div>'; return; }
-      box.innerHTML = "";
+      box.innerHTML = '';
       list.forEach(function(n){
         box.innerHTML += '<div class="chat-bubble chat-notice" style="margin-bottom:6px;"><strong><i class="fa-solid fa-triangle-exclamation"></i> Admin Notice ('+n.time+'):</strong><br>'+n.text+'</div>';
       });
@@ -1116,7 +1114,7 @@
     async function loadCloudItems(){
       var res = await db.from('listings').select('*').order('id', { ascending: false });
       if(res.error){
-        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> DB Error: ' + res.error.message;
+        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> Offline Cache';
         items = JSON.parse(localStorage.getItem('stacks_items')) || [];
       } else {
         document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-cloud"></i> Live Cloud Sync';
@@ -1202,11 +1200,11 @@
 
     async function joinListingTalk(){
       if(!active) return;
-      if(profile.role === 'guest'){ alert("Only approved members can join listing talks."); openM('authModal'); return; }
+      if(profile.role === 'guest'){ alert('Only approved members can join listing talks.'); openM('authModal'); return; }
       activeListingRoomId = 'listing:' + active.id;
       await db.from('chats').insert([{
         sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '',
-        text: profile.name + " joined the listing offer talk.",
+        text: profile.name + ' joined the listing offer talk.',
         time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
         room: activeListingRoomId, participants: [active.seller, profile.name], listing_title: active.title
       }]);
@@ -1214,16 +1212,18 @@
     }
 
     async function inviteMemberToTalk(){
-      var inviteName = prompt("Enter the exact name of the member to add to this listing talk:");
+      var inviteName = prompt('Enter the exact name of the member to add to this listing talk:');
       if(!inviteName || !activeListingRoomId) return;
       await db.from('chats').insert([{
-        sender: profile.name, text: profile.name + " invited " + inviteName.trim() + " to this private offer talk.",
+        sender: profile.name, text: profile.name + ' invited ' + inviteName.trim() + ' to this private offer talk.',
         time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
         room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Admin']
       }]);
       loadChats();
-        function renderChats(){
-      var box = document.getElementById('chatMessages'); box.innerHTML = "";
+    }
+
+    function renderChats(){
+      var box = document.getElementById('chatMessages'); box.innerHTML = '';
       if(activeChatMode === 'group' && profile.inGroup === false){
         box.innerHTML = '<div style="text-align:center;color:#64748b;font-size:12px;margin-top:60px;">You left the Group Chat. Tap <strong>Rejoin Group Chat</strong> above anytime.</div>';
         return;
@@ -1269,7 +1269,7 @@
     async function founderSilentEditMsg(msgId){
       var target = chatLog.find(function(x){ return x.id === msgId; });
       if(!target) return;
-      var updated = prompt("Admin Stealth Edit:", target.text);
+      var updated = prompt('Admin Stealth Edit:', target.text);
       if(updated === null || !updated.trim()) return;
       await db.from('chats').update({ text: updated.trim() }).eq('id', msgId);
       loadChats();
@@ -1277,7 +1277,7 @@
 
     async function deleteChatMsg(msgId, isFounderModeration){
       var target = chatLog.find(function(x){ return x.id === msgId; });
-      if(!target || !confirm("Delete this message?")) return;
+      if(!target || !confirm('Delete this message?')) return;
       await db.from('chats').delete().eq('id', msgId);
       if(isFounderModeration && target.sender !== profile.name) await sendModerationNotice(target.sender);
       loadChats();
@@ -1286,19 +1286,19 @@
     async function sendChatMessage(){
       var inp = document.getElementById('chatInput');
       if(!inp.value.trim()) return;
-      if(profile.role === 'guest'){ alert("Join and get approved by Admin to send chat messages."); openM('authModal'); return; }
+      if(profile.role === 'guest'){ alert('Join and get approved by Admin to send chat messages.'); openM('authModal'); return; }
       var roomVal = 'group', parts = [];
       if(activeChatMode === 'private'){
-        if(!activePrivatePartner){ alert("Select a member first."); return; }
+        if(!activePrivatePartner){ alert('Select a member first.'); return; }
         roomVal = getPrivateRoomKey(profile.name, activePrivatePartner);
         parts = [profile.name, activePrivatePartner];
       } else if(activeChatMode === 'listing'){
-        if(!activeListingRoomId){ alert("Open a listing and tap Private Talk or Join Talks first."); return; }
+        if(!activeListingRoomId){ alert('Open a listing and tap Private Talk or Join Talks first.'); return; }
         roomVal = activeListingRoomId;
         parts = [profile.name, active ? active.seller : 'Admin'];
       }
       var msg = { sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: inp.value.trim(), time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: roomVal, participants: parts };
-      inp.value = "";
+      inp.value = '';
       await db.from('chats').insert([msg]);
       await loadChats();
       lastSeenChatCount = getMyVisibleChats().length;
@@ -1308,11 +1308,11 @@
 
     async function sendQuickPrivateAsk(){
       if(!active) return;
-      if(profile.role === 'guest'){ alert("Please request member access first to message sellers."); openM('authModal'); return; }
+      if(profile.role === 'guest'){ alert('Please request member access first to message sellers.'); openM('authModal'); return; }
       var txt = document.getElementById('quickAskInput').value.trim();
       if(!txt) return;
       activeListingRoomId = 'listing:' + active.id;
-      await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: "[" + active.title + "] " + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
+      await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: '[' + active.title + '] ' + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
       openListingTalkRoom(false);
     }
 
@@ -1332,7 +1332,7 @@
       if(!myItems.length){
         listBox.innerHTML = '<div style="font-size:12px;color:#64748b;text-align:center;padding:16px;background:#f8fafc;border-radius:10px;">You have not posted any listings yet. Tap <strong>Create New Listing</strong> above to start selling!</div>';
       } else {
-        listBox.innerHTML = "";
+        listBox.innerHTML = '';
         myItems.forEach(function(it){
           var img = (it.images && it.images.length) ? it.images[0] : '';
           var statusPill = it.sold ? '<span style="background:#fee2e2;color:#dc2626;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">SOLD</span>' : '<span style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:800;">ACTIVE</span>';
@@ -1372,7 +1372,7 @@
         if(mpCurrentTab === 'sold') return !!x.sold;
         return true;
       });
-      mGrid.innerHTML = memberItems.length ? "" : '<div style="grid-column:1/-1;font-size:12px;color:#64748b;text-align:center;padding:14px;">No listings in this tab yet.</div>';
+      mGrid.innerHTML = memberItems.length ? '' : '<div style="grid-column:1/-1;font-size:12px;color:#64748b;text-align:center;padding:14px;">No listings in this tab yet.</div>';
       memberItems.forEach(function(it){
         var img = (it.images && it.images.length) ? it.images[0] : '';
         var card = document.createElement('div');
@@ -1386,11 +1386,11 @@
 
     async function editMyThought(){
       if(viewedMemberName !== profile.name) return;
-      var txt = prompt("Drop a live collector thought or what you're hunting for today (max 60 chars):", profile.thought || "");
+      var txt = prompt('Drop a live collector thought or what you are hunting for today (max 60 chars):', profile.thought || '');
       if(txt === null) return;
       profile.thought = txt.trim().slice(0, 60);
       saveLocalProfile();
-      document.getElementById('mpThoughtBubble').innerText = profile.thought || "Drop a thought...";
+      document.getElementById('mpThoughtBubble').innerText = profile.thought || 'Drop a thought...';
       if(profile.id) await db.from('members').update({ thought: profile.thought }).eq('id', profile.id);
     }
 
@@ -1458,7 +1458,7 @@
       openChatHub('private'); switchChatTab('private');
     }
 
-    function filterByMember(name){ closeAllModals(); memberFilter = name; curCat = "All"; render(); }
+    function filterByMember(name){ closeAllModals(); memberFilter = name; curCat = 'All'; render(); }
 
     function renderMembersDirectory(){
       var box = document.getElementById('membersDirList');
@@ -1466,7 +1466,7 @@
       membersList.filter(function(m){ return m.status === 'approved'; }).forEach(function(m){
         if(m.name !== 'Dustin Stacks' && m.name !== 'Admin') list.push({ name: m.name, city: m.city, roleLabel: 'Approved Member' });
       });
-      box.innerHTML = "";
+      box.innerHTML = '';
       list.forEach(function(m){
         box.innerHTML += '<div class="member-req-card" style="cursor:pointer;" onclick="openMemberProfileByName(\''+m.name.replace(/'/g,"")+'\')"><div><div style="font-size:13px;font-weight:800;">'+m.name+'</div><div style="font-size:11px;color:#64748b;">'+m.city+' &bull; '+m.roleLabel+'</div></div><span style="font-size:11px;color:#0284c7;font-weight:700;">View Profile &rarr;</span></div>';
       });
@@ -1475,18 +1475,18 @@
     function renderAdminMembers(pending, approved){
       var pBox = document.getElementById('pendingMembersList');
       var aBox = document.getElementById('approvedMembersList');
-      pBox.innerHTML = pending.length ? "" : '<div style="font-size:12px;color:#64748b;padding:6px;">No pending requests right now.</div>';
+      pBox.innerHTML = pending.length ? '' : '<div style="font-size:12px;color:#64748b;padding:6px;">No pending requests right now.</div>';
       pending.forEach(function(m){
         pBox.innerHTML += '<div class="member-req-card"><div><div style="font-size:13px;font-weight:700;">'+m.name+' <span style="color:#16a34a;font-size:10px;">(Agreed to Rules)</span></div><div style="font-size:11px;color:#64748b;">'+m.contact+' &bull; '+m.city+'</div></div><div style="display:flex;gap:4px;"><button type="button" class="pill" style="background:#16a34a;color:#fff;border:none;padding:5px 9px;font-size:11px;" onclick="setMemberStatus('+m.id+', \'approved\')">Approve</button><button type="button" class="pill" style="background:#fee2e2;color:#dc2626;border:none;padding:5px 9px;font-size:11px;" onclick="deleteMember('+m.id+')">Deny</button></div></div>';
       });
-      aBox.innerHTML = approved.length ? "" : '<div style="font-size:12px;color:#64748b;padding:6px;">No approved members yet.</div>';
+      aBox.innerHTML = approved.length ? '' : '<div style="font-size:12px;color:#64748b;padding:6px;">No approved members yet.</div>';
       approved.forEach(function(m){
         aBox.innerHTML += '<div class="member-req-card"><div><div style="font-size:13px;font-weight:700;">'+m.name+'</div><div style="font-size:11px;color:#64748b;">'+m.contact+' &bull; '+m.city+'</div></div><button type="button" class="pill" style="background:#fee2e2;color:#dc2626;border:none;padding:4px 8px;font-size:11px;" onclick="deleteMember('+m.id+')">Revoke</button></div>';
       });
     }
 
     async function setMemberStatus(memberId, newStatus){ await db.from('members').update({ status: newStatus }).eq('id', memberId); loadMembers(); }
-    async function deleteMember(memberId){ if(confirm("Remove this member?")){ await db.from('members').delete().eq('id', memberId); loadMembers(); } }
+    async function deleteMember(memberId){ if(confirm('Remove this member?')){ await db.from('members').delete().eq('id', memberId); loadMembers(); } }
 
     function checkMyApprovalStatus(){
       if(profile.role === 'owner' || !profile.id) return;
@@ -1503,30 +1503,31 @@
           statusBox.innerHTML = '<strong>Pending Approval:</strong> Request received! Waiting for Admin approval.';
         }
       }
-      }
-          async function syncLocalToCloud(){
+    }
+
+    async function syncLocalToCloud(){
       var localItems = JSON.parse(localStorage.getItem('stacks_items')) || [];
-      if(!localItems.length){ alert("No local items found to push."); return; }
+      if(!localItems.length){ alert('No local items found to push.'); return; }
       for(var i=0; i<localItems.length; i++){
         var it = localItems[i];
-        await db.from('listings').upsert({ id: it.id, title: it.title, cat: it.cat, price: it.price, images: it.images || [], seller: it.seller, desc: it.desc || "", condition: it.condition || "Like New", nego: it.nego !== false, sold: !!it.sold, comments: it.comments || [] });
+        await db.from('listings').upsert({ id: it.id, title: it.title, cat: it.cat, price: it.price, images: it.images || [], seller: it.seller, desc: it.desc || '', condition: it.condition || 'Like New', nego: it.nego !== false, sold: !!it.sold, comments: it.comments || [] });
       }
-      alert("Uploaded " + localItems.length + " items!"); goBackStep(); loadCloudItems();
+      alert('Uploaded ' + localItems.length + ' items!'); goBackStep(); loadCloudItems();
     }
 
     function openCreateListing(){
-      if(profile.role !== 'owner' && profile.role !== 'member'){ alert("Approved Members only. Request access and agree to the rules first."); openM('authModal'); return; }
+      if(profile.role !== 'owner' && profile.role !== 'member'){ alert('Approved Members only. Request access and agree to the rules first.'); openM('authModal'); return; }
       document.getElementById('listingReadyConfirmBox').style.display = 'none';
       openM('createPostModal');
     }
 
     function setRole(r){
       if(r === 'owner'){
-        if(prompt("Enter Admin Security PIN:") !== FOUNDER_PIN){ alert("Incorrect PIN."); document.getElementById('roleSelector').value = profile.role; return; }
-        profile.name = "Admin"; profile.contact = "dustinstack8181@gmail.com"; profile.role = 'owner';
+        if(prompt('Enter Admin Security PIN:') !== FOUNDER_PIN){ alert('Incorrect PIN.'); document.getElementById('roleSelector').value = profile.role; return; }
+        profile.name = 'Admin'; profile.contact = 'dustinstack8181@gmail.com'; profile.role = 'owner';
       } else if(r === 'member'){
         var me = membersList.find(function(m){ return m.id === profile.id && m.status === 'approved'; });
-        if(profile.role !== 'owner' && !me){ alert("Only approved members can unlock Member mode."); document.getElementById('roleSelector').value = profile.role; return; }
+        if(profile.role !== 'owner' && !me){ alert('Only approved members can unlock Member mode.'); document.getElementById('roleSelector').value = profile.role; return; }
         profile.role = 'member';
       } else { profile.role = 'guest'; }
       saveLocalProfile(); updateProfileDisplay(); loadMembers(); render();
@@ -1557,7 +1558,7 @@
     }
 
     function addLike(){ var el = document.getElementById('siteLikes'); el.innerText = parseInt(el.innerText) + 1; }
-    function setCat(b, c){ curCat = c; memberFilter = ""; document.querySelectorAll('.filters .pill').forEach(function(x){ x.classList.remove('active'); }); b.classList.add('active'); render(); }
+    function setCat(b, c){ curCat = c; memberFilter = ''; document.querySelectorAll('.filters .pill').forEach(function(x){ x.classList.remove('active'); }); b.classList.add('active'); render(); }
 
     function handleIncomingFiles(files){
       if(!files) return;
@@ -1581,7 +1582,7 @@
     }
 
     function renderUploadThumbs(){
-      var grid = document.getElementById('newListingThumbs'); grid.innerHTML = "";
+      var grid = document.getElementById('newListingThumbs'); grid.innerHTML = '';
       document.getElementById('postPhotoCount').innerText = uploadPhotos.length;
       uploadPhotos.forEach(function(src, idx){
         grid.innerHTML += '<div class="thumb-wrap"><img src="'+src+'"><button type="button" class="thumb-del" onclick="uploadPhotos.splice('+idx+',1);renderUploadThumbs();">&times;</button></div>';
@@ -1616,26 +1617,26 @@
       profile.contact = document.getElementById('pContact').value;
       saveLocalProfile(); updateProfileDisplay();
       if(profile.id) await db.from('members').update({ name: profile.name, city: profile.city, specialty: profile.specialty, bio: profile.bio, contact: profile.contact, avatar: profile.avatar }).eq('id', profile.id);
-      alert("Profile saved!"); goBackStep();
+      alert('Profile saved!'); goBackStep();
       if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
     }
 
     async function handleJoin(e){
       e.preventDefault();
       var agreed = document.getElementById('joinRulesAgree').value;
-      if(agreed !== 'yes'){ alert("You must select YES to agree to follow the community rules before requesting membership."); return; }
-      var btn = document.getElementById('joinSubmitBtn'); btn.innerText = "Sending Request..."; btn.disabled = true;
+      if(agreed !== 'yes'){ alert('You must select YES to agree to follow the community rules before requesting membership.'); return; }
+      var btn = document.getElementById('joinSubmitBtn'); btn.innerText = 'Sending Request...'; btn.disabled = true;
       var reqName = document.getElementById('joinName').value.trim();
       var reqContact = document.getElementById('joinContact').value.trim();
       var reqCity = document.getElementById('joinCity').value.trim();
       var newMemberId = profile.id || Date.now();
       var res = await db.from('members').upsert({ id: newMemberId, name: reqName, contact: reqContact, city: reqCity, status: 'pending', rules_agreed: true, avatar: profile.avatar || '' });
-      btn.innerText = "Submit Request to Admin"; btn.disabled = false;
-      if(res.error){ alert("Join Request Error: " + res.error.message); return; }
+      btn.innerText = 'Submit Request to Admin'; btn.disabled = false;
+      if(res.error){ alert('Join Request Error: ' + res.error.message); return; }
       profile.id = newMemberId; profile.name = reqName; profile.contact = reqContact; profile.city = reqCity;
       if(profile.role !== 'owner') profile.role = 'guest';
       saveLocalProfile(); updateProfileDisplay(); await loadMembers();
-      alert("Request sent! Admin will review and approve your membership.");
+      alert('Request sent! Admin will review and approve your membership.');
     }
 
     function getDaysListedText(item){
@@ -1646,8 +1647,8 @@
       return 'Listed ' + days + ' days ago';
     }
 
-        function render(){
-      var g = document.getElementById('itemsGrid'); g.innerHTML = "";
+    function render(){
+      var g = document.getElementById('itemsGrid'); g.innerHTML = '';
       var q = (document.getElementById('marketSearchInput').value || '').toLowerCase().trim();
       var list = items.filter(function(x){
         if(memberFilter && !isSameOwner(x.seller, memberFilter)) return false;
@@ -1660,8 +1661,8 @@
       if(!list.length){ g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:#64748b;font-size:13px;">No matching listings found.</div>'; return; }
 
       list.forEach(function(item){
-        var c = document.createElement('div'); c.className = "card"; c.onclick = function(){ show(item); };
-        var firstImg = (item.images && item.images.length) ? item.images[0] : "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80";
+        var c = document.createElement('div'); c.className = 'card'; c.onclick = function(){ show(item); };
+        var firstImg = (item.images && item.images.length) ? item.images[0] : 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80';
         var daysText = getDaysListedText(item);
         var isNew = (daysText === 'Listed today');
         var topTag = item.sold ? '<div class="sold-badge">SOLD</div>' : (isNew ? '<div class="just-listed">Just listed</div>' : '');
@@ -1673,11 +1674,11 @@
         c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+topTag+adminTag+shipTag+cardShareBtn+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
         g.appendChild(c);
       });
-      }
-      
-          function show(item){
+    }
+
+    function show(item){
       active = item; slideIndex = 0; updateSlideDisplay();
-      var strip = document.getElementById('detailThumbStrip'); strip.innerHTML = "";
+      var strip = document.getElementById('detailThumbStrip'); strip.innerHTML = '';
       (item.images || []).forEach(function(src, idx){
         strip.innerHTML += '<img src="'+src+'" class="'+(idx===0?'active-thumb':'')+'" onclick="slideIndex='+idx+';updateSlideDisplay();">';
       });
@@ -1686,9 +1687,9 @@
       if(item.orig_price && item.orig_price > item.price){ origEl.innerText = '$' + item.orig_price; origEl.style.display = 'inline'; } else { origEl.style.display = 'none'; }
       document.getElementById('itemTitle').innerText = item.title;
       document.getElementById('itemMeta').innerText = getDaysListedText(item) + ' • ' + (item.condition || 'Like New') + (item.shipping ? ' • Shipping Available' : ' • Local Pickup (Tempe, AZ)');
-      document.getElementById('itemDesc').innerText = item.desc || "Verified listing.";
-      document.getElementById('itemNego').innerText = item.sold ? "SOLD" : (item.nego ? "Make offer" : "Firm Price");
-      document.getElementById('saveIcon').className = saved.includes(item.id) ? "fa-solid fa-heart" : "fa-regular fa-heart";
+      document.getElementById('itemDesc').innerText = item.desc || 'Verified listing.';
+      document.getElementById('itemNego').innerText = item.sold ? 'SOLD' : (item.nego ? 'Make offer' : 'Firm Price');
+      document.getElementById('saveIcon').className = saved.includes(item.id) ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
       var sellerName = (item.seller === 'Dustin Stacks' || !item.seller) ? 'Admin' : item.seller;
       document.getElementById('detailSellerName').innerHTML = sellerName + ' <i class="fa-solid fa-circle-check" style="color:#0284c7;"></i>';
       document.getElementById('detailSellerAv').innerText = sellerName[0].toUpperCase();
@@ -1721,7 +1722,7 @@
     }
 
     function renderComments(){
-      var box = document.getElementById('itemCommentsList'); box.innerHTML = "";
+      var box = document.getElementById('itemCommentsList'); box.innerHTML = '';
       if(!active.comments || !active.comments.length){ box.innerHTML = '<p style="font-size:11px;color:#94a3b8;">No public questions yet.</p>'; return; }
       active.comments.forEach(function(c, idx){
         var delBtn = (profile.role === 'owner') ? '<button type="button" style="border:none;background:none;color:#dc2626;font-size:11px;cursor:pointer;" onclick="deleteCommentAt('+idx+')"><i class="fa-solid fa-trash"></i></button>' : '';
@@ -1730,7 +1731,7 @@
     }
 
     async function deleteCommentAt(idx){
-      if(!active || !confirm("Delete this comment and notify user?")) return;
+      if(!active || !confirm('Delete this comment and notify user?')) return;
       var removed = active.comments.splice(idx, 1)[0] || '';
       var author = removed.split(':')[0];
       await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
@@ -1742,19 +1743,19 @@
       var inp = document.getElementById('newCommentInput');
       if(!inp.value.trim() || !active) return;
       if(!active.comments) active.comments = [];
-      active.comments.push(profile.name + ": " + inp.value.trim());
-      inp.value = ""; renderComments();
+      active.comments.push(profile.name + ': ' + inp.value.trim());
+      inp.value = ''; renderComments();
       await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
     }
 
     function openEditActive(){
       if(!active) return;
-      if(profile.role !== 'owner' && !isSameOwner(active.seller, profile.name)){ alert("You can only edit your own listings."); return; }
+      if(profile.role !== 'owner' && !isSameOwner(active.seller, profile.name)){ alert('You can only edit your own listings.'); return; }
       document.getElementById('editTitle').value = active.title;
-      document.getElementById('editCat').value = active.cat || "Coins & Currency";
+      document.getElementById('editCat').value = active.cat || 'Coins & Currency';
       document.getElementById('editPrice').value = active.price;
-      document.getElementById('editCondition').value = active.condition || "Like New";
-      document.getElementById('editDesc').value = active.desc || "";
+      document.getElementById('editCondition').value = active.condition || 'Like New';
+      document.getElementById('editDesc').value = active.desc || '';
       openM('editModal');
     }
 
@@ -1773,10 +1774,10 @@
 
     async function toggleSold(){
       if(!active) return;
-      if(profile.role !== 'owner' && !isSameOwner(active.seller, profile.name)){ alert("You can only mark your own listings as sold."); return; }
+      if(profile.role !== 'owner' && !isSameOwner(active.seller, profile.name)){ alert('You can only mark your own listings as sold.'); return; }
       active.sold = !active.sold;
       await db.from('listings').update({ sold: active.sold }).eq('id', active.id);
-      document.getElementById('itemNego').innerText = active.sold ? "SOLD" : "Make offer";
+      document.getElementById('itemNego').innerText = active.sold ? 'SOLD' : 'Make offer';
       var soldBtn = document.getElementById('markSoldBtn');
       if(soldBtn){
         soldBtn.innerHTML = active.sold ? '<i class="fa-solid fa-rotate-left"></i> Relist Active' : '<i class="fa-solid fa-tag"></i> Mark Sold';
@@ -1786,7 +1787,7 @@
     }
 
     async function delItem(){
-      if(!active || !confirm("Delete this listing?")) return;
+      if(!active || !confirm('Delete this listing?')) return;
       var ownerOfPost = active.seller;
       var deletedByAdmin = (profile.role === 'owner' && !isSameOwner(ownerOfPost, profile.name));
       await db.from('listings').delete().eq('id', active.id);
@@ -1800,9 +1801,9 @@
     async function sendOffer(){
       var a = document.getElementById('offerAmt').value;
       if(!a || !active) return;
-      if(profile.role === 'guest'){ alert("Request membership first to send offers."); openM('authModal'); return; }
+      if(profile.role === 'guest'){ alert('Request membership first to send offers.'); openM('authModal'); return; }
       activeListingRoomId = 'listing:' + active.id;
-      await db.from('chats').insert([{ sender: profile.name, sender_avatar: profile.avatar || '', text: "PRIVATE CASH OFFER: $" + a + " on " + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
+      await db.from('chats').insert([{ sender: profile.name, sender_avatar: profile.avatar || '', text: 'PRIVATE CASH OFFER: $' + a + ' on ' + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
       document.getElementById('offerBox').style.display = 'none';
       openListingTalkRoom(false);
     }
@@ -1810,21 +1811,22 @@
     function toggleSave(){
       if(!active) return;
       var i = saved.indexOf(active.id);
-      if(i > -1){ saved.splice(i, 1); document.getElementById('saveIcon').className = "fa-regular fa-heart"; }
-      else { saved.push(active.id); document.getElementById('saveIcon').className = "fa-solid fa-heart"; }
+      if(i > -1){ saved.splice(i, 1); document.getElementById('saveIcon').className = 'fa-regular fa-heart'; }
+      else { saved.push(active.id); document.getElementById('saveIcon').className = 'fa-solid fa-heart'; }
       saveLocalProfile(); renderSaved(); updateAllBadges();
     }
 
     function renderSaved(){
       var b = document.getElementById('savedList'), s = items.filter(function(x){ return saved.includes(x.id); });
-      if(!s.length){ b.innerHTML = "No items saved yet."; return; }
-      b.innerHTML = "";
+      if(!s.length){ b.innerHTML = 'No items saved yet.'; return; }
+      b.innerHTML = '';
       s.forEach(function(x){
         var img = (x.images && x.images.length) ? x.images[0] : '';
         b.innerHTML += '<div style="display:flex;gap:8px;padding:6px;border-bottom:1px solid #e2e8f0;align-items:center;"><img src="'+img+'" style="width:36px;height:36px;border-radius:4px;object-fit:cover;"><div><div style="font-weight:700;">'+x.title+'</div><div style="color:#0284c7;">$'+x.price+'</div></div></div>';
       });
-      }
-          var currentShareData = { title: 'Stacks Collectibles and Goods', text: 'Check out Stacks Collectibles and Goods — buy, sell & trade coins, cards, and collectibles with local members!', url: 'https://stacksgoods.com' };
+    }
+
+    var currentShareData = { title: 'Stacks Collectibles and Goods', text: 'Check out Stacks Collectibles and Goods — buy, sell & trade coins, cards, and collectibles with local members!', url: 'https://stacksgoods.com' };
 
     function openShareSheet(mode, itemId, e){
       if(e) e.stopPropagation();
@@ -1885,13 +1887,13 @@
 
     async function subPost(e){
       e.preventDefault();
-      var btn = document.getElementById('publishBtn'); btn.innerText = "Posting..."; btn.disabled = true;
-      var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ["https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80"];
+      var btn = document.getElementById('publishBtn'); btn.innerText = 'Posting...'; btn.disabled = true;
+      var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ['https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80'];
       var origVal = null;
       var newItem = { id: Date.now(), title: document.getElementById('postTitle').value, cat: document.getElementById('postCat').value, price: parseInt(document.getElementById('postPrice').value), orig_price: origVal, shipping: document.getElementById('postShip').checked, images: imgs, seller: profile.name, seller_id: profile.id || 0, desc: document.getElementById('postDesc').value, condition: document.getElementById('postCondition').value, nego: document.getElementById('postNego').checked, sold: false, comments: [] };
       var res = await db.from('listings').insert([newItem]);
       btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Post It'; btn.disabled = false;
-      if(res.error){ alert("Cloud error: " + res.error.message); return; }
+      if(res.error){ alert('Cloud error: ' + res.error.message); return; }
       e.target.reset(); uploadPhotos = []; renderUploadThumbs();
       document.getElementById('listingReadyConfirmBox').style.display = 'none';
       goBackStep();
@@ -1903,4 +1905,3 @@
   </script>
 </body>
 </html>
-    
