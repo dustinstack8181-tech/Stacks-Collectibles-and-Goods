@@ -140,7 +140,7 @@
   <section class="hero">
     <div class="hero-card">
       <div class="hero-banner" id="heroBannerBox">
-        <img id="homeWallpaperImg" style="display:none;" src="">
+        <img id="homeWallpaperImg" style="display:none;" src="" alt="Storefront banner">
         <div class="hero-banner-tint"></div>
         <div class="hero-overlay-caption" id="homeOverlayText">Verified Collector Marketplace &amp; Trading Club</div>
         <div style="position:absolute;top:8px;right:8px;z-index:5;display:flex;gap:5px;">
@@ -153,7 +153,7 @@
       <div class="hero-inner">
         <div class="hero-top">
           <div class="hero-avatar" id="heroAvatarBox">
-            <img id="homeAvatarImg" style="display:none;" src="">
+            <img id="homeAvatarImg" style="display:none;" src="" alt="Storefront avatar">
             <span id="homeAvatarInitial">AD</span>
           </div>
           <div style="flex:1;padding-bottom:2px;">
@@ -222,14 +222,14 @@
 
       <div style="padding:0 12px;">
         <div class="fb-cover-wrap">
-          <img id="mpCoverImg" style="display:none;" src="">
+          <img id="mpCoverImg" style="display:none;" src="" alt="Cover photo">
           <button type="button" id="mpEditCoverBtn" class="fb-cam-btn" style="display:none;" onclick="document.getElementById('memberCoverInput').click()"><i class="fa-solid fa-camera"></i></button>
         </div>
 
         <div class="fb-avatar-zone">
           <div class="thought-bubble" id="mpThoughtBubble" onclick="editMyThought()">Drop a thought...</div>
           <div class="fb-avatar-circle">
-            <img id="mpAvatarImg" style="display:none;" src="">
+            <img id="mpAvatarImg" style="display:none;" src="" alt="Member avatar">
             <span id="mpAvatarInitial">M</span>
             <button type="button" id="mpEditAvBtn" class="fb-cam-btn" style="width:26px;height:26px;bottom:2px;right:2px;font-size:11px;display:none;" onclick="document.getElementById('memberAvatarInput').click()"><i class="fa-solid fa-camera"></i></button>
           </div>
@@ -383,7 +383,7 @@
       </div>
 
       <div class="carousel-wrap">
-        <img id="detailCaroImg" src="">
+        <img id="detailCaroImg" src="" alt="Listing photo">
         <button class="caro-nav" style="left:6px;" type="button" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="caro-nav" style="right:6px;" type="button" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
         <div class="caro-count" id="detailCaroCount">1/1</div>
@@ -674,7 +674,7 @@
       <form onsubmit="saveProf(event)">
         <div style="text-align:center;margin-bottom:10px;">
           <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;">
-            <img id="profPreview" style="width:100%;height:100%;object-fit:cover;display:none;">
+            <img id="profPreview" style="width:100%;height:100%;object-fit:cover;display:none;" alt="Profile preview">
             <div id="profInitial" style="color:#fff;font-size:22px;font-weight:900;line-height:68px;">GU</div>
           </div>
           <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('memberAvatarInput').click()">Change Profile Photo</span> &bull;
@@ -742,20 +742,21 @@
   </div>
 
   <script>
-      var SUPABASE_URL = 'https://rxjueszsoggbdhichhq.supabase.co';
-  var SUPABASE_KEY = 'Sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
-  var FOUNDER_PIN = '1309';
-  var ADMIN_DEL_REASON = 'An admin has deleted your post/message due to spam, hate talk, racism, or admin discretion.';
-  var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    
+    var SUPABASE_URL = 'https://rxjueszsoggbdhichhq.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
+    var FOUNDER_PIN = '1309';
+    var ADMIN_DEL_REASON = 'An admin has deleted your post/message due to spam, hate talk, racism, or admin discretion.';
+    var db = (window.supabase && typeof window.supabase.createClient === 'function')
+      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+      : null;
 
     var items = [], membersList = [], chatLog = [];
     var defaultVisitor = { id: null, name: 'Guest Visitor', city: 'Tempe, AZ', contact: '', avatar: '', cover_photo: '', specialty: 'Coins, Cards & Collectibles', bio: '', thought: '', role: 'guest', inGroup: true };
     var profile = JSON.parse(localStorage.getItem('stacks_profile')) || defaultVisitor;
     if(profile.name === 'Dustin Stacks' && profile.role === 'owner') profile.name = 'Admin';
     if(typeof profile.inGroup === 'undefined') profile.inGroup = true;
-    var lastSeenChatCount = parseInt(localStorage.getItem('stacks_seen_chats') || '0');
-    var lastSeenItemCount = parseInt(localStorage.getItem('stacks_seen_items') || '0');
+    var lastSeenChatCount = parseInt(localStorage.getItem('stacks_seen_chats') || '0', 10) || 0;
+    var lastSeenItemCount = parseInt(localStorage.getItem('stacks_seen_items') || '0', 10) || 0;
     var saved = JSON.parse(localStorage.getItem('stacks_saved')) || [];
     var uploadPhotos = [], active = null, slideIndex = 0, curCat = 'All', memberFilter = '';
     var activeChatMode = 'group', activePrivatePartner = '', activeListingRoomId = '', incognitoMode = false, viewedMemberName = '', mpCurrentTab = 'all';
@@ -889,16 +890,19 @@
     }
 
     async function loadSiteSettings(){
-      var res = await db.from('site_settings').select('*').eq('id', 1).single();
-      if(!res.error && res.data){
-        if(res.data.rules) siteRulesText = res.data.rules;
-        homeAppearance.hero_title = res.data.hero_title || 'Stacks Collectibles and Goods';
-        homeAppearance.hero_subtitle = res.data.hero_subtitle || 'Admin: Dustin Stacks • Tempe, AZ';
-        homeAppearance.hero_wallpaper = res.data.hero_wallpaper || '';
-        homeAppearance.hero_overlay_text = res.data.hero_overlay_text || 'Verified Collector Marketplace & Trading Club';
-        homeAppearance.hero_avatar = res.data.hero_avatar || '';
-        homeAppearance.announcement = res.data.announcement || '';
-      }
+      if(!db){ applyHomeAppearance(); return; }
+      try {
+        var res = await db.from('site_settings').select('*').eq('id', 1).single();
+        if(!res.error && res.data){
+          if(res.data.rules) siteRulesText = res.data.rules;
+          homeAppearance.hero_title = res.data.hero_title || 'Stacks Collectibles and Goods';
+          homeAppearance.hero_subtitle = res.data.hero_subtitle || 'Admin: Dustin Stacks • Tempe, AZ';
+          homeAppearance.hero_wallpaper = res.data.hero_wallpaper || '';
+          homeAppearance.hero_overlay_text = res.data.hero_overlay_text || 'Verified Collector Marketplace & Trading Club';
+          homeAppearance.hero_avatar = res.data.hero_avatar || '';
+          homeAppearance.announcement = res.data.announcement || '';
+        }
+      } catch(e){}
       applyHomeAppearance();
       document.getElementById('joinRulesDisplay').innerText = siteRulesText;
       if(document.getElementById('founderRulesEditor')) document.getElementById('founderRulesEditor').value = siteRulesText;
@@ -933,15 +937,17 @@
       homeAppearance.hero_subtitle = document.getElementById('admSubtitleInput').value.trim() || 'Admin: Dustin Stacks • Tempe, AZ';
       homeAppearance.announcement = document.getElementById('admAnnounceInput').value.trim();
       applyHomeAppearance();
-      await db.from('site_settings').upsert({
-        id: 1,
-        hero_title: homeAppearance.hero_title,
-        hero_subtitle: homeAppearance.hero_subtitle,
-        hero_overlay_text: homeAppearance.hero_overlay_text,
-        hero_wallpaper: homeAppearance.hero_wallpaper,
-        hero_avatar: homeAppearance.hero_avatar,
-        announcement: homeAppearance.announcement
-      });
+      if(db){
+        await db.from('site_settings').upsert({
+          id: 1,
+          hero_title: homeAppearance.hero_title,
+          hero_subtitle: homeAppearance.hero_subtitle,
+          hero_overlay_text: homeAppearance.hero_overlay_text,
+          hero_wallpaper: homeAppearance.hero_wallpaper,
+          hero_avatar: homeAppearance.hero_avatar,
+          announcement: homeAppearance.announcement
+        });
+      }
       alert('Live homepage updated for everyone!');
     }
 
@@ -951,13 +957,13 @@
       if(txt === null) return;
       homeAppearance.hero_overlay_text = txt.trim();
       applyHomeAppearance();
-      await db.from('site_settings').upsert({ id: 1, hero_overlay_text: homeAppearance.hero_overlay_text });
+      if(db) await db.from('site_settings').upsert({ id: 1, hero_overlay_text: homeAppearance.hero_overlay_text });
     }
 
     async function clearHomeWallpaper(){
       homeAppearance.hero_wallpaper = '';
       applyHomeAppearance();
-      await db.from('site_settings').upsert({ id: 1, hero_wallpaper: '' });
+      if(db) await db.from('site_settings').upsert({ id: 1, hero_wallpaper: '' });
     }
 
     function handleHomeWallpaperUpload(inp){
@@ -970,7 +976,7 @@
             canvas.getContext('2d').drawImage(img, 0, 0, 900, 320);
             homeAppearance.hero_wallpaper = canvas.toDataURL('image/jpeg', 0.72);
             applyHomeAppearance();
-            await db.from('site_settings').upsert({ id: 1, hero_wallpaper: homeAppearance.hero_wallpaper });
+            if(db) await db.from('site_settings').upsert({ id: 1, hero_wallpaper: homeAppearance.hero_wallpaper });
             alert('Homepage wallpaper updated!');
           };
           img.src = e.target.result;
@@ -989,7 +995,7 @@
             canvas.getContext('2d').drawImage(img, 0, 0, 200, 200);
             homeAppearance.hero_avatar = canvas.toDataURL('image/jpeg', 0.8);
             applyHomeAppearance();
-            await db.from('site_settings').upsert({ id: 1, hero_avatar: homeAppearance.hero_avatar });
+            if(db) await db.from('site_settings').upsert({ id: 1, hero_avatar: homeAppearance.hero_avatar });
             alert('Homepage profile photo updated!');
           };
           img.src = e.target.result;
@@ -1039,14 +1045,16 @@
       var topic = document.getElementById('supportTopic').value;
       var txt = document.getElementById('supportMsgInput').value.trim();
       if(!txt) return;
-      await db.from('chats').insert([{
-        sender: profile.name,
-        sender_id: profile.id || 0,
-        text: '[' + topic + '] ' + txt,
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: 'support:' + profile.name,
-        participants: [profile.name, 'Admin']
-      }]);
+      if(db){
+        await db.from('chats').insert([{
+          sender: profile.name,
+          sender_id: profile.id || 0,
+          text: '[' + topic + '] ' + txt,
+          time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+          room: 'support:' + profile.name,
+          participants: [profile.name, 'Admin']
+        }]);
+      }
       document.getElementById('supportMsgInput').value = '';
       await loadChats();
       renderMemberSupportThread();
@@ -1070,13 +1078,15 @@
     async function replyToSupportMember(memberName){
       var rep = prompt('Write Admin reply to ' + memberName + ':');
       if(!rep || !rep.trim()) return;
-      await db.from('chats').insert([{
-        sender: 'Admin',
-        text: rep.trim(),
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: 'support:' + memberName,
-        participants: [memberName, 'Admin']
-      }]);
+      if(db){
+        await db.from('chats').insert([{
+          sender: 'Admin',
+          text: rep.trim(),
+          time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+          room: 'support:' + memberName,
+          participants: [memberName, 'Admin']
+        }]);
+      }
       await loadChats();
       renderAdminReportsInbox();
       alert('Reply sent to ' + memberName + '!');
@@ -1086,20 +1096,22 @@
       var txt = document.getElementById('founderRulesEditor').value.trim();
       if(!txt) return;
       siteRulesText = txt;
-      await db.from('site_settings').upsert({ id: 1, rules: txt });
+      if(db) await db.from('site_settings').upsert({ id: 1, rules: txt });
       alert('Member join rules updated!');
     }
 
     async function sendModerationNotice(targetMemberName){
       if(!targetMemberName || targetMemberName === 'Admin' || targetMemberName === 'Dustin Stacks') return;
-      await db.from('chats').insert([{
-        sender: 'Admin',
-        text: ADMIN_DEL_REASON,
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: 'notice:' + targetMemberName,
-        participants: [targetMemberName],
-        is_notice: true
-      }]);
+      if(db){
+        await db.from('chats').insert([{
+          sender: 'Admin',
+          text: ADMIN_DEL_REASON,
+          time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+          room: 'notice:' + targetMemberName,
+          participants: [targetMemberName],
+          is_notice: true
+        }]);
+      }
     }
 
     function renderProfileNotices(){
@@ -1113,13 +1125,26 @@
     }
 
     async function loadCloudItems(){
-      var res = await db.from('listings').select('*').order('id', { ascending: false });
-      if(res.error){
-        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> Offline Cache';
-        items = JSON.parse(localStorage.getItem('stacks_items')) || [];
+      var statusEl = document.getElementById('syncStatus');
+      var cached = JSON.parse(localStorage.getItem('stacks_items')) || [];
+      if(!db){
+        statusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> Offline Cache';
+        items = cached;
       } else {
-        document.getElementById('syncStatus').innerHTML = '<i class="fa-solid fa-cloud"></i> Live Cloud Sync';
-        items = res.data || [];
+        try {
+          var res = await db.from('listings').select('*').order('id', { ascending: false });
+          if(res.error){
+            statusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> Offline Cache';
+            items = cached;
+          } else {
+            statusEl.innerHTML = '<i class="fa-solid fa-cloud"></i> Live Cloud Sync';
+            items = res.data || [];
+            localStorage.setItem('stacks_items', JSON.stringify(items));
+          }
+        } catch(e){
+          statusEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#dc2626;"></i> Offline Cache';
+          items = cached;
+        }
       }
       if(lastSeenItemCount === 0 && items.length > 0){ lastSeenItemCount = items.length; localStorage.setItem('stacks_seen_items', String(lastSeenItemCount)); }
       render(); renderSaved(); updateAllBadges();
@@ -1131,23 +1156,29 @@
     }
 
     async function loadChats(){
-      var res = await db.from('chats').select('*').order('id', { ascending: true });
-      if(!res.error && res.data){ chatLog = res.data; renderChats(); updateAllBadges(); }
+      if(!db) return;
+      try {
+        var res = await db.from('chats').select('*').order('id', { ascending: true });
+        if(!res.error && res.data){ chatLog = res.data; renderChats(); updateAllBadges(); }
+      } catch(e){}
     }
 
     async function loadMembers(){
-      var res = await db.from('members').select('*').order('id', { ascending: false });
-      if(!res.error && res.data){
-        membersList = res.data;
-        var approved = membersList.filter(function(m){ return m.status === 'approved'; });
-        var pending = membersList.filter(function(m){ return m.status === 'pending'; });
-        document.getElementById('userCount').innerText = approved.length + 1;
-        document.getElementById('pendingMemberCountText').innerText = pending.length;
-        renderAdminMembers(pending, approved);
-        populatePrivateMemberSelect();
-        checkMyApprovalStatus();
-        updateAllBadges();
-      }
+      if(!db) return;
+      try {
+        var res = await db.from('members').select('*').order('id', { ascending: false });
+        if(!res.error && res.data){
+          membersList = res.data;
+          var approved = membersList.filter(function(m){ return m.status === 'approved'; });
+          var pending = membersList.filter(function(m){ return m.status === 'pending'; });
+          document.getElementById('userCount').innerText = approved.length + 1;
+          document.getElementById('pendingMemberCountText').innerText = pending.length;
+          renderAdminMembers(pending, approved);
+          populatePrivateMemberSelect();
+          checkMyApprovalStatus();
+          updateAllBadges();
+        }
+      } catch(e){}
     }
 
     function populatePrivateMemberSelect(){
@@ -1203,23 +1234,27 @@
       if(!active) return;
       if(profile.role === 'guest'){ alert('Only approved members can join listing talks.'); openM('authModal'); return; }
       activeListingRoomId = 'listing:' + active.id;
-      await db.from('chats').insert([{
-        sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '',
-        text: profile.name + ' joined the listing offer talk.',
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: activeListingRoomId, participants: [active.seller, profile.name], listing_title: active.title
-      }]);
+      if(db){
+        await db.from('chats').insert([{
+          sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '',
+          text: profile.name + ' joined the listing offer talk.',
+          time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+          room: activeListingRoomId, participants: [active.seller, profile.name], listing_title: active.title
+        }]);
+      }
       openListingTalkRoom(false);
     }
 
     async function inviteMemberToTalk(){
       var inviteName = prompt('Enter the exact name of the member to add to this listing talk:');
       if(!inviteName || !activeListingRoomId) return;
-      await db.from('chats').insert([{
-        sender: profile.name, text: profile.name + ' invited ' + inviteName.trim() + ' to this private offer talk.',
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Admin']
-      }]);
+      if(db){
+        await db.from('chats').insert([{
+          sender: profile.name, text: profile.name + ' invited ' + inviteName.trim() + ' to this private offer talk.',
+          time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+          room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Admin']
+        }]);
+      }
       loadChats();
     }
 
@@ -1251,7 +1286,7 @@
       filtered.forEach(function(m){
         var isMe = (m.sender === profile.name);
         var row = document.createElement('div'); row.className = 'chat-row';
-        var avHtml = m.sender_avatar ? '<img src="'+m.sender_avatar+'">' : (m.sender ? m.sender[0].toUpperCase() : '?');
+        var avHtml = m.sender_avatar ? '<img src="'+m.sender_avatar+'" alt="Avatar">' : (m.sender ? m.sender[0].toUpperCase() : '?');
         var controls = '';
         if(isMe) controls += ' <button type="button" style="border:none;background:none;color:#fee2e2;font-size:10px;cursor:pointer;text-decoration:underline;" onclick="deleteChatMsg('+m.id+', false)">Delete</button>';
         else if(profile.role === 'owner'){
@@ -1272,14 +1307,14 @@
       if(!target) return;
       var updated = prompt('Admin Stealth Edit:', target.text);
       if(updated === null || !updated.trim()) return;
-      await db.from('chats').update({ text: updated.trim() }).eq('id', msgId);
+      if(db) await db.from('chats').update({ text: updated.trim() }).eq('id', msgId);
       loadChats();
     }
 
     async function deleteChatMsg(msgId, isFounderModeration){
       var target = chatLog.find(function(x){ return x.id === msgId; });
       if(!target || !confirm('Delete this message?')) return;
-      await db.from('chats').delete().eq('id', msgId);
+      if(db) await db.from('chats').delete().eq('id', msgId);
       if(isFounderModeration && target.sender !== profile.name) await sendModerationNotice(target.sender);
       loadChats();
     }
@@ -1300,7 +1335,7 @@
       }
       var msg = { sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: inp.value.trim(), time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: roomVal, participants: parts };
       inp.value = '';
-      await db.from('chats').insert([msg]);
+      if(db) await db.from('chats').insert([msg]);
       await loadChats();
       lastSeenChatCount = getMyVisibleChats().length;
       localStorage.setItem('stacks_seen_chats', String(lastSeenChatCount));
@@ -1313,7 +1348,9 @@
       var txt = document.getElementById('quickAskInput').value.trim();
       if(!txt) return;
       activeListingRoomId = 'listing:' + active.id;
-      await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: '[' + active.title + '] ' + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
+      if(db){
+        await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: '[' + active.title + '] ' + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
+      }
       openListingTalkRoom(false);
     }
 
@@ -1341,7 +1378,7 @@
           row.className = 'member-req-card';
           row.style.cursor = 'pointer';
           row.onclick = function(){ show(it); };
-          row.innerHTML = '<div style="display:flex;align-items:center;gap:10px;"><img src="'+img+'" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"><div><div style="font-size:13px;font-weight:800;">'+it.title+'</div><div style="font-size:12px;color:#0284c7;font-weight:700;">$'+it.price+' '+statusPill+'</div></div></div><span style="font-size:11px;font-weight:700;color:#475569;">Manage &rarr;</span>';
+          row.innerHTML = '<div style="display:flex;align-items:center;gap:10px;"><img src="'+img+'" style="width:48px;height:48px;border-radius:8px;object-fit:cover;" alt="Listing"><div><div style="font-size:13px;font-weight:800;">'+it.title+'</div><div style="font-size:12px;color:#0284c7;font-weight:700;">$'+it.price+' '+statusPill+'</div></div></div><span style="font-size:11px;font-weight:700;color:#475569;">Manage &rarr;</span>';
           listBox.appendChild(row);
         });
       }
@@ -1380,7 +1417,7 @@
         card.className = 'card';
         card.onclick = function(){ show(it); };
         var soldTag = it.sold ? '<div class="sold-badge">SOLD</div>' : '';
-        card.innerHTML = '<div style="position:relative;"><img src="'+img+'" style="height:110px;">'+soldTag+'</div><div class="card-body"><div class="price" style="font-size:14px;">$'+it.price+'</div><div style="font-size:11px;font-weight:700;">'+it.title+'</div></div>';
+        card.innerHTML = '<div style="position:relative;"><img src="'+img+'" style="height:110px;" alt="Listing">'+soldTag+'</div><div class="card-body"><div class="price" style="font-size:14px;">$'+it.price+'</div><div style="font-size:11px;font-weight:700;">'+it.title+'</div></div>';
         mGrid.appendChild(card);
       });
     }
@@ -1392,7 +1429,7 @@
       profile.thought = txt.trim().slice(0, 60);
       saveLocalProfile();
       document.getElementById('mpThoughtBubble').innerText = profile.thought || 'Drop a thought...';
-      if(profile.id) await db.from('members').update({ thought: profile.thought }).eq('id', profile.id);
+      if(db && profile.id) await db.from('members').update({ thought: profile.thought }).eq('id', profile.id);
     }
 
     function handleMemberCover(inp){
@@ -1405,7 +1442,7 @@
             canvas.getContext('2d').drawImage(img, 0, 0, 720, 260);
             profile.cover_photo = canvas.toDataURL('image/jpeg', 0.7);
             saveLocalProfile();
-            if(profile.id) await db.from('members').update({ cover_photo: profile.cover_photo }).eq('id', profile.id);
+            if(db && profile.id) await db.from('members').update({ cover_photo: profile.cover_photo }).eq('id', profile.id);
             if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
           };
           img.src = e.target.result;
@@ -1486,8 +1523,8 @@
       });
     }
 
-    async function setMemberStatus(memberId, newStatus){ await db.from('members').update({ status: newStatus }).eq('id', memberId); loadMembers(); }
-    async function deleteMember(memberId){ if(confirm('Remove this member?')){ await db.from('members').delete().eq('id', memberId); loadMembers(); } }
+    async function setMemberStatus(memberId, newStatus){ if(db) await db.from('members').update({ status: newStatus }).eq('id', memberId); loadMembers(); }
+    async function deleteMember(memberId){ if(confirm('Remove this member?')){ if(db) await db.from('members').delete().eq('id', memberId); loadMembers(); } }
 
     function checkMyApprovalStatus(){
       if(profile.role === 'owner' || !profile.id) return;
@@ -1509,9 +1546,11 @@
     async function syncLocalToCloud(){
       var localItems = JSON.parse(localStorage.getItem('stacks_items')) || [];
       if(!localItems.length){ alert('No local items found to push.'); return; }
-      for(var i=0; i<localItems.length; i++){
-        var it = localItems[i];
-        await db.from('listings').upsert({ id: it.id, title: it.title, cat: it.cat, price: it.price, images: it.images || [], seller: it.seller, desc: it.desc || '', condition: it.condition || 'Like New', nego: it.nego !== false, sold: !!it.sold, comments: it.comments || [] });
+      if(db){
+        for(var i=0; i<localItems.length; i++){
+          var it = localItems[i];
+          await db.from('listings').upsert({ id: it.id, title: it.title, cat: it.cat, price: it.price, images: it.images || [], seller: it.seller, desc: it.desc || '', condition: it.condition || 'Like New', nego: it.nego !== false, sold: !!it.sold, comments: it.comments || [] });
+        }
       }
       alert('Uploaded ' + localItems.length + ' items!'); goBackStep(); loadCloudItems();
     }
@@ -1549,7 +1588,7 @@
       if(document.getElementById('pBio')) document.getElementById('pBio').value = profile.bio || '';
       document.getElementById('roleSelector').value = profile.role;
       if(profile.avatar){
-        document.getElementById('navAvatar').innerHTML = '<img src="'+profile.avatar+'">';
+        document.getElementById('navAvatar').innerHTML = '<img src="'+profile.avatar+'" alt="Avatar">';
         var prev = document.getElementById('profPreview'); prev.src = profile.avatar; prev.style.display = 'block';
         document.getElementById('profInitial').style.display = 'none';
       } else {
@@ -1558,7 +1597,7 @@
       }
     }
 
-    function addLike(){ var el = document.getElementById('siteLikes'); el.innerText = parseInt(el.innerText) + 1; }
+    function addLike(){ var el = document.getElementById('siteLikes'); el.innerText = parseInt(el.innerText, 10) + 1; }
     function setCat(b, c){ curCat = c; memberFilter = ''; document.querySelectorAll('.filters .pill').forEach(function(x){ x.classList.remove('active'); }); b.classList.add('active'); render(); }
 
     function handleIncomingFiles(files){
@@ -1586,7 +1625,7 @@
       var grid = document.getElementById('newListingThumbs'); grid.innerHTML = '';
       document.getElementById('postPhotoCount').innerText = uploadPhotos.length;
       uploadPhotos.forEach(function(src, idx){
-        grid.innerHTML += '<div class="thumb-wrap"><img src="'+src+'"><button type="button" class="thumb-del" onclick="uploadPhotos.splice('+idx+',1);renderUploadThumbs();">&times;</button></div>';
+        grid.innerHTML += '<div class="thumb-wrap"><img src="'+src+'" alt="Upload"><button type="button" class="thumb-del" onclick="uploadPhotos.splice('+idx+',1);renderUploadThumbs();">&times;</button></div>';
       });
     }
 
@@ -1600,7 +1639,7 @@
             canvas.getContext('2d').drawImage(img, 0, 0, 180, 180);
             profile.avatar = canvas.toDataURL('image/jpeg', 0.8);
             saveLocalProfile(); updateProfileDisplay();
-            if(profile.id) await db.from('members').update({ avatar: profile.avatar }).eq('id', profile.id);
+            if(db && profile.id) await db.from('members').update({ avatar: profile.avatar }).eq('id', profile.id);
             if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
           };
           img.src = e.target.result;
@@ -1617,7 +1656,7 @@
       profile.bio = document.getElementById('pBio').value;
       profile.contact = document.getElementById('pContact').value;
       saveLocalProfile(); updateProfileDisplay();
-      if(profile.id) await db.from('members').update({ name: profile.name, city: profile.city, specialty: profile.specialty, bio: profile.bio, contact: profile.contact, avatar: profile.avatar }).eq('id', profile.id);
+      if(db && profile.id) await db.from('members').update({ name: profile.name, city: profile.city, specialty: profile.specialty, bio: profile.bio, contact: profile.contact, avatar: profile.avatar }).eq('id', profile.id);
       alert('Profile saved!'); goBackStep();
       if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
     }
@@ -1631,9 +1670,11 @@
       var reqContact = document.getElementById('joinContact').value.trim();
       var reqCity = document.getElementById('joinCity').value.trim();
       var newMemberId = profile.id || Date.now();
-      var res = await db.from('members').upsert({ id: newMemberId, name: reqName, contact: reqContact, city: reqCity, status: 'pending', rules_agreed: true, avatar: profile.avatar || '' });
+      if(db){
+        var res = await db.from('members').upsert({ id: newMemberId, name: reqName, contact: reqContact, city: reqCity, status: 'pending', rules_agreed: true, avatar: profile.avatar || '' });
+        if(res.error){ btn.innerText = 'Submit Request to Admin'; btn.disabled = false; alert('Join Request Error: ' + res.error.message); return; }
+      }
       btn.innerText = 'Submit Request to Admin'; btn.disabled = false;
-      if(res.error){ alert('Join Request Error: ' + res.error.message); return; }
       profile.id = newMemberId; profile.name = reqName; profile.contact = reqContact; profile.city = reqCity;
       if(profile.role !== 'owner') profile.role = 'guest';
       saveLocalProfile(); updateProfileDisplay(); await loadMembers();
@@ -1672,7 +1713,7 @@
         var cardShareBtn = '<button type="button" onclick="openShareSheet(\'item\', '+item.id+', event)" style="position:absolute;bottom:7px;right:7px;background:rgba(255,255,255,0.95);color:#0f172a;border:none;padding:4px 8px;border-radius:14px;display:flex;align-items:center;gap:4px;font-size:10px;font-weight:800;box-shadow:0 1px 4px rgba(0,0,0,0.28);cursor:pointer;"><i class="fa-solid fa-share-nodes" style="color:#0284c7;"></i> Share</button>';
         var origHtml = (item.orig_price && item.orig_price > item.price) ? '<span style="font-size:11px;color:#94a3b8;text-decoration:line-through;margin-left:4px;">$'+item.orig_price+'</span>' : '';
         var sellerDisplay = (item.seller === 'Dustin Stacks' || !item.seller) ? 'Admin' : item.seller;
-        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'">'+topTag+adminTag+shipTag+cardShareBtn+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
+        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'" alt="Item">'+topTag+adminTag+shipTag+cardShareBtn+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
         g.appendChild(c);
       });
     }
@@ -1681,7 +1722,7 @@
       active = item; slideIndex = 0; updateSlideDisplay();
       var strip = document.getElementById('detailThumbStrip'); strip.innerHTML = '';
       (item.images || []).forEach(function(src, idx){
-        strip.innerHTML += '<img src="'+src+'" class="'+(idx===0?'active-thumb':'')+'" onclick="slideIndex='+idx+';updateSlideDisplay();">';
+        strip.innerHTML += '<img src="'+src+'" class="'+(idx===0?'active-thumb':'')+'" onclick="slideIndex='+idx+';updateSlideDisplay();" alt="Thumb">';
       });
       document.getElementById('itemPrice').innerText = '$' + item.price;
       var origEl = document.getElementById('itemOrigPrice');
@@ -1735,7 +1776,7 @@
       if(!active || !confirm('Delete this comment and notify user?')) return;
       var removed = active.comments.splice(idx, 1)[0] || '';
       var author = removed.split(':')[0];
-      await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
+      if(db) await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
       if(author && author !== profile.name) await sendModerationNotice(author);
       renderComments();
     }
@@ -1746,7 +1787,7 @@
       if(!active.comments) active.comments = [];
       active.comments.push(profile.name + ': ' + inp.value.trim());
       inp.value = ''; renderComments();
-      await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
+      if(db) await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
     }
 
     function openEditActive(){
@@ -1765,10 +1806,10 @@
       if(!active) return;
       active.title = document.getElementById('editTitle').value;
       active.cat = document.getElementById('editCat').value;
-      active.price = parseInt(document.getElementById('editPrice').value);
+      active.price = parseInt(document.getElementById('editPrice').value, 10);
       active.condition = document.getElementById('editCondition').value;
       active.desc = document.getElementById('editDesc').value;
-      await db.from('listings').update({ title: active.title, cat: active.cat, price: active.price, condition: active.condition, desc: active.desc }).eq('id', active.id);
+      if(db) await db.from('listings').update({ title: active.title, cat: active.cat, price: active.price, condition: active.condition, desc: active.desc }).eq('id', active.id);
       goBackStep(); document.getElementById('itemPrice').innerText = '$' + active.price; document.getElementById('itemTitle').innerText = active.title; document.getElementById('itemDesc').innerText = active.desc;
       render();
     }
@@ -1777,7 +1818,7 @@
       if(!active) return;
       if(profile.role !== 'owner' && !isSameOwner(active.seller, profile.name)){ alert('You can only mark your own listings as sold.'); return; }
       active.sold = !active.sold;
-      await db.from('listings').update({ sold: active.sold }).eq('id', active.id);
+      if(db) await db.from('listings').update({ sold: active.sold }).eq('id', active.id);
       document.getElementById('itemNego').innerText = active.sold ? 'SOLD' : 'Make offer';
       var soldBtn = document.getElementById('markSoldBtn');
       if(soldBtn){
@@ -1791,9 +1832,10 @@
       if(!active || !confirm('Delete this listing?')) return;
       var ownerOfPost = active.seller;
       var deletedByAdmin = (profile.role === 'owner' && !isSameOwner(ownerOfPost, profile.name));
-      await db.from('listings').delete().eq('id', active.id);
+      if(db) await db.from('listings').delete().eq('id', active.id);
       if(deletedByAdmin) await sendModerationNotice(ownerOfPost);
       items = items.filter(function(x){ return x.id !== active.id; });
+      localStorage.setItem('stacks_items', JSON.stringify(items));
       goBackStep(); render();
     }
 
@@ -1804,7 +1846,9 @@
       if(!a || !active) return;
       if(profile.role === 'guest'){ alert('Request membership first to send offers.'); openM('authModal'); return; }
       activeListingRoomId = 'listing:' + active.id;
-      await db.from('chats').insert([{ sender: profile.name, sender_avatar: profile.avatar || '', text: 'PRIVATE CASH OFFER: $' + a + ' on ' + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
+      if(db){
+        await db.from('chats').insert([{ sender: profile.name, sender_avatar: profile.avatar || '', text: 'PRIVATE CASH OFFER: $' + a + ' on ' + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
+      }
       document.getElementById('offerBox').style.display = 'none';
       openListingTalkRoom(false);
     }
@@ -1823,7 +1867,7 @@
       b.innerHTML = '';
       s.forEach(function(x){
         var img = (x.images && x.images.length) ? x.images[0] : '';
-        b.innerHTML += '<div style="display:flex;gap:8px;padding:6px;border-bottom:1px solid #e2e8f0;align-items:center;"><img src="'+img+'" style="width:36px;height:36px;border-radius:4px;object-fit:cover;"><div><div style="font-weight:700;">'+x.title+'</div><div style="color:#0284c7;">$'+x.price+'</div></div></div>';
+        b.innerHTML += '<div style="display:flex;gap:8px;padding:6px;border-bottom:1px solid #e2e8f0;align-items:center;"><img src="'+img+'" style="width:36px;height:36px;border-radius:4px;object-fit:cover;" alt="Saved"><div><div style="font-weight:700;">'+x.title+'</div><div style="color:#0284c7;">$'+x.price+'</div></div></div>';
       });
     }
 
@@ -1890,11 +1934,16 @@
       e.preventDefault();
       var btn = document.getElementById('publishBtn'); btn.innerText = 'Posting...'; btn.disabled = true;
       var imgs = uploadPhotos.length ? uploadPhotos.slice(0, 12) : ['https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&w=400&q=80'];
-      var origVal = null;
-      var newItem = { id: Date.now(), title: document.getElementById('postTitle').value, cat: document.getElementById('postCat').value, price: parseInt(document.getElementById('postPrice').value), orig_price: origVal, shipping: document.getElementById('postShip').checked, images: imgs, seller: profile.name, seller_id: profile.id || 0, desc: document.getElementById('postDesc').value, condition: document.getElementById('postCondition').value, nego: document.getElementById('postNego').checked, sold: false, comments: [] };
-      var res = await db.from('listings').insert([newItem]);
+      var newItem = { id: Date.now(), title: document.getElementById('postTitle').value, cat: document.getElementById('postCat').value, price: parseInt(document.getElementById('postPrice').value, 10), orig_price: null, shipping: document.getElementById('postShip').checked, images: imgs, seller: profile.name, seller_id: profile.id || 0, desc: document.getElementById('postDesc').value, condition: document.getElementById('postCondition').value, nego: document.getElementById('postNego').checked, sold: false, comments: [] };
+      if(db){
+        var res = await db.from('listings').insert([newItem]);
+        if(res.error){
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Post It'; btn.disabled = false;
+          alert('Cloud error: ' + res.error.message);
+          return;
+        }
+      }
       btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Post It'; btn.disabled = false;
-      if(res.error){ alert('Cloud error: ' + res.error.message); return; }
       e.target.reset(); uploadPhotos = []; renderUploadThumbs();
       document.getElementById('listingReadyConfirmBox').style.display = 'none';
       goBackStep();
