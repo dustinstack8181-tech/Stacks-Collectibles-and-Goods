@@ -239,19 +239,67 @@ button[onclick*="openMenuModal"],
   border-color: #ef4444;
   }
     /* === WALLPAPER ADJUSTER PANEL & FIT/ZOOM/PAN CONTROLS === */
+/* === FIXED BANNER PROPORTIONS & WALLPAPER ADJUSTER === */
+#heroBannerBox,
+.hero-banner,
+.banner-wallpaper,
+.wallpaper-box,
+.home-banner {
+  position: relative !important;
+  width: 100% !important;
+  height: 210px !important;
+  min-height: 180px !important;
+  max-height: 250px !important;
+  background: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  filter: brightness(1.05) contrast(1.04) !important;
+  opacity: 1 !important;
+}
+
+#homeWallpaperImg,
+.hero-banner img,
+.banner-wallpaper img,
+.wallpaper-box img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  filter: brightness(1.05) contrast(1.04) !important;
+  opacity: 1 !important;
+}
+
+#stacksAdjustBtn {
+  position: fixed !important;
+  left: 10px !important;
+  top: 58px !important;
+  z-index: 10000 !important;
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background: rgba(15, 23, 42, 0.92) !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+
 #stacksWallpaperAdjuster {
   position: fixed;
   left: 10px;
   right: 10px;
   bottom: 76px;
-  background: rgba(15, 23, 42, 0.96);
+  background: rgba(15, 23, 42, 0.97);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 12px;
   padding: 12px;
-  z-index: 9999;
+  z-index: 10001;
   font-size: 13px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
 #stacksWallpaperAdjuster .wa-row {
@@ -263,7 +311,7 @@ button[onclick*="openMenuModal"],
 }
 
 #stacksWallpaperAdjuster label {
-  min-width: 78px;
+  min-width: 86px;
   font-weight: 600;
 }
 
@@ -293,21 +341,7 @@ button[onclick*="openMenuModal"],
   background: #2563eb;
   border-color: #3b82f6;
 }
-
-#stacksAdjustBtn {
-  position: fixed;
-  left: 12px;
-  top: 12px;
-  z-index: 10000;
-  padding: 7px 11px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(15, 23, 42, 0.88);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-    }
+    
     
   </style>
 </head>
@@ -2159,164 +2193,204 @@ button[onclick*="openMenuModal"],
 
     loadSiteSettings(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
     setInterval(function(){ loadChats(); loadMembers(); }, 12000);(function () {
-  let zoomLevel = 1;
+  (function () {
+  const STORAGE_KEY = "stacks_wallpaper_settings_v2";
+  const defaults = {
+    fit: "contain",
+    boxHeight: 210,
+    zoom: 1,
+    x: 0,
+    y: 0,
+    locked: false,
+    open: false
+  };
 
-  function applyStacksLayout() {
-    document
-      .querySelectorAll('#homeOverlayText, .hero-overlay-caption, .hero-banner-tint, [class*="banner-text"]')
-      .forEach((el) => {
-        if (el.id === "homeOverlayText" || el.classList.contains("hero-overlay-caption")) {
-          el.textContent = "";
-        }
-        el.style.display = "none";
+  function getSettings() {
+    try {
+      return { ...defaults, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") };
+    } catch (_) {
+      return { ...defaults };
+    }
+  }
+
+  function saveSettings(cfg) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+  }
+
+  function getBoxes() {
+    return Array.from(
+      document.querySelectorAll(
+        "#heroBannerBox, .hero-banner, .banner-wallpaper, .wallpaper-box, .home-banner"
+      )
+    );
+  }
+
+  function getImgs() {
+    return Array.from(
+      document.querySelectorAll(
+        '#homeWallpaperImg, .hero-banner img, .banner-wallpaper img, .wallpaper-box img, [class*="banner"] img, [class*="wallpaper"] img'
+      )
+    );
+  }
+
+  function applySettings(cfg) {
+    getBoxes().forEach((box) => {
+      box.style.setProperty("height", `${cfg.boxHeight}px`, "important");
+      box.style.setProperty("min-height", `${Math.min(160, cfg.boxHeight)}px`, "important");
+      box.style.setProperty("max-height", `${Math.max(320, cfg.boxHeight)}px`, "important");
+      box.style.setProperty("background", "#0f172a", "important");
+      box.style.setProperty("overflow", "hidden", "important");
+    });
+
+    getImgs().forEach((img) => {
+      img.style.setProperty("width", "100%", "important");
+      img.style.setProperty("height", "100%", "important");
+      img.style.setProperty("max-width", "100%", "important");
+      img.style.setProperty("max-height", "100%", "important");
+      img.style.setProperty("object-fit", cfg.fit, "important");
+      img.style.setProperty(
+        "transform",
+        `translate(${cfg.x}%, ${cfg.y}%) scale(${cfg.zoom})`,
+        "important"
+      );
+      img.style.transformOrigin = "center center";
+    });
+
+    const panel = document.getElementById("stacksWallpaperAdjuster");
+    if (panel) panel.style.display = cfg.open ? "block" : "none";
+
+    const lockBtn = document.getElementById("waLockSize");
+    if (lockBtn) {
+      lockBtn.textContent = cfg.locked ? "Size Locked (Tap to Unlock)" : "Lock Size";
+    }
+  }
+
+  function buildUI() {
+    const cfg = getSettings();
+
+    if (!document.getElementById("stacksAdjustBtn")) {
+      const btn = document.createElement("button");
+      btn.id = "stacksAdjustBtn";
+      btn.type = "button";
+      btn.textContent = "Adjust Wallpaper";
+      btn.addEventListener("click", () => {
+        const cur = getSettings();
+        cur.open = !cur.open;
+        saveSettings(cur);
+        applySettings(cur);
       });
+      document.body.appendChild(btn);
+    }
+
+    if (!document.getElementById("stacksWallpaperAdjuster")) {
+      const panel = document.createElement("div");
+      panel.id = "stacksWallpaperAdjuster";
+      panel.innerHTML = `
+        <div class="wa-row">
+          <label>Fit Mode</label>
+          <div class="wa-actions" style="margin:0;">
+            <button type="button" id="waFullFit">Full Fit</button>
+            <button type="button" id="waFillBox">Fill Box</button>
+          </div>
+        </div>
+        <div class="wa-row">
+          <label for="waHeight">Box (<span id="waHeightVal">${cfg.boxHeight}px</span>)</label>
+          <input id="waHeight" type="range" min="150" max="320" step="5" value="${cfg.boxHeight}" />
+        </div>
+        <div class="wa-row">
+          <label for="waZoom">Zoom (<span id="waZoomVal">${cfg.zoom.toFixed(2)}x</span>)</label>
+          <input id="waZoom" type="range" min="0.6" max="2" step="0.05" value="${cfg.zoom}" />
+        </div>
+        <div class="wa-row">
+          <label for="waX">Left / Right</label>
+          <input id="waX" type="range" min="-40" max="40" step="1" value="${cfg.x}" />
+        </div>
+        <div class="wa-row">
+          <label for="waY">Up / Down</label>
+          <input id="waY" type="range" min="-40" max="40" step="1" value="${cfg.y}" />
+        </div>
+        <div class="wa-actions">
+          <button type="button" id="waLockSize">Lock Size</button>
+          <button type="button" id="waReset">Reset</button>
+          <button type="button" id="waSave" class="primary">Save & Close</button>
+        </div>
+      `;
+      document.body.appendChild(panel);
+
+      const hInput = document.getElementById("waHeight");
+      const zInput = document.getElementById("waZoom");
+      const xInput = document.getElementById("waX");
+      const yInput = document.getElementById("waY");
+
+      const updateFromSliders = () => {
+        const cur = getSettings();
+        const next = {
+          ...cur,
+          boxHeight: cur.locked ? cur.boxHeight : parseFloat(hInput.value),
+          zoom: cur.locked ? cur.zoom : parseFloat(zInput.value),
+          x: parseFloat(xInput.value),
+          y: parseFloat(yInput.value)
+        };
+        hInput.value = String(next.boxHeight);
+        zInput.value = String(next.zoom);
+        document.getElementById("waHeightVal").textContent = `${next.boxHeight}px`;
+        document.getElementById("waZoomVal").textContent = `${next.zoom.toFixed(2)}x`;
+        saveSettings(next);
+        applySettings(next);
+      };
+
+      [hInput, zInput, xInput, yInput].forEach((el) => el.addEventListener("input", updateFromSliders));
+
+      document.getElementById("waFullFit").addEventListener("click", () => {
+        const cur = getSettings();
+        const next = { ...cur, fit: "contain", zoom: cur.locked ? cur.zoom : 1, x: 0, y: 0 };
+        saveSettings(next);
+        applySettings(next);
+      });
+
+      document.getElementById("waFillBox").addEventListener("click", () => {
+        const cur = getSettings();
+        const next = { ...cur, fit: "cover" };
+        saveSettings(next);
+        applySettings(next);
+      });
+
+      document.getElementById("waLockSize").addEventListener("click", () => {
+        const cur = getSettings();
+        const next = { ...cur, locked: !cur.locked };
+        saveSettings(next);
+        applySettings(next);
+      });
+
+      document.getElementById("waReset").addEventListener("click", () => {
+        const next = { ...defaults, open: true };
+        hInput.value = String(next.boxHeight);
+        zInput.value = String(next.zoom);
+        xInput.value = "0";
+        yInput.value = "0";
+        document.getElementById("waHeightVal").textContent = `${next.boxHeight}px`;
+        document.getElementById("waZoomVal").textContent = "1.00x";
+        saveSettings(next);
+        applySettings(next);
+      });
+
+      document.getElementById("waSave").addEventListener("click", () => {
+        const next = { ...getSettings(), open: false };
+        saveSettings(next);
+        applySettings(next);
+      });
+    }
+
+    applySettings(cfg);
   }
 
-  function ensureLightbox() {
-    if (document.getElementById("stacksPhotoLightbox")) return;
-
-    const overlay = document.createElement("div");
-    overlay.id = "stacksPhotoLightbox";
-    overlay.innerHTML = `
-      <div id="stacksLightboxStage">
-        <img id="stacksLightboxImg" src="" alt="Item photo preview" />
-      </div>
-      <div id="stacksLightboxControls">
-        <button type="button" id="stacksZoomIn">Zoom In (+)</button>
-        <button type="button" id="stacksZoomOut">Zoom Out (-)</button>
-        <button type="button" id="stacksZoomReset">100%</button>
-        <button type="button" id="stacksZoomClose" class="close-btn">Close (X)</button>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-
-    const img = document.getElementById("stacksLightboxImg");
-    const applyZoom = () => {
-      img.style.transform = `scale(${zoomLevel})`;
-      img.style.maxWidth = zoomLevel > 1 ? "none" : "100%";
-      img.style.maxHeight = zoomLevel > 1 ? "none" : "72vh";
-    };
-
-    document.getElementById("stacksZoomIn").addEventListener("click", (e) => {
-      e.stopPropagation();
-      zoomLevel = Math.min(4, Number((zoomLevel + 0.5).toFixed(2)));
-      applyZoom();
-    });
-
-    document.getElementById("stacksZoomOut").addEventListener("click", (e) => {
-      e.stopPropagation();
-      zoomLevel = Math.max(1, Number((zoomLevel - 0.5).toFixed(2)));
-      applyZoom();
-    });
-
-    document.getElementById("stacksZoomReset").addEventListener("click", (e) => {
-      e.stopPropagation();
-      zoomLevel = 1;
-      applyZoom();
-    });
-
-    document.getElementById("stacksZoomClose").addEventListener("click", (e) => {
-      e.stopPropagation();
-      zoomLevel = 1;
-      applyZoom();
-      overlay.classList.remove("active");
-    });
-
-    img.addEventListener("click", (e) => {
-      e.stopPropagation();
-      zoomLevel = zoomLevel >= 2 ? 1 : Number((zoomLevel + 1).toFixed(2));
-      applyZoom();
-    });
-
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay || e.target.id === "stacksLightboxStage") {
-        zoomLevel = 1;
-        applyZoom();
-        overlay.classList.remove("active");
-      }
-    });
-  }
-
-  function removeBrokenMenuButton() {
-    document.querySelectorAll('button[onclick*="openMenuModal"], button, a, div, span').forEach((el) => {
-      if (el.matches('button[onclick*="openMenuModal"]')) {
-        el.style.display = "none";
-        return;
-      }
-      const txt = (el.textContent || "").trim();
-      const hasThreeLines = txt === "☰" || txt === "≡";
-      const mentionsMenu = /menu/i.test(txt) && el.children.length === 0 && txt.length <= 12;
-      if ((hasThreeLines || mentionsMenu) && !el.closest("#stacksPhotoLightbox")) {
-        el.style.display = "none";
-      }
-    });
-  }
-
-  document.addEventListener("click", (e) => {
-    const clickedImg = e.target.closest("img");
-    if (!clickedImg || !clickedImg.src) return;
-    if (clickedImg.closest("#stacksPhotoLightbox")) return;
-
-    const rect = clickedImg.getBoundingClientRect();
-    const isItemPhoto =
-      clickedImg.closest('[class*="listing"], [class*="card"], [class*="item"], [class*="modal"], [class*="detail"]') ||
-      (rect.width >= 90 && rect.height >= 90);
-
-    if (!isItemPhoto) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    ensureLightbox();
-
-    const overlay = document.getElementById("stacksPhotoLightbox");
-    const img = document.getElementById("stacksLightboxImg");
-    zoomLevel = 1;
-    img.src = clickedImg.currentSrc || clickedImg.src;
-    img.style.transform = "scale(1)";
-    img.style.maxWidth = "100%";
-    img.style.maxHeight = "72vh";
-    overlay.classList.add("active");
-  }, true);
-
-  window.addEventListener("DOMContentLoaded", () => {
-    applyStacksLayout();
-    ensureLightbox();
-    removeBrokenMenuButton();
-  });
-
-  window.addEventListener("hashchange", applyStacksLayout);
-
-  new MutationObserver(() => {
-    applyStacksLayout();
-    removeBrokenMenuButton();
-  }).observe(document.documentElement, {
+  window.addEventListener("DOMContentLoaded", buildUI);
+  new MutationObserver(() => applySettings(getSettings())).observe(document.documentElement, {
     childList: true,
     subtree: true
   });
-
-  const origInsert = window.submitJoinRequest;
-  window.submitJoinRequest = async function (payload = {}) {
-    const cleanPayload = {
-      name: (payload.name || payload.full_name || payload.username || "").trim(),
-      email: (payload.email || "").trim(),
-      phone: (payload.phone || "").trim(),
-      rules_agreed: true,
-      status: "pending"
-    };
-    if (typeof origInsert === "function") {
-      return origInsert(cleanPayload);
-    }
-    const client = window.supabaseClient || window.sb || window.supabase;
-    if (!client) return false;
-    const { error } = await client.from("members").insert([cleanPayload]);
-    if (error) {
-      alert("Join Request Error: " + error.message);
-      return false;
-    }
-    return true;
-  };
 })();
-    
+      
   </script>
 </body>
 </html>
