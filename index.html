@@ -2192,7 +2192,10 @@ button[onclick*="openMenuModal"],
     }
 
     loadSiteSettings(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
-    setInterval(function(){ if(typeof loadChats === "function") loadChats(); if(typeof loadMembers === "function") loadMembers(); }, 15000);
+    setInterval(function(){
+  if (typeof loadChats === "function") loadChats();
+  if (typeof loadMembers === "function") loadMembers();
+}, 15000);
 
 (function () {
   const STORAGE_KEY = "stacks_wallpaper_settings_v2";
@@ -2215,7 +2218,9 @@ button[onclick*="openMenuModal"],
   }
 
   function saveSettings(cfg) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+    } catch (_) {}
   }
 
   function getBoxes() {
@@ -2236,14 +2241,16 @@ button[onclick*="openMenuModal"],
 
   function applySettings(cfg) {
     getBoxes().forEach((box) => {
+      if (!box) return;
       box.style.setProperty("height", `${cfg.boxHeight}px`, "important");
-      box.style.setProperty("min-height", `${Math.min(160, cfg.boxHeight)}px`, "important");
-      box.style.setProperty("max-height", `${Math.max(320, cfg.boxHeight)}px`, "important");
+      box.style.setProperty("min-height", "160px", "important");
+      box.style.setProperty("max-height", "320px", "important");
       box.style.setProperty("background", "#0f172a", "important");
       box.style.setProperty("overflow", "hidden", "important");
     });
 
     getImgs().forEach((img) => {
+      if (!img) return;
       img.style.setProperty("width", "100%", "important");
       img.style.setProperty("height", "100%", "important");
       img.style.setProperty("max-width", "100%", "important");
@@ -2264,16 +2271,153 @@ button[onclick*="openMenuModal"],
     if (lockBtn) {
       lockBtn.textContent = cfg.locked ? "Size Locked (Tap to Unlock)" : "Lock Size";
     }
-  }
-
-  function buildUI() {
+    }
+      function buildUI() {
+    if (!document.body) return;
     const cfg = getSettings();
 
     if (!document.getElementById("stacksAdjustBtn")) {
       const btn = document.createElement("button");
-      
-    
-      
-  </script>
+      btn.id = "stacksAdjustBtn";
+      btn.type = "button";
+      btn.textContent = "Adjust Wallpaper";
+      btn.addEventListener("click", () => {
+        const cur = getSettings();
+        cur.open = !cur.open;
+        saveSettings(cur);
+        applySettings(cur);
+      });
+      document.body.appendChild(btn);
+    }
+
+    if (!document.getElementById("stacksWallpaperAdjuster")) {
+      const panel = document.createElement("div");
+      panel.id = "stacksWallpaperAdjuster";
+      panel.innerHTML = `
+        <div class="wa-row">
+          <label>Fit Mode</label>
+          <div class="wa-actions" style="margin:0;">
+            <button type="button" id="waFullFit">Full Fit</button>
+            <button type="button" id="waFillBox">Fill Box</button>
+          </div>
+        </div>
+        <div class="wa-row">
+          <label for="waHeight">Box (<span id="waHeightVal">${cfg.boxHeight}px</span>)</label>
+          <input id="waHeight" type="range" min="150" max="320" step="5" value="${cfg.boxHeight}" />
+        </div>
+        <div class="wa-row">
+          <label for="waZoom">Zoom (<span id="waZoomVal">${cfg.zoom.toFixed(2)}x</span>)</label>
+          <input id="waZoom" type="range" min="0.6" max="2" step="0.05" value="${cfg.zoom}" />
+        </div>
+        <div class="wa-row">
+          <label for="waX">Left / Right</label>
+          <input id="waX" type="range" min="-40" max="40" step="1" value="${cfg.x}" />
+        </div>
+        <div class="wa-row">
+          <label for="waY">Up / Down</label>
+          <input id="waY" type="range" min="-40" max="40" step="1" value="${cfg.y}" />
+        </div>
+        <div class="wa-actions">
+          <button type="button" id="waLockSize">Lock Size</button>
+          <button type="button" id="waReset">Reset</button>
+          <button type="button" id="waSave" class="primary">Save & Close</button>
+        </div>
+      `;
+      document.body.appendChild(panel);
+
+      const hInput = document.getElementById("waHeight");
+      const zInput = document.getElementById("waZoom");
+      const xInput = document.getElementById("waX");
+      const yInput = document.getElementById("waY");
+      const hVal = document.getElementById("waHeightVal");
+      const zVal = document.getElementById("waZoomVal");
+
+      const updateFromSliders = () => {
+        const cur = getSettings();
+        const next = {
+          ...cur,
+          boxHeight: cur.locked ? cur.boxHeight : parseFloat(hInput.value),
+          zoom: cur.locked ? cur.zoom : parseFloat(zInput.value),
+          x: parseFloat(xInput.value),
+          y: parseFloat(yInput.value)
+        };
+        if (hInput) hInput.value = String(next.boxHeight);
+        if (zInput) zInput.value = String(next.zoom);
+        if (hVal) hVal.textContent = `${next.boxHeight}px`;
+        if (zVal) zVal.textContent = `${next.zoom.toFixed(2)}x`;
+        saveSettings(next);
+        applySettings(next);
+      };
+
+      [hInput, zInput, xInput, yInput].forEach((el) => {
+        if (el) el.addEventListener("input", updateFromSliders);
+      });
+
+      const fullFitBtn = document.getElementById("waFullFit");
+      if (fullFitBtn) {
+        fullFitBtn.addEventListener("click", () => {
+          const cur = getSettings();
+          const next = { ...cur, fit: "contain", zoom: cur.locked ? cur.zoom : 1, x: 0, y: 0 };
+          saveSettings(next);
+          applySettings(next);
+        });
+      }
+
+      const fillBoxBtn = document.getElementById("waFillBox");
+      if (fillBoxBtn) {
+        fillBoxBtn.addEventListener("click", () => {
+          const cur = getSettings();
+          const next = { ...cur, fit: "cover" };
+          saveSettings(next);
+          applySettings(next);
+        });
+      }
+
+      const lockBtn = document.getElementById("waLockSize");
+      if (lockBtn) {
+        lockBtn.addEventListener("click", () => {
+          const cur = getSettings();
+          const next = { ...cur, locked: !cur.locked };
+          saveSettings(next);
+          applySettings(next);
+        });
+      }
+
+      const resetBtn = document.getElementById("waReset");
+      if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+          const next = { ...defaults, open: true };
+          if (hInput) hInput.value = String(next.boxHeight);
+          if (zInput) zInput.value = String(next.zoom);
+          if (xInput) xInput.value = "0";
+          if (yInput) yInput.value = "0";
+          if (hVal) hVal.textContent = `${next.boxHeight}px`;
+          if (zVal) zVal.textContent = "1.00x";
+          saveSettings(next);
+          applySettings(next);
+        });
+      }
+
+      const saveBtn = document.getElementById("waSave");
+      if (saveBtn) {
+        saveBtn.addEventListener("click", () => {
+          const next = { ...getSettings(), open: false };
+          saveSettings(next);
+          applySettings(next);
+        });
+      }
+    }
+
+    applySettings(cfg);
+  }
+
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", buildUI);
+  } else {
+    buildUI();
+  }
+})();
+</script>
 </body>
 </html>
+
