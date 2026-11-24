@@ -99,7 +99,146 @@
     .member-req-card{display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;padding:8px 10px;border-radius:8px;margin-bottom:6px;}
     .admin-tab-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px;}
     .admin-tab-btn{padding:7px 4px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;text-align:center;}
-    .admin-tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a;}
+    .admin-tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a;}/* === STACKS COLLECTIBLES HOMEPAGE, ADMIN, MENU & PHOTO ZOOM FIX === */
+#heroBannerBox,
+.hero-banner,
+.banner-wallpaper,
+.wallpaper-box,
+.home-banner {
+  position: relative !important;
+  min-height: 48vh !important;
+  height: 50vh !important;
+  max-height: 52vh !important;
+  width: 100% !important;
+  filter: brightness(1.06) contrast(1.04) !important;
+  opacity: 1 !important;
+  overflow: hidden !important;
+}
+
+#homeWallpaperImg,
+.hero-banner img,
+.banner-wallpaper img,
+.wallpaper-box img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: brightness(1.06) contrast(1.04) !important;
+  opacity: 1 !important;
+}
+
+/* Remove dark overlays and text messages sitting in front of the wallpaper */
+.hero-banner-tint,
+#homeOverlayText,
+.hero-overlay-caption,
+.hero-banner::before,
+.hero-banner::after,
+[class*="banner"]::before,
+[class*="banner"]::after,
+[class*="overlay-text"] {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+/* Place Admin profile badge / avatar cleanly in the top-left */
+.admin-top-left,
+.profile-top-left,
+.header-admin-badge,
+[class*="admin-badge"] {
+  position: fixed !important;
+  top: 10px !important;
+  left: 12px !important;
+  right: auto !important;
+  z-index: 1001 !important;
+}
+
+/* Position tabs / hub cleanly under the ~50vh wallpaper */
+.homepage-tabs,
+.category-tabs,
+.filter-tabs,
+.admin-master-hub,
+.admin-hub-modal,
+[class*="admin-hub"],
+[class*="master-hub"] {
+  position: relative !important;
+  top: auto !important;
+  margin-top: 8px !important;
+  transform: none !important;
+  z-index: 50 !important;
+}
+
+/* Hide broken top-left Menu three-line button */
+button[onclick*="openMenuModal"],
+#menuBtn,
+.menu-btn,
+.hamburger-menu,
+.nav-menu-btn,
+[aria-label*="Menu"],
+[class*="menu-toggle"] {
+  display: none !important;
+}
+
+/* Item photo zoom lightbox */
+#stacksPhotoLightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.94);
+  z-index: 99999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  touch-action: none;
+}
+
+#stacksPhotoLightbox.active {
+  display: flex;
+}
+
+#stacksLightboxStage {
+  width: 100%;
+  height: 75vh;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-overflow-scrolling: touch;
+}
+
+#stacksLightboxImg {
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  transform-origin: center center;
+  transition: transform 0.18s ease;
+  user-select: none;
+}
+
+#stacksLightboxControls {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#stacksLightboxControls button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #1f2937;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#stacksLightboxControls button.close-btn {
+  background: #991b1b;
+  border-color: #ef4444;
+  }
+    
   </style>
 </head>
 <body>
@@ -1949,7 +2088,165 @@
     }
 
     loadSiteSettings(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
-    setInterval(function(){ loadChats(); loadMembers(); }, 12000);
+    setInterval(function(){ loadChats(); loadMembers(); }, 12000);(function () {
+  let zoomLevel = 1;
+
+  function applyStacksLayout() {
+    document
+      .querySelectorAll('#homeOverlayText, .hero-overlay-caption, .hero-banner-tint, [class*="banner-text"]')
+      .forEach((el) => {
+        if (el.id === "homeOverlayText" || el.classList.contains("hero-overlay-caption")) {
+          el.textContent = "";
+        }
+        el.style.display = "none";
+      });
+  }
+
+  function ensureLightbox() {
+    if (document.getElementById("stacksPhotoLightbox")) return;
+
+    const overlay = document.createElement("div");
+    overlay.id = "stacksPhotoLightbox";
+    overlay.innerHTML = `
+      <div id="stacksLightboxStage">
+        <img id="stacksLightboxImg" src="" alt="Item photo preview" />
+      </div>
+      <div id="stacksLightboxControls">
+        <button type="button" id="stacksZoomIn">Zoom In (+)</button>
+        <button type="button" id="stacksZoomOut">Zoom Out (-)</button>
+        <button type="button" id="stacksZoomReset">100%</button>
+        <button type="button" id="stacksZoomClose" class="close-btn">Close (X)</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const img = document.getElementById("stacksLightboxImg");
+    const applyZoom = () => {
+      img.style.transform = `scale(${zoomLevel})`;
+      img.style.maxWidth = zoomLevel > 1 ? "none" : "100%";
+      img.style.maxHeight = zoomLevel > 1 ? "none" : "72vh";
+    };
+
+    document.getElementById("stacksZoomIn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      zoomLevel = Math.min(4, Number((zoomLevel + 0.5).toFixed(2)));
+      applyZoom();
+    });
+
+    document.getElementById("stacksZoomOut").addEventListener("click", (e) => {
+      e.stopPropagation();
+      zoomLevel = Math.max(1, Number((zoomLevel - 0.5).toFixed(2)));
+      applyZoom();
+    });
+
+    document.getElementById("stacksZoomReset").addEventListener("click", (e) => {
+      e.stopPropagation();
+      zoomLevel = 1;
+      applyZoom();
+    });
+
+    document.getElementById("stacksZoomClose").addEventListener("click", (e) => {
+      e.stopPropagation();
+      zoomLevel = 1;
+      applyZoom();
+      overlay.classList.remove("active");
+    });
+
+    img.addEventListener("click", (e) => {
+      e.stopPropagation();
+      zoomLevel = zoomLevel >= 2 ? 1 : Number((zoomLevel + 1).toFixed(2));
+      applyZoom();
+    });
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay || e.target.id === "stacksLightboxStage") {
+        zoomLevel = 1;
+        applyZoom();
+        overlay.classList.remove("active");
+      }
+    });
+  }
+
+  function removeBrokenMenuButton() {
+    document.querySelectorAll('button[onclick*="openMenuModal"], button, a, div, span').forEach((el) => {
+      if (el.matches('button[onclick*="openMenuModal"]')) {
+        el.style.display = "none";
+        return;
+      }
+      const txt = (el.textContent || "").trim();
+      const hasThreeLines = txt === "☰" || txt === "≡";
+      const mentionsMenu = /menu/i.test(txt) && el.children.length === 0 && txt.length <= 12;
+      if ((hasThreeLines || mentionsMenu) && !el.closest("#stacksPhotoLightbox")) {
+        el.style.display = "none";
+      }
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    const clickedImg = e.target.closest("img");
+    if (!clickedImg || !clickedImg.src) return;
+    if (clickedImg.closest("#stacksPhotoLightbox")) return;
+
+    const rect = clickedImg.getBoundingClientRect();
+    const isItemPhoto =
+      clickedImg.closest('[class*="listing"], [class*="card"], [class*="item"], [class*="modal"], [class*="detail"]') ||
+      (rect.width >= 90 && rect.height >= 90);
+
+    if (!isItemPhoto) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    ensureLightbox();
+
+    const overlay = document.getElementById("stacksPhotoLightbox");
+    const img = document.getElementById("stacksLightboxImg");
+    zoomLevel = 1;
+    img.src = clickedImg.currentSrc || clickedImg.src;
+    img.style.transform = "scale(1)";
+    img.style.maxWidth = "100%";
+    img.style.maxHeight = "72vh";
+    overlay.classList.add("active");
+  }, true);
+
+  window.addEventListener("DOMContentLoaded", () => {
+    applyStacksLayout();
+    ensureLightbox();
+    removeBrokenMenuButton();
+  });
+
+  window.addEventListener("hashchange", applyStacksLayout);
+
+  new MutationObserver(() => {
+    applyStacksLayout();
+    removeBrokenMenuButton();
+  }).observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+
+  const origInsert = window.submitJoinRequest;
+  window.submitJoinRequest = async function (payload = {}) {
+    const cleanPayload = {
+      name: (payload.name || payload.full_name || payload.username || "").trim(),
+      email: (payload.email || "").trim(),
+      phone: (payload.phone || "").trim(),
+      rules_agreed: true,
+      status: "pending"
+    };
+    if (typeof origInsert === "function") {
+      return origInsert(cleanPayload);
+    }
+    const client = window.supabaseClient || window.sb || window.supabase;
+    if (!client) return false;
+    const { error } = await client.from("members").insert([cleanPayload]);
+    if (error) {
+      alert("Join Request Error: " + error.message);
+      return false;
+    }
+    return true;
+  };
+})();
+    
   </script>
 </body>
 </html>
