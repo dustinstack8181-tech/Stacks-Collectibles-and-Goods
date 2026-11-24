@@ -2192,8 +2192,9 @@ button[onclick*="openMenuModal"],
     }
 
     loadSiteSettings(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
-    setInterval(function(){ loadChats(); loadMembers(); }, 12000);(function () {
-  (function () {
+    setInterval(function(){ if(typeof loadChats === "function") loadChats(); if(typeof loadMembers === "function") loadMembers(); }, 15000);
+
+(function () {
   const STORAGE_KEY = "stacks_wallpaper_settings_v2";
   const defaults = {
     fit: "contain",
@@ -2390,6 +2391,7 @@ button[onclick*="openMenuModal"],
     subtree: true
   });
 })();
+    
       
   </script>
 </body>
