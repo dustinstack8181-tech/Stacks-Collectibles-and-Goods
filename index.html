@@ -2209,6 +2209,19 @@ button[onclick*="openMenuModal"],
     open: false
   };
 
+  function isAdminUser() {
+    try {
+      if (typeof profile !== "undefined" && profile && (profile.role === "owner" || profile.role === "admin")) {
+        return true;
+      }
+      const badge = document.getElementById("roleBadge");
+      if (badge && /admin/i.test(badge.textContent || "")) {
+        return true;
+      }
+    } catch (_) {}
+    return false;
+  }
+
   function getSettings() {
     try {
       return { ...defaults, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") };
@@ -2240,6 +2253,8 @@ button[onclick*="openMenuModal"],
   }
 
   function applySettings(cfg) {
+    const admin = isAdminUser();
+
     getBoxes().forEach((box) => {
       if (!box) return;
       box.style.setProperty("height", `${cfg.boxHeight}px`, "important");
@@ -2264,17 +2279,35 @@ button[onclick*="openMenuModal"],
       img.style.transformOrigin = "center center";
     });
 
+    const btn = document.getElementById("stacksAdjustBtn");
     const panel = document.getElementById("stacksWallpaperAdjuster");
-    if (panel) panel.style.display = cfg.open ? "block" : "none";
+
+    if (!admin) {
+      if (btn) btn.style.setProperty("display", "none", "important");
+      if (panel) panel.style.setProperty("display", "none", "important");
+      return;
+    }
+
+    if (btn) btn.style.setProperty("display", "inline-flex", "important");
+    if (panel) panel.style.setProperty("display", cfg.open ? "block" : "none", "important");
 
     const lockBtn = document.getElementById("waLockSize");
     if (lockBtn) {
       lockBtn.textContent = cfg.locked ? "Size Locked (Tap to Unlock)" : "Lock Size";
     }
-    }
-      function buildUI() {
+  }
+    function buildUI() {
     if (!document.body) return;
     const cfg = getSettings();
+
+    if (!isAdminUser()) {
+      const existingBtn = document.getElementById("stacksAdjustBtn");
+      const existingPanel = document.getElementById("stacksWallpaperAdjuster");
+      if (existingBtn) existingBtn.remove();
+      if (existingPanel) existingPanel.remove();
+      applySettings(cfg);
+      return;
+    }
 
     if (!document.getElementById("stacksAdjustBtn")) {
       const btn = document.createElement("button");
@@ -2282,6 +2315,7 @@ button[onclick*="openMenuModal"],
       btn.type = "button";
       btn.textContent = "Adjust Wallpaper";
       btn.addEventListener("click", () => {
+        if (!isAdminUser()) return;
         const cur = getSettings();
         cur.open = !cur.open;
         saveSettings(cur);
@@ -2333,6 +2367,7 @@ button[onclick*="openMenuModal"],
       const zVal = document.getElementById("waZoomVal");
 
       const updateFromSliders = () => {
+        if (!isAdminUser()) return;
         const cur = getSettings();
         const next = {
           ...cur,
@@ -2356,6 +2391,7 @@ button[onclick*="openMenuModal"],
       const fullFitBtn = document.getElementById("waFullFit");
       if (fullFitBtn) {
         fullFitBtn.addEventListener("click", () => {
+          if (!isAdminUser()) return;
           const cur = getSettings();
           const next = { ...cur, fit: "contain", zoom: cur.locked ? cur.zoom : 1, x: 0, y: 0 };
           saveSettings(next);
@@ -2366,6 +2402,7 @@ button[onclick*="openMenuModal"],
       const fillBoxBtn = document.getElementById("waFillBox");
       if (fillBoxBtn) {
         fillBoxBtn.addEventListener("click", () => {
+          if (!isAdminUser()) return;
           const cur = getSettings();
           const next = { ...cur, fit: "cover" };
           saveSettings(next);
@@ -2376,6 +2413,7 @@ button[onclick*="openMenuModal"],
       const lockBtn = document.getElementById("waLockSize");
       if (lockBtn) {
         lockBtn.addEventListener("click", () => {
+          if (!isAdminUser()) return;
           const cur = getSettings();
           const next = { ...cur, locked: !cur.locked };
           saveSettings(next);
@@ -2386,6 +2424,7 @@ button[onclick*="openMenuModal"],
       const resetBtn = document.getElementById("waReset");
       if (resetBtn) {
         resetBtn.addEventListener("click", () => {
+          if (!isAdminUser()) return;
           const next = { ...defaults, open: true };
           if (hInput) hInput.value = String(next.boxHeight);
           if (zInput) zInput.value = String(next.zoom);
@@ -2411,13 +2450,18 @@ button[onclick*="openMenuModal"],
     applySettings(cfg);
   }
 
-  if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", buildUI);
-  } else {
+  function syncAdminAccess() {
     buildUI();
   }
+
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", syncAdminAccess);
+  } else {
+    syncAdminAccess();
+  }
+
+  setInterval(syncAdminAccess, 2000);
 })();
 </script>
 </body>
 </html>
-
