@@ -21,11 +21,8 @@
     .search-bar input{border:none;background:transparent;width:100%;font-size:14px;outline:none;color:#0f172a;}
     .hero{max-width:1280px;margin:12px auto;padding:0 15px;}
     .hero-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-    .hero-banner{height:155px;background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 55%,#0284c7 100%);position:relative;display:flex;align-items:center;justify-content:center;padding:14px;overflow:hidden;}
-    .hero-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
-    .hero-banner-tint{position:absolute;inset:0;background:rgba(15,23,42,0.38);z-index:2;}
-    .hero-overlay-caption{position:relative;z-index:3;color:#fff;font-size:16px;font-weight:900;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,0.85);max-width:92%;line-height:1.3;}
-    .admin-edit-chip{display:none;background:#fbbf24;color:#0f172a;border:none;border-radius:14px;padding:4px 9px;font-size:10px;font-weight:900;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.3);align-items:center;gap:4px;}
+    .hero-banner{position:relative;width:100%;height:210px;min-height:180px;max-height:250px;background:#0f172a;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .hero-banner img{width:100%;height:100%;object-fit:contain;filter:brightness(1.05) contrast(1.04);}
     .hero-inner{padding:0 15px 14px;position:relative;}
     .hero-top{display:flex;gap:12px;align-items:flex-end;margin-top:-32px;margin-bottom:8px;position:relative;z-index:4;}
     .hero-avatar{width:74px;height:74px;border-radius:50%;background:#0f172a;color:#fbbf24;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;border:4px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,0.18);overflow:hidden;flex-shrink:0;position:relative;}
@@ -61,7 +58,6 @@
     .btn-submit{width:100%;padding:12px;background:#0284c7;color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;margin-top:4px;font-size:13px;}
     .fb-cover-wrap{height:150px;background:linear-gradient(135deg,#0f172a,#1e3a8a,#0284c7);border-radius:12px;position:relative;overflow:hidden;}
     .fb-cover-wrap img{width:100%;height:100%;object-fit:cover;}
-    .fb-cam-btn{position:absolute;bottom:8px;right:8px;background:rgba(255,255,255,0.92);color:#0f172a;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.25);font-size:13px;}
     .fb-avatar-zone{display:flex;flex-direction:column;align-items:center;margin-top:-52px;position:relative;z-index:2;}
     .thought-bubble{background:#fff;border:1px solid #cbd5e1;border-radius:18px;padding:5px 12px;font-size:12px;font-weight:700;color:#0f172a;box-shadow:0 3px 10px rgba(0,0,0,0.12);margin-bottom:4px;max-width:230px;text-align:center;cursor:pointer;}
     .fb-avatar-circle{width:96px;height:96px;border-radius:50%;background:#0f172a;color:#fbbf24;border:4px solid #fff;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;overflow:hidden;position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.18);}
@@ -77,7 +73,7 @@
     .thumb-wrap img{width:100%;height:100%;object-fit:cover;}
     .thumb-del{position:absolute;top:2px;right:2px;background:rgba(220,38,38,0.9);color:#fff;border:none;width:18px;height:18px;border-radius:50%;font-size:11px;font-weight:bold;cursor:pointer;}
     .carousel-wrap{position:relative;width:100%;height:260px;background:#0f172a;border-radius:10px;overflow:hidden;margin-bottom:8px;}
-    .carousel-wrap img{width:100%;height:100%;object-fit:contain;}
+    .carousel-wrap img{width:100%;height:100%;object-fit:contain;cursor:zoom-in;}
     .caro-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.88);border:none;width:30px;height:30px;border-radius:50%;font-size:15px;font-weight:bold;cursor:pointer;}
     .caro-count{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.7);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;}
     .detail-strip{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;}
@@ -85,8 +81,6 @@
     .detail-strip img.active-thumb{border-color:#0284c7;}
     .seller-card{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border:1px solid #e2e8f0;padding:10px;border-radius:10px;margin:10px 0;cursor:pointer;}
     .seller-av{width:40px;height:40px;border-radius:50%;background:#0284c7;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;overflow:hidden;flex-shrink:0;}
-    .quick-ask-bar{display:flex;gap:6px;background:#f1f5f9;padding:6px;border-radius:10px;margin-bottom:10px;}
-    .quick-ask-bar input{flex:1;border:none;background:transparent;font-size:12px;padding:4px 6px;outline:none;}
     .chat-box{height:230px;overflow-y:auto;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:8px;}
     .chat-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-end;}
     .chat-av{width:28px;height:28px;border-radius:50%;background:#0f172a;color:#fbbf24;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;cursor:pointer;}
@@ -95,254 +89,11 @@
     .chat-them{background:#e2e8f0;color:#0f172a;}
     .chat-notice{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;max-width:95%;}
     .menu-row{display:flex;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid #f1f5f9;cursor:pointer;font-size:14px;font-weight:600;}
-    .comment-bubble{background:#f1f5f9;padding:7px 10px;border-radius:8px;font-size:12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+    .comment-bubble{background:#f1f5f9;padding:8px 10px;border-radius:8px;font-size:12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
     .member-req-card{display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;padding:8px 10px;border-radius:8px;margin-bottom:6px;}
-    .admin-tab-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px;}
-    .admin-tab-btn{padding:7px 4px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;text-align:center;}
-    .admin-tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a;}/* === STACKS COLLECTIBLES HOMEPAGE, ADMIN, MENU & PHOTO ZOOM FIX === */
-#heroBannerBox,
-.hero-banner,
-.banner-wallpaper,
-.wallpaper-box,
-.home-banner {
-  position: relative !important;
-  min-height: 48vh !important;
-  height: 50vh !important;
-  max-height: 52vh !important;
-  width: 100% !important;
-  filter: brightness(1.06) contrast(1.04) !important;
-  opacity: 1 !important;
-  overflow: hidden !important;
-}
-
-#homeWallpaperImg,
-.hero-banner img,
-.banner-wallpaper img,
-.wallpaper-box img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  filter: brightness(1.06) contrast(1.04) !important;
-  opacity: 1 !important;
-}
-
-/* Remove dark overlays and text messages sitting in front of the wallpaper */
-.hero-banner-tint,
-#homeOverlayText,
-.hero-overlay-caption,
-.hero-banner::before,
-.hero-banner::after,
-[class*="banner"]::before,
-[class*="banner"]::after,
-[class*="overlay-text"] {
-  display: none !important;
-  content: none !important;
-  background: none !important;
-}
-
-/* Place Admin profile badge / avatar cleanly in the top-left */
-.admin-top-left,
-.profile-top-left,
-.header-admin-badge,
-[class*="admin-badge"] {
-  position: fixed !important;
-  top: 10px !important;
-  left: 12px !important;
-  right: auto !important;
-  z-index: 1001 !important;
-}
-
-/* Position tabs / hub cleanly under the ~50vh wallpaper */
-.homepage-tabs,
-.category-tabs,
-.filter-tabs,
-.admin-master-hub,
-.admin-hub-modal,
-[class*="admin-hub"],
-[class*="master-hub"] {
-  position: relative !important;
-  top: auto !important;
-  margin-top: 8px !important;
-  transform: none !important;
-  z-index: 50 !important;
-}
-
-/* Hide broken top-left Menu three-line button */
-button[onclick*="openMenuModal"],
-#menuBtn,
-.menu-btn,
-.hamburger-menu,
-.nav-menu-btn,
-[aria-label*="Menu"],
-[class*="menu-toggle"] {
-  display: none !important;
-}
-
-/* Item photo zoom lightbox */
-#stacksPhotoLightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.94);
-  z-index: 99999;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  touch-action: none;
-}
-
-#stacksPhotoLightbox.active {
-  display: flex;
-}
-
-#stacksLightboxStage {
-  width: 100%;
-  height: 75vh;
-  overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-overflow-scrolling: touch;
-}
-
-#stacksLightboxImg {
-  max-width: 100%;
-  max-height: 72vh;
-  object-fit: contain;
-  transform-origin: center center;
-  transition: transform 0.18s ease;
-  user-select: none;
-}
-
-#stacksLightboxControls {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-#stacksLightboxControls button {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: #1f2937;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-#stacksLightboxControls button.close-btn {
-  background: #991b1b;
-  border-color: #ef4444;
-  }
-    /* === WALLPAPER ADJUSTER PANEL & FIT/ZOOM/PAN CONTROLS === */
-/* === FIXED BANNER PROPORTIONS & WALLPAPER ADJUSTER === */
-#heroBannerBox,
-.hero-banner,
-.banner-wallpaper,
-.wallpaper-box,
-.home-banner {
-  position: relative !important;
-  width: 100% !important;
-  height: 210px !important;
-  min-height: 180px !important;
-  max-height: 250px !important;
-  background: #0f172a !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  filter: brightness(1.05) contrast(1.04) !important;
-  opacity: 1 !important;
-}
-
-#homeWallpaperImg,
-.hero-banner img,
-.banner-wallpaper img,
-.wallpaper-box img {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: contain !important;
-  filter: brightness(1.05) contrast(1.04) !important;
-  opacity: 1 !important;
-}
-
-#stacksAdjustBtn {
-  position: fixed !important;
-  left: 10px !important;
-  top: 58px !important;
-  z-index: 10000 !important;
-  padding: 6px 10px !important;
-  border-radius: 8px !important;
-  border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  background: rgba(15, 23, 42, 0.92) !important;
-  color: #ffffff !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-}
-
-#stacksWallpaperAdjuster {
-  position: fixed;
-  left: 10px;
-  right: 10px;
-  bottom: 76px;
-  background: rgba(15, 23, 42, 0.97);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-  padding: 12px;
-  z-index: 10001;
-  font-size: 13px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-#stacksWallpaperAdjuster .wa-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-#stacksWallpaperAdjuster label {
-  min-width: 86px;
-  font-weight: 600;
-}
-
-#stacksWallpaperAdjuster input[type="range"] {
-  flex: 1;
-}
-
-#stacksWallpaperAdjuster .wa-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-#stacksWallpaperAdjuster button {
-  padding: 7px 11px;
-  border-radius: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: #1e293b;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-#stacksWallpaperAdjuster button.primary {
-  background: #2563eb;
-  border-color: #3b82f6;
-}
-    
-    
+    .admin-tab-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:10px;}
+    .admin-tab-btn{padding:7px 3px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;font-size:10px;font-weight:800;cursor:pointer;text-align:center;}
+    .admin-tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a;}
   </style>
 </head>
 <body>
@@ -360,7 +111,7 @@ button[onclick*="openMenuModal"],
         <div class="logo-badge" id="navAvatar">SC</div>
         <div>
           <div style="font-size:17px;font-weight:900;color:#0284c7;line-height:1.1;">Stacks Collectibles <span id="roleBadge" style="font-size:10px;background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:6px;vertical-align:middle;">GUEST</span></div>
-          <div style="font-size:11px;color:#64748b;">&#9776; Menu &bull; <span id="navCity">Tempe, AZ</span></div>
+          <div style="font-size:11px;color:#64748b;"><span id="navCity">Tempe, AZ</span></div>
         </div>
       </button>
       <div style="display:flex;gap:6px;">
@@ -384,13 +135,6 @@ button[onclick*="openMenuModal"],
     <div class="hero-card">
       <div class="hero-banner" id="heroBannerBox">
         <img id="homeWallpaperImg" style="display:none;" src="" alt="Storefront banner">
-        <div class="hero-banner-tint"></div>
-        <div class="hero-overlay-caption" id="homeOverlayText">Verified Collector Marketplace &amp; Trading Club</div>
-        <div style="position:absolute;top:8px;right:8px;z-index:5;display:flex;gap:5px;">
-          <button type="button" class="admin-edit-chip" onclick="document.getElementById('homeBannerInput').click()"><i class="fa-solid fa-image"></i> Wallpaper</button>
-          <button type="button" class="admin-edit-chip" onclick="quickEditHomeOverlay()"><i class="fa-solid fa-pen"></i> Text</button>
-          <button type="button" class="admin-edit-chip" style="background:#ef4444;color:#fff;" onclick="clearHomeWallpaper()"><i class="fa-solid fa-trash"></i></button>
-        </div>
       </div>
 
       <div class="hero-inner">
@@ -400,10 +144,7 @@ button[onclick*="openMenuModal"],
             <span id="homeAvatarInitial">AD</span>
           </div>
           <div style="flex:1;padding-bottom:2px;">
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-              <h1 style="font-size:17px;font-weight:900;line-height:1.15;" id="brandTitle">Stacks Collectibles and Goods</h1>
-              <button type="button" class="admin-edit-chip" onclick="document.getElementById('homeAvatarInput').click()"><i class="fa-solid fa-camera"></i> Photo</button>
-            </div>
+            <h1 style="font-size:17px;font-weight:900;line-height:1.15;" id="brandTitle">Stacks Collectibles and Goods</h1>
             <div style="font-size:12px;color:#475569;margin-top:2px;" id="brandSubtitle">Admin: Dustin Stacks &bull; Tempe, AZ</div>
             <div style="font-size:11px;color:#f59e0b;margin-top:2px;">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -418,7 +159,7 @@ button[onclick*="openMenuModal"],
 
         <div class="hero-actions">
           <button class="hero-btn-primary" type="button" onclick="openMySellingHub()"><i class="fa-solid fa-chart-line"></i> Selling Hub</button>
-          <button class="hero-btn-sec" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-user-pen"></i> My Profile</button>
+          <button class="hero-btn-sec" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-user"></i> My Profile</button>
           <button class="hero-btn-sec" type="button" onclick="openShareSheet('site', null, event)" style="background:#e0f2fe;color:#0284c7;"><i class="fa-solid fa-share-nodes"></i> Share</button>
         </div>
 
@@ -449,10 +190,11 @@ button[onclick*="openMenuModal"],
     <button class="b-item active" type="button" onclick="gotoMarket()"><i class="fa-solid fa-store" style="font-size:16px;"></i>Home<span class="num-badge" id="marketBadge">0</span></button>
     <button class="b-item" type="button" onclick="openMySellingHub()"><i class="fa-solid fa-tag" style="font-size:16px;"></i>Selling</button>
     <button class="b-item" type="button" onclick="openCreateListing()"><div class="b-sell"><i class="fa-solid fa-plus"></i></div></button>
-    <button class="b-item" type="button" onclick="openChatHub('group')"><i class="fa-solid fa-comments" style="font-size:16px;"></i>Chat<span class="num-badge" id="inboxBadge">0</span></button>
+    <button class="b-item" type="button" onclick="openGroupChat()"><i class="fa-solid fa-comments" style="font-size:16px;"></i>Group Chat<span class="num-badge" id="inboxBadge">0</span></button>
     <button class="b-item" type="button" onclick="openMyProfileHub()"><i class="fa-solid fa-circle-user" style="font-size:16px;"></i>Profile</button>
   </nav>
 
+  <!-- MEMBER PROFILE MODAL -->
   <div class="modal-overlay" id="memberProfileModal">
     <div class="modal-box" style="padding:0;overflow:hidden;">
       <div style="padding:12px 15px 0;">
@@ -466,7 +208,6 @@ button[onclick*="openMenuModal"],
       <div style="padding:0 12px;">
         <div class="fb-cover-wrap">
           <img id="mpCoverImg" style="display:none;" src="" alt="Cover photo">
-          <button type="button" id="mpEditCoverBtn" class="fb-cam-btn" style="display:none;" onclick="document.getElementById('memberCoverInput').click()"><i class="fa-solid fa-camera"></i></button>
         </div>
 
         <div class="fb-avatar-zone">
@@ -474,21 +215,25 @@ button[onclick*="openMenuModal"],
           <div class="fb-avatar-circle">
             <img id="mpAvatarImg" style="display:none;" src="" alt="Member avatar">
             <span id="mpAvatarInitial">M</span>
-            <button type="button" id="mpEditAvBtn" class="fb-cam-btn" style="width:26px;height:26px;bottom:2px;right:2px;font-size:11px;display:none;" onclick="document.getElementById('memberAvatarInput').click()"><i class="fa-solid fa-camera"></i></button>
           </div>
-          <h2 style="font-size:21px;font-weight:900;margin-top:6px;display:flex;align-items:center;gap:6px;">
-            <span id="mpName">Member</span>
-            <i class="fa-solid fa-pen" id="mpInlineEditIcon" style="font-size:13px;color:#0284c7;cursor:pointer;display:none;" onclick="openM('profileModal')"></i>
-          </h2>
+          <h2 style="font-size:21px;font-weight:900;margin-top:6px;" id="mpName">Member</h2>
           <div style="font-size:12px;color:#475569;font-weight:700;margin-top:2px;" id="mpSubStats">0 Listings &bull; Verified Collector</div>
         </div>
 
+                <!-- Own Profile Menu Button (Only visible to the profile owner) -->
         <div id="mpOwnButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;">
           <button type="button" class="hero-btn-primary" onclick="openCreateListing()"><i class="fa-solid fa-plus"></i> Add Listing</button>
-          <button type="button" class="hero-btn-sec" onclick="openM('profileModal')"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+          <button type="button" class="hero-btn-sec" onclick="openOwnProfileEditMenu()"><i class="fa-solid fa-sliders"></i> Edit Profile</button>
         </div>
+
+        <!-- Admin Exclusive Menu Button on Dustin Stacks / Admin Profile -->
+        <div id="mpAdminMenuBar" style="display:none;margin:0 0 12px 0;">
+          <button type="button" class="btn-submit" style="background:#0f172a;color:#fbbf24;margin-top:0;" onclick="openAdminMasterHub('home')"><i class="fa-solid fa-shield-halved"></i> Admin Profile Menu (Site, Wallpaper &amp; 1-on-1 Chats)</button>
+        </div>
+
+        <!-- Visitor Buttons on Other Members' Profiles: Chats (1-on-1) + Storefront -->
         <div id="mpVisitorButtons" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;">
-          <button type="button" class="hero-btn-primary" onclick="startPrivateChatWithViewedMember()"><i class="fa-solid fa-message"></i> Message</button>
+          <button type="button" class="hero-btn-primary" onclick="startPrivateChatWithViewedMember()"><i class="fa-solid fa-comments"></i> Chats</button>
           <button type="button" class="hero-btn-sec" onclick="filterByMember(viewedMemberName)"><i class="fa-solid fa-store"></i> Storefront</button>
         </div>
 
@@ -514,6 +259,7 @@ button[onclick*="openMenuModal"],
     </div>
   </div>
 
+  <!-- SELLING HUB MODAL -->
   <div class="modal-overlay" id="sellingHubModal">
     <div class="modal-box" style="background:#f8fafc;">
       <div class="modal-nav-bar">
@@ -521,15 +267,13 @@ button[onclick*="openMenuModal"],
         <span style="font-size:14px;font-weight:800;">Selling Hub</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-
       <button type="button" class="btn-submit" style="padding:13px;font-size:14px;border-radius:12px;margin-bottom:12px;" onclick="openCreateListing()">
         <i class="fa-solid fa-plus"></i> Create New Listing
       </button>
-
       <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Your Marketplace Overview</h3>
       <div class="stat-grid">
-        <div class="stat-card" onclick="openChatHub('listing')">
-          <div><div class="stat-num" id="hubChatCount">0</div><div class="stat-lbl">Chats to answer</div></div>
+        <div class="stat-card" onclick="openGroupChat()">
+          <div><div class="stat-num" id="hubChatCount">0</div><div class="stat-lbl">Unread messages</div></div>
           <i class="fa-solid fa-comments" style="font-size:20px;color:#0284c7;"></i>
         </div>
         <div class="stat-card" onclick="openMyProfileHub()">
@@ -545,12 +289,12 @@ button[onclick*="openMenuModal"],
           <i class="fa-solid fa-heart" style="font-size:20px;color:#ef4444;"></i>
         </div>
       </div>
-
       <h3 style="font-size:14px;font-weight:800;margin-bottom:8px;">Manage Your Listings (Tap to Edit or Mark Sold)</h3>
       <div id="hubMyListingsList"></div>
     </div>
   </div>
 
+  <!-- CREATE LISTING MODAL -->
   <div class="modal-overlay" id="createPostModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
@@ -601,11 +345,9 @@ button[onclick*="openMenuModal"],
           <label>5. Description</label>
           <textarea id="postDesc" rows="3" enterkeyhint="done" onkeydown="handleDescEnter(event)" placeholder="Condition, strike luster, specs..." required></textarea>
         </div>
-
         <div id="listingReadyConfirmBox" style="display:none;background:#dcfce7;border:1px solid #16a34a;color:#166534;padding:9px;border-radius:8px;font-size:12px;font-weight:700;margin-bottom:8px;text-align:center;">
           <i class="fa-solid fa-circle-check"></i> All details look ready! Tap <strong>Post It</strong> below to publish.
         </div>
-
         <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin-top:8px;">
           <button type="button" id="doneListingBtn" class="hero-btn-sec" style="padding:12px;" onclick="finishListingInputs()"><i class="fa-solid fa-check"></i> Done</button>
           <button type="submit" id="publishBtn" class="btn-submit" style="margin-top:0;background:#16a34a;"><i class="fa-solid fa-paper-plane"></i> Post It</button>
@@ -614,6 +356,7 @@ button[onclick*="openMenuModal"],
     </div>
   </div>
 
+  <!-- LISTING DETAIL MODAL -->
   <div class="modal-overlay" id="itemModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
@@ -624,7 +367,6 @@ button[onclick*="openMenuModal"],
           <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
         </div>
       </div>
-
       <div class="carousel-wrap">
         <img id="detailCaroImg" src="" alt="Listing photo">
         <button class="caro-nav" style="left:6px;" type="button" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
@@ -632,7 +374,6 @@ button[onclick*="openMenuModal"],
         <div class="caro-count" id="detailCaroCount">1/1</div>
       </div>
       <div class="detail-strip" id="detailThumbStrip"></div>
-
       <h2 style="font-size:17px;margin-bottom:4px;" id="itemTitle"></h2>
       <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px;">
         <span style="font-size:20px;font-weight:900;color:#0f172a;" id="itemPrice">$0</span>
@@ -641,39 +382,27 @@ button[onclick*="openMenuModal"],
       </div>
       <div style="font-size:12px;color:#64748b;margin-bottom:8px;" id="itemMeta"></div>
       <p style="font-size:13px;color:#334155;line-height:1.45;margin-bottom:10px;" id="itemDesc"></p>
-
       <div class="seller-card" onclick="openMemberProfileByName(active.seller)">
         <div style="display:flex;align-items:center;gap:10px;">
           <div class="seller-av" id="detailSellerAv">AD</div>
           <div>
             <div style="font-size:14px;font-weight:800;" id="detailSellerName">Admin <i class="fa-solid fa-circle-check" style="color:#0284c7;"></i></div>
-            <div style="font-size:11px;color:#64748b;">Verified Member &bull; Tap to view profile &amp; listings</div>
-            <div style="font-size:11px;color:#f59e0b;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <div style="font-size:11px;color:#64748b;">Verified Member &bull; Tap to view profile &amp; Chats</div>
           </div>
         </div>
         <i class="fa-solid fa-chevron-right" style="color:#94a3b8;"></i>
       </div>
-
-      <div class="quick-ask-bar">
-        <input type="text" id="quickAskInput" value="Hi! Is this still available?">
-        <button class="pill" type="button" style="background:#16a34a;color:#fff;border:none;" onclick="sendQuickPrivateAsk()">Send</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <button class="pill" type="button" style="background:#0f172a;color:#fff;" onclick="openOffer()"><i class="fa-solid fa-hand-holding-dollar"></i> Make Offer</button>
+        <button class="pill" type="button" style="background:#0284c7;color:#fff;" onclick="openSellerChatFromItem()"><i class="fa-solid fa-comments"></i> 1-on-1 Chat</button>
       </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;">
-        <button class="pill" type="button" style="background:#0f172a;color:#fff;" onclick="openOffer()"><i class="fa-solid fa-hand-holding-dollar"></i> Offer</button>
-        <button class="pill" type="button" style="background:#0284c7;color:#fff;" onclick="openListingTalkRoom(false)"><i class="fa-solid fa-lock"></i> Private Talk</button>
-        <button class="pill" type="button" style="background:#10b981;color:#fff;" onclick="joinListingTalk()"><i class="fa-solid fa-users"></i> Join Talks</button>
-      </div>
-
-      <div id="founderIncognitoBar" style="display:none;margin-bottom:10px;">
-        <button type="button" class="pill" style="width:100%;background:#1e293b;color:#fbbf24;border:none;padding:7px;" onclick="openListingTalkRoom(true)"><i class="fa-solid fa-user-secret"></i> Admin Stealth Inspect Listing Talks</button>
-      </div>
-
       <div id="offerBox" style="display:none;background:#f8fafc;padding:9px;border-radius:8px;margin-bottom:10px;">
-        <input type="number" id="offerAmt" placeholder="Offer amount ($)" style="width:65%;padding:7px;border:1px solid #cbd5e1;border-radius:6px;">
-        <button type="button" class="pill" style="background:#16a34a;color:#fff;" onclick="sendOffer()">Send Offer</button>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="offerAmt" placeholder="Offer ($)" style="width:35%;padding:7px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;">
+          <input type="text" id="offerNote" placeholder="Note (optional)..." style="flex:1;padding:7px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;">
+          <button type="button" class="pill" style="background:#16a34a;color:#fff;border:none;" onclick="sendOffer()">Post Offer</button>
+        </div>
       </div>
-
       <div id="sellerControlBox" style="display:none;background:#fef3c7;border:1px solid #f59e0b;padding:9px;border-radius:8px;margin-bottom:10px;">
         <div style="font-size:11px;font-weight:800;color:#92400e;margin-bottom:6px;" id="controlBoxTitle"><i class="fa-solid fa-shield-halved"></i> Listing Controls</div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;">
@@ -682,18 +411,19 @@ button[onclick*="openMenuModal"],
           <button type="button" class="pill" style="background:#dc2626;color:#fff;border:none;font-size:11px;" onclick="delItem()"><i class="fa-solid fa-trash"></i> Delete</button>
         </div>
       </div>
-
       <div style="border-top:1px solid #e2e8f0;padding-top:10px;">
-        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;">Public Questions</h3>
+        <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;">Comments &amp; Offers</h3>
         <div id="itemCommentsList"></div>
         <div style="display:flex;gap:6px;margin-top:6px;">
-          <input type="text" id="newCommentInput" placeholder="Ask a public question..." style="flex:1;padding:7px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;">
+          <input type="text" id="newCommentInput" placeholder="Comment or negotiate an offer on this listing..." style="flex:1;padding:7px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;">
           <button type="button" class="pill" style="background:#0284c7;color:#fff;" onclick="submitComment()">Post</button>
         </div>
       </div>
     </div>
   </div>
+    </div>
 
+  <!-- EDIT LISTING MODAL -->
   <div class="modal-overlay" id="editModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
@@ -720,45 +450,40 @@ button[onclick*="openMenuModal"],
     </div>
   </div>
 
-  <div class="modal-overlay" id="inboxModal">
+  <!-- GROUP CHAT MODAL -->
+  <div class="modal-overlay" id="groupChatModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:14px;font-weight:800;">Community &amp; Offer Chats</span>
+        <span style="font-size:14px;font-weight:800;">Community Group Chat</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px;">
-        <button type="button" id="tabGroupBtn" class="pill active" style="font-size:11px;padding:6px 4px;" onclick="switchChatTab('group')">Group Chat</button>
-        <button type="button" id="tabPrivateBtn" class="pill" style="font-size:11px;padding:6px 4px;" onclick="switchChatTab('private')">Private 1-on-1</button>
-        <button type="button" id="tabListingBtn" class="pill" style="font-size:11px;padding:6px 4px;" onclick="switchChatTab('listing')">Listing Talks</button>
-      </div>
-
-      <div id="groupControlBar" style="display:flex;justify-content:space-between;align-items:center;background:#f1f5f9;padding:6px 9px;border-radius:8px;margin-bottom:8px;font-size:11px;">
-        <span>Approved Members Community Room</span>
-        <button type="button" id="leaveGroupBtn" class="pill" style="padding:3px 8px;font-size:10px;background:#fee2e2;color:#dc2626;border:none;" onclick="toggleGroupMembership()">Leave Chat</button>
-      </div>
-
-      <div id="privatePickerBar" style="display:none;margin-bottom:8px;">
-        <select id="privateTargetSelect" onchange="selectPrivateMember(this.value)" style="width:100%;padding:7px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;">
-          <option value="">-- Choose Member for Private 1-on-1 Chat --</option>
-        </select>
-      </div>
-
-      <div id="listingTalkBar" style="display:none;background:#e0f2fe;border:1px solid #0284c7;padding:7px 9px;border-radius:8px;margin-bottom:8px;font-size:11px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <strong id="listingRoomLabel">Private Listing Offer Talk</strong>
-          <button type="button" class="pill" style="padding:3px 8px;font-size:10px;background:#0284c7;color:#fff;border:none;" onclick="inviteMemberToTalk()">+ Add Member</button>
-        </div>
-      </div>
-
-      <div class="chat-box" id="chatMessages"></div>
-      <div id="chatComposerRow" style="display:flex;gap:6px;">
-        <input type="text" id="chatInput" placeholder="Write a message..." style="flex:1;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;">
-        <button class="pill" type="button" style="background:#0284c7;color:#fff;" onclick="sendChatMessage()">Send</button>
+      <div class="chat-box" id="groupChatMessages"></div>
+      <div style="display:flex;gap:6px;">
+        <input type="text" id="groupChatInput" placeholder="Write a message to the group..." style="flex:1;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;" onkeydown="if(event.key==='Enter'){event.preventDefault();sendGroupMessage();}">
+        <button class="pill" type="button" style="background:#0284c7;color:#fff;" onclick="sendGroupMessage()">Send</button>
       </div>
     </div>
   </div>
 
+  <!-- PRIVATE 1-ON-1 PROFILE CHAT MODAL -->
+  <div class="modal-overlay" id="privateChatModal">
+    <div class="modal-box">
+      <div class="modal-nav-bar">
+        <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <span style="font-size:14px;font-weight:800;" id="privateChatHeaderTitle">Private Chat</span>
+        <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
+      </div>
+      <div style="font-size:11px;color:#64748b;margin-bottom:6px;"><i class="fa-solid fa-lock"></i> 1-on-1 Private Message</div>
+      <div class="chat-box" id="privateChatMessages"></div>
+      <div style="display:flex;gap:6px;">
+        <input type="text" id="privateChatInput" placeholder="Send a private 1-on-1 message..." style="flex:1;padding:9px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;" onkeydown="if(event.key==='Enter'){event.preventDefault();sendPrivateMessage();}">
+        <button class="pill" type="button" style="background:#0284c7;color:#fff;" onclick="sendPrivateMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT ADMIN MODAL -->
   <div class="modal-overlay" id="contactAdminModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
@@ -784,30 +509,29 @@ button[onclick*="openMenuModal"],
       </form>
     </div>
   </div>
-
+    <!-- ADMIN PROFILE MENU MODAL -->
   <div class="modal-overlay" id="adminModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:14px;font-weight:800;color:#dc2626;"><i class="fa-solid fa-shield-halved"></i> Admin Master Hub</span>
+        <span style="font-size:14px;font-weight:800;color:#dc2626;"><i class="fa-solid fa-shield-halved"></i> Admin Profile Menu</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-
       <div class="admin-tab-bar">
-        <button type="button" id="admTabHome" class="admin-tab-btn active" onclick="switchAdminTab('home')">Homepage</button>
+        <button type="button" id="admTabHome" class="admin-tab-btn active" onclick="switchAdminTab('home')">Site &amp; WP</button>
+        <button type="button" id="admTabChats" class="admin-tab-btn" onclick="switchAdminTab('chats')">1-on-1 Chats</button>
         <button type="button" id="admTabMembers" class="admin-tab-btn" onclick="switchAdminTab('members')">Members <span class="inline-badge" id="admMemMini">0</span></button>
         <button type="button" id="admTabReports" class="admin-tab-btn" onclick="switchAdminTab('reports')">Reports <span class="inline-badge" id="admRepMini">0</span></button>
         <button type="button" id="admTabRules" class="admin-tab-btn" onclick="switchAdminTab('rules')">Rules</button>
       </div>
-
       <div id="admSecHome">
         <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:10px;margin-bottom:10px;">
-          <div style="font-size:12px;font-weight:800;margin-bottom:6px;">Homepage Wallpaper &amp; Profile Photo</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
-            <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;" onclick="document.getElementById('homeBannerInput').click()"><i class="fa-solid fa-image"></i> Upload Wallpaper</button>
-            <button type="button" class="pill" style="background:#0f172a;color:#fbbf24;border:none;" onclick="document.getElementById('homeAvatarInput').click()"><i class="fa-solid fa-camera"></i> Upload Photo</button>
+          <div style="font-size:12px;font-weight:800;margin-bottom:6px;">Homepage Wallpaper &amp; Admin Profile Photo</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
+            <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;font-size:11px;" onclick="document.getElementById('homeBannerInput').click()"><i class="fa-solid fa-image"></i> Wallpaper</button>
+            <button type="button" class="pill" style="background:#0f172a;color:#fbbf24;border:none;font-size:11px;" onclick="document.getElementById('homeAvatarInput').click()"><i class="fa-solid fa-camera"></i> Photo</button>
+            <button type="button" class="pill" style="background:#fee2e2;color:#dc2626;border:none;font-size:11px;" onclick="clearHomeWallpaper()"><i class="fa-solid fa-trash"></i> Clear WP</button>
           </div>
-          <div class="form-group"><label>Text Over Wallpaper</label><input type="text" id="admOverlayInput" placeholder="Verified Collector Marketplace & Trading Club"></div>
           <div class="form-group"><label>Marketplace Title</label><input type="text" id="admTitleInput" placeholder="Stacks Collectibles and Goods"></div>
           <div class="form-group"><label>Subtitle / Location</label><input type="text" id="admSubtitleInput" placeholder="Admin: Dustin Stacks • Tempe, AZ"></div>
           <div class="form-group"><label>Live Announcement Banner (Optional)</label><input type="text" id="admAnnounceInput" placeholder="e.g. Weekend Coin & Card Show Sunday!"></div>
@@ -815,19 +539,21 @@ button[onclick*="openMenuModal"],
         </div>
         <button type="button" class="pill" style="width:100%;background:#0f172a;color:#fff;padding:9px;" onclick="syncLocalToCloud()"><i class="fa-solid fa-cloud-arrow-up"></i> Push Local Items to Live Cloud</button>
       </div>
-
+      <div id="admSecChats" style="display:none;">
+        <div style="font-size:12px;font-weight:800;color:#0f172a;margin-bottom:4px;"><i class="fa-solid fa-eye"></i> Admin Private 1-on-1 Chat Monitor &amp; Editor</div>
+        <p style="font-size:11px;color:#64748b;margin-bottom:8px;">Only Admin (Dustin Stacks) can inspect, edit, or delete private 1-on-1 messages to enforce community rules.</p>
+        <div id="adminAllPrivateChatsList" style="max-height:330px;overflow-y:auto;"></div>
+      </div>
       <div id="admSecMembers" style="display:none;">
         <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#0284c7;">Pending Requests (<span id="pendingMemberCountText">0</span>)</h3>
         <div id="pendingMembersList" style="margin-bottom:12px;"></div>
         <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#16a34a;">Approved Members</h3>
         <div id="approvedMembersList"></div>
       </div>
-
       <div id="admSecReports" style="display:none;">
         <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#dc2626;">Member Reports &amp; Help Messages</h3>
         <div id="adminReportsInboxList"></div>
       </div>
-
       <div id="admSecRules" style="display:none;">
         <div class="form-group"><label>Edit Community Rules</label><textarea id="founderRulesEditor" rows="5"></textarea></div>
         <button type="button" class="btn-submit" onclick="saveFounderRules()">Save Live Rules</button>
@@ -835,6 +561,7 @@ button[onclick*="openMenuModal"],
     </div>
   </div>
 
+  <!-- MEMBERS DIRECTORY, AUTH, MENU, PROFILE, SAVED, SAFE, SHARE MODALS -->
   <div class="modal-overlay" id="membersDirModal">
     <div class="modal-box">
       <div class="modal-nav-bar">
@@ -885,15 +612,14 @@ button[onclick*="openMenuModal"],
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
       <div class="menu-row" onclick="gotoMarket()"><span class="fa-solid fa-house" style="color:#0284c7;width:20px;"></span> Browse All Listings <span class="inline-badge" id="menuMarketBadge">0</span></div>
-      <div class="menu-row" onclick="openShareSheet('site', null, event)"><span class="fa-solid fa-share-nodes" style="color:#0284c7;width:20px;"></span> Share Marketplace &amp; Invite Friends</div>
-      <div class="menu-row" onclick="openMyProfileHub()"><span class="fa-solid fa-id-card" style="color:#0284c7;width:20px;"></span> My Profile Page</div>
+      <div class="menu-row" onclick="openMyProfileHub()"><span class="fa-solid fa-id-card" style="color:#0284c7;width:20px;"></span> My Profile &amp; Edit Menu</div>
       <div class="menu-row" onclick="openMySellingHub()"><span class="fa-solid fa-chart-line" style="color:#16a34a;width:20px;"></span> My Selling Hub</div>
-      <div class="menu-row" onclick="openM('profileModal')"><span class="fa-solid fa-bell" style="color:#dc2626;width:20px;"></span> Admin Notices <span class="inline-badge" id="menuNoticeBadge">0</span></div>
-      <div class="menu-row" onclick="openM('membersDirModal')"><span class="fa-solid fa-users" style="color:#0284c7;width:20px;"></span> Community Members</div>
+      <div class="menu-row" onclick="openM('membersDirModal')"><span class="fa-solid fa-users" style="color:#0284c7;width:20px;"></span> Community Members (Tap Member to Chat)</div>
+      <div class="menu-row" onclick="openGroupChat()"><span class="fa-solid fa-comments" style="color:#10b981;width:20px;"></span> Community Group Chat <span class="inline-badge" id="menuChatBadge">0</span></div>
       <div class="menu-row" onclick="openM('savedModal')"><span class="fa-solid fa-heart" style="color:#ef4444;width:20px;"></span> Saved Items <span class="inline-badge" id="menuSavedBadge">0</span></div>
-      <div class="menu-row" onclick="openChatHub('group')"><span class="fa-solid fa-comments" style="color:#10b981;width:20px;"></span> Community Chat <span class="inline-badge" id="menuChatBadge">0</span></div>
+      <div class="menu-row" onclick="openShareSheet('site', null, event)"><span class="fa-solid fa-share-nodes" style="color:#0284c7;width:20px;"></span> Share Marketplace &amp; Invite Friends</div>
       <div class="menu-row" onclick="openContactAdmin()"><span class="fa-solid fa-headset" style="color:#f59e0b;width:20px;"></span> Contact Admin / Report</div>
-      <div class="menu-row" id="adminMenuBtn" style="display:none;background:#fef2f2;border-radius:8px;padding:12px 8px;" onclick="openAdminMasterHub('home')"><span class="fa-solid fa-shield-halved" style="color:#dc2626;width:20px;"></span> <strong>Admin Master Hub</strong> <span class="inline-badge" id="menuAdminBadge">0</span></div>
+      <div class="menu-row" id="adminMenuBtn" style="display:none;background:#fef2f2;border-radius:8px;padding:12px 8px;" onclick="openAdminMasterHub('home')"><span class="fa-solid fa-shield-halved" style="color:#dc2626;width:20px;"></span> <strong>Admin Profile Menu</strong> <span class="inline-badge" id="menuAdminBadge">0</span></div>
       <div class="menu-row" onclick="openM('safeModal')"><span class="fa-solid fa-hand-holding-heart" style="color:#0284c7;width:20px;"></span> Safety &amp; Local Pickup</div>
       <div style="margin-top:14px;">
         <label style="font-size:12px;font-weight:700;">Account Mode / Admin Unlock</label>
@@ -910,29 +636,30 @@ button[onclick*="openMenuModal"],
     <div class="modal-box">
       <div class="modal-nav-bar">
         <button class="back-arrow-btn" type="button" onclick="goBackStep()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <span style="font-size:14px;font-weight:800;">Edit Profile &amp; Notices</span>
+        <span style="font-size:14px;font-weight:800;">Edit My Profile &amp; Wallpaper</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-id-card-clip" style="color:#0284c7;"></i> Edit Profile Details</h2>
       <form onsubmit="saveProf(event)">
-        <div style="text-align:center;margin-bottom:10px;">
-          <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 4px;overflow:hidden;border:2px solid #0284c7;">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;margin-bottom:10px;text-align:center;">
+          <div style="width:68px;height:68px;border-radius:50%;background:#0f172a;margin:0 auto 8px;overflow:hidden;border:2px solid #0284c7;">
             <img id="profPreview" style="width:100%;height:100%;object-fit:cover;display:none;" alt="Profile preview">
             <div id="profInitial" style="color:#fff;font-size:22px;font-weight:900;line-height:68px;">GU</div>
           </div>
-          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('memberAvatarInput').click()">Change Profile Photo</span> &bull;
-          <span style="font-size:11px;color:#0284c7;font-weight:700;cursor:pointer;" onclick="document.getElementById('memberCoverInput').click()">Change Cover Banner</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;font-size:11px;" onclick="document.getElementById('memberAvatarInput').click()"><i class="fa-solid fa-camera"></i> Profile Photo</button>
+            <button type="button" class="pill" style="background:#0f172a;color:#fbbf24;border:none;font-size:11px;" onclick="document.getElementById('memberCoverInput').click()"><i class="fa-solid fa-image"></i> Profile Wallpaper</button>
+          </div>
         </div>
         <div class="form-group"><label>Display Name</label><input type="text" id="pName" required></div>
         <div class="form-group"><label>City / Location</label><input type="text" id="pCity" required></div>
         <div class="form-group"><label>What Do You Collect? (Specialty)</label><input type="text" id="pSpec" placeholder="Coins, Pokémon, Hot Wheels..."></div>
         <div class="form-group"><label>Bio / About Me</label><textarea id="pBio" rows="2" placeholder="Tell members what you buy, sell, or trade..."></textarea></div>
         <div class="form-group"><label>Contact</label><input type="text" id="pContact" required></div>
-        <button type="submit" class="btn-submit">Save My Profile</button>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Save My Profile</button>
       </form>
       <hr style="margin:12px 0;border:0;border-top:1px solid #e2e8f0;">
       <h3 style="font-size:13px;font-weight:800;margin-bottom:6px;color:#dc2626;"><i class="fa-solid fa-bell"></i> Admin Notices</h3>
-      <div id="profileNoticesList" style="max-height:140px;overflow-y:auto;"></div>
+      <div id="profileNoticesList" style="max-height:130px;overflow-y:auto;"></div>
     </div>
   </div>
 
@@ -943,7 +670,6 @@ button[onclick*="openMenuModal"],
         <span style="font-size:14px;font-weight:800;">Saved Items</span>
         <button class="modal-close" type="button" onclick="goBackStep()">&times;</button>
       </div>
-      <h2 style="font-size:16px;margin-bottom:10px;"><i class="fa-solid fa-bookmark" style="color:#0284c7;"></i> Saved Watchlist</h2>
       <div id="savedList" style="font-size:12px;color:#64748b;text-align:center;padding:12px;">No items saved yet.</div>
     </div>
   </div>
@@ -983,13 +709,12 @@ button[onclick*="openMenuModal"],
       <button type="button" class="hero-btn-sec" style="width:100%;padding:11px;" onclick="execShareChannel('native')"><i class="fa-solid fa-share-from-square"></i> More Apps (Phone Share Menu)</button>
     </div>
   </div>
-
-  <script>
-      var SUPABASE_URL = 'https://rxjueszszoggbdhichhq.supabase.co';
-  var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
-  var FOUNDER_PIN = '1309';
-  var ADMIN_DEL_REASON = 'An admin has deleted your post/message due to spam, hate talk, racism, or admin discretion.';
-  var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    <script>
+    var SUPABASE_URL = 'https://rxjueszszoggbdhichhq.supabase.co';
+    var SUPABASE_KEY = 'sb_publishable_gcmFLllwp9bJKEdBNyLnRw_oLukdVJB';
+    var FOUNDER_PIN = '1309';
+    var ADMIN_DEL_REASON = 'An admin has deleted your post/message due to spam, hate talk, racism, or admin discretion.';
+    var db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     var items = [], membersList = [], chatLog = [];
     var defaultVisitor = { id: null, name: 'Guest Visitor', city: 'Tempe, AZ', contact: '', avatar: '', cover_photo: '', specialty: 'Coins, Cards & Collectibles', bio: '', thought: '', role: 'guest', inGroup: true };
@@ -1000,7 +725,7 @@ button[onclick*="openMenuModal"],
     var lastSeenItemCount = parseInt(localStorage.getItem('stacks_seen_items') || '0', 10) || 0;
     var saved = JSON.parse(localStorage.getItem('stacks_saved')) || [];
     var uploadPhotos = [], active = null, slideIndex = 0, curCat = 'All', memberFilter = '';
-    var activeChatMode = 'group', activePrivatePartner = '', activeListingRoomId = '', incognitoMode = false, viewedMemberName = '', mpCurrentTab = 'all';
+    var activePrivatePartner = '', viewedMemberName = '', mpCurrentTab = 'all';
     var siteRulesText = '1. Be respectful - zero hate talk, racism, or harassment.\n2. No spam, scam links, or fake listings.\n3. Admin decisions on posts and approvals are final.';
     var homeAppearance = { hero_title: 'Stacks Collectibles and Goods', hero_subtitle: 'Admin: Dustin Stacks • Tempe, AZ', hero_wallpaper: '', hero_overlay_text: 'Verified Collector Marketplace & Trading Club', hero_avatar: '', announcement: '' };
     var modalStack = [];
@@ -1094,11 +819,14 @@ button[onclick*="openMenuModal"],
     function getMyVisibleChats(){
       return chatLog.filter(function(m){
         if(m.is_notice) return m.room === 'notice:' + profile.name;
-        if(profile.role === 'owner') return true;
         var r = m.room || 'group';
         if(r === 'group') return profile.inGroup !== false;
-        var parts = Array.isArray(m.participants) ? m.participants : [];
-        return parts.includes(profile.name);
+        if(r.startsWith('dm:')){
+          if(profile.role === 'owner') return true;
+          var parts = Array.isArray(m.participants) ? m.participants : [];
+          return parts.includes(profile.name) || r.split('__').includes(profile.name);
+        }
+        return false;
       });
     }
 
@@ -1118,7 +846,6 @@ button[onclick*="openMenuModal"],
       setBadgeCount('menuSavedBadge', saved.length, true);
       setBadgeCount('menuAdminBadge', adminAlerts, true);
       setBadgeCount('topJoinBadge', adminAlerts, false);
-      setBadgeCount('menuNoticeBadge', myNotices, true);
       setBadgeCount('menuBadge', unreadChats + adminAlerts + myNotices, false);
 
       var alertBox = document.getElementById('founderPendingAlert');
@@ -1139,7 +866,6 @@ button[onclick*="openMenuModal"],
           homeAppearance.hero_title = res.data.hero_title || 'Stacks Collectibles and Goods';
           homeAppearance.hero_subtitle = res.data.hero_subtitle || 'Admin: Dustin Stacks • Tempe, AZ';
           homeAppearance.hero_wallpaper = res.data.hero_wallpaper || '';
-          homeAppearance.hero_overlay_text = res.data.hero_overlay_text || 'Verified Collector Marketplace & Trading Club';
           homeAppearance.hero_avatar = res.data.hero_avatar || '';
           homeAppearance.announcement = res.data.announcement || '';
         }
@@ -1152,7 +878,6 @@ button[onclick*="openMenuModal"],
     function applyHomeAppearance(){
       document.getElementById('brandTitle').innerText = homeAppearance.hero_title;
       document.getElementById('brandSubtitle').innerText = homeAppearance.hero_subtitle;
-      document.getElementById('homeOverlayText').innerText = homeAppearance.hero_overlay_text;
 
       var wpImg = document.getElementById('homeWallpaperImg');
       if(homeAppearance.hero_wallpaper){ wpImg.src = homeAppearance.hero_wallpaper; wpImg.style.display = 'block'; }
@@ -1166,14 +891,12 @@ button[onclick*="openMenuModal"],
       if(homeAppearance.announcement){ annBar.style.display = 'block'; document.getElementById('siteAnnouncementText').innerText = homeAppearance.announcement; }
       else { annBar.style.display = 'none'; }
 
-      if(document.getElementById('admOverlayInput')) document.getElementById('admOverlayInput').value = homeAppearance.hero_overlay_text;
       if(document.getElementById('admTitleInput')) document.getElementById('admTitleInput').value = homeAppearance.hero_title;
       if(document.getElementById('admSubtitleInput')) document.getElementById('admSubtitleInput').value = homeAppearance.hero_subtitle;
       if(document.getElementById('admAnnounceInput')) document.getElementById('admAnnounceInput').value = homeAppearance.announcement;
     }
 
     async function saveHomeAppearance(){
-      homeAppearance.hero_overlay_text = document.getElementById('admOverlayInput').value.trim();
       homeAppearance.hero_title = document.getElementById('admTitleInput').value.trim() || 'Stacks Collectibles and Goods';
       homeAppearance.hero_subtitle = document.getElementById('admSubtitleInput').value.trim() || 'Admin: Dustin Stacks • Tempe, AZ';
       homeAppearance.announcement = document.getElementById('admAnnounceInput').value.trim();
@@ -1183,22 +906,12 @@ button[onclick*="openMenuModal"],
           id: 1,
           hero_title: homeAppearance.hero_title,
           hero_subtitle: homeAppearance.hero_subtitle,
-          hero_overlay_text: homeAppearance.hero_overlay_text,
           hero_wallpaper: homeAppearance.hero_wallpaper,
           hero_avatar: homeAppearance.hero_avatar,
           announcement: homeAppearance.announcement
         });
       }
       alert('Live homepage updated for everyone!');
-    }
-
-    async function quickEditHomeOverlay(){
-      if(profile.role !== 'owner') return;
-      var txt = prompt('Write text to display across your homepage wallpaper:', homeAppearance.hero_overlay_text);
-      if(txt === null) return;
-      homeAppearance.hero_overlay_text = txt.trim();
-      applyHomeAppearance();
-      if(db) await db.from('site_settings').upsert({ id: 1, hero_overlay_text: homeAppearance.hero_overlay_text });
     }
 
     async function clearHomeWallpaper(){
@@ -1253,15 +966,54 @@ button[onclick*="openMenuModal"],
     }
 
     function switchAdminTab(t){
-      ['home','members','reports','rules'].forEach(function(k){
+      ['home','chats','members','reports','rules'].forEach(function(k){
         var cap = k.charAt(0).toUpperCase() + k.slice(1);
-        document.getElementById('admTab' + cap).classList.toggle('active', k === t);
-        document.getElementById('admSec' + cap).style.display = (k === t) ? 'block' : 'none';
+        var btn = document.getElementById('admTab' + cap);
+        var sec = document.getElementById('admSec' + cap);
+        if(btn) btn.classList.toggle('active', k === t);
+        if(sec) sec.style.display = (k === t) ? 'block' : 'none';
       });
+      if(t === 'chats') renderAdminPrivateChatsMonitor();
       if(t === 'reports') renderAdminReportsInbox();
     }
 
-    function openContactAdmin(){
+    function renderAdminPrivateChatsMonitor(){
+      var box = document.getElementById('adminAllPrivateChatsList');
+      if(!box) return;
+      if(profile.role !== 'owner'){
+        box.innerHTML = '<div style="font-size:12px;color:#dc2626;padding:10px;">Admin access only.</div>';
+        return;
+      }
+      var dms = chatLog.filter(function(m){ return (m.room || '').startsWith('dm:'); });
+      if(!dms.length){
+        box.innerHTML = '<div style="font-size:12px;color:#64748b;padding:10px;">No private 1-on-1 chats yet.</div>';
+        return;
+      }
+      box.innerHTML = '';
+      dms.slice().reverse().forEach(function(m){
+        var threadLabel = (m.room || '').replace('dm:', '').replace('__', ' ↔ ');
+        var safeText = (m.text || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        box.innerHTML += '<div class="member-req-card" style="flex-direction:column;align-items:stretch;">' +
+          '<div style="display:flex;justify-content:space-between;font-size:10px;color:#64748b;font-weight:700;"><span>' + threadLabel + '</span><span>' + (m.time || '') + '</span></div>' +
+          '<div style="font-size:12px;color:#0f172a;margin:4px 0;"><strong>' + (m.sender || 'Member') + ':</strong> ' + safeText + '</div>' +
+          '<div style="display:flex;gap:8px;">' +
+            '<button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;font-size:10px;padding:4px 8px;" onclick="adminEditPrivateMsg(' + m.id + ')"><i class="fa-solid fa-pen"></i> Edit</button>' +
+            '<button type="button" class="pill" style="background:#fee2e2;color:#dc2626;border:none;font-size:10px;padding:4px 8px;" onclick="deleteChatMsg(' + m.id + ', true)"><i class="fa-solid fa-trash"></i> Delete</button>' +
+          '</div></div>';
+      });
+    }
+
+    async function adminEditPrivateMsg(msgId){
+      if(profile.role !== 'owner') return;
+      var target = chatLog.find(function(x){ return x.id === msgId; });
+      if(!target) return;
+      var updated = prompt('Edit private 1-on-1 message (Admin):', target.text);
+      if(updated === null || !updated.trim()) return;
+      if(db) await db.from('chats').update({ text: updated.trim() }).eq('id', msgId);
+      await loadChats();
+      renderAdminPrivateChatsMonitor();
+    }
+         function openContactAdmin(){
       loadChats().then(function(){
         renderMemberSupportThread();
         openM('contactAdminModal');
@@ -1400,7 +1152,15 @@ button[onclick*="openMenuModal"],
       if(!db) return;
       try {
         var res = await db.from('chats').select('*').order('id', { ascending: true });
-        if(!res.error && res.data){ chatLog = res.data; renderChats(); updateAllBadges(); }
+        if(!res.error && res.data){
+          chatLog = res.data;
+          renderGroupChat();
+          renderPrivateChat();
+          if(document.getElementById('admSecChats') && document.getElementById('admSecChats').style.display === 'block'){
+            renderAdminPrivateChatsMonitor();
+          }
+          updateAllBadges();
+        }
       } catch(e){}
     }
 
@@ -1415,167 +1175,67 @@ button[onclick*="openMenuModal"],
           document.getElementById('userCount').innerText = approved.length + 1;
           document.getElementById('pendingMemberCountText').innerText = pending.length;
           renderAdminMembers(pending, approved);
-          populatePrivateMemberSelect();
           checkMyApprovalStatus();
           updateAllBadges();
         }
       } catch(e){}
     }
 
-    function populatePrivateMemberSelect(){
-      var sel = document.getElementById('privateTargetSelect');
-      if(!sel) return;
-      var names = ['Admin'];
-      membersList.filter(function(m){ return m.status === 'approved'; }).forEach(function(m){ if(!names.includes(m.name)) names.push(m.name); });
-      sel.innerHTML = '<option value="">-- Choose Member for Private 1-on-1 Chat --</option>';
-      names.forEach(function(n){
-        if(n !== profile.name) sel.innerHTML += '<option value="'+n+'" '+(activePrivatePartner===n?'selected':'')+'>'+n+'</option>';
-      });
-    }
-
-    function openChatHub(mode){
-      incognitoMode = false;
+    function openGroupChat(){
       loadChats().then(function(){
         lastSeenChatCount = getMyVisibleChats().length;
         localStorage.setItem('stacks_seen_chats', String(lastSeenChatCount));
         updateAllBadges();
-        switchChatTab(mode || 'group');
-        openM('inboxModal');
+        renderGroupChat();
+        openM('groupChatModal');
       });
     }
 
-    function switchChatTab(mode){
-      activeChatMode = mode;
-      document.getElementById('tabGroupBtn').classList.toggle('active', mode === 'group');
-      document.getElementById('tabPrivateBtn').classList.toggle('active', mode === 'private');
-      document.getElementById('tabListingBtn').classList.toggle('active', mode === 'listing');
-      document.getElementById('groupControlBar').style.display = (mode === 'group') ? 'flex' : 'none';
-      document.getElementById('privatePickerBar').style.display = (mode === 'private') ? 'block' : 'none';
-      document.getElementById('listingTalkBar').style.display = (mode === 'listing') ? 'block' : 'none';
-      document.getElementById('leaveGroupBtn').innerText = (profile.inGroup !== false) ? 'Leave Chat' : 'Rejoin Group Chat';
-      document.getElementById('chatComposerRow').style.display = (mode === 'group' && profile.inGroup === false) ? 'none' : 'flex';
-      populatePrivateMemberSelect();
-      renderChats();
-    }
-
-    function toggleGroupMembership(){ profile.inGroup = !(profile.inGroup !== false); saveLocalProfile(); switchChatTab('group'); }
-    function selectPrivateMember(name){ activePrivatePartner = name; renderChats(); }
-    function getPrivateRoomKey(a, b){ var pair = [a, b].sort(); return 'dm:' + pair[0] + '__' + pair[1]; }
-
-    function openListingTalkRoom(asIncognito){
-      if(!active) return;
-      incognitoMode = !!asIncognito;
-      activeListingRoomId = 'listing:' + active.id;
-      document.getElementById('listingRoomLabel').innerText = (incognitoMode ? '[INCOGNITO] ' : '') + 'Talks: ' + active.title;
-      openChatHub('listing');
-      switchChatTab('listing');
-    }
-
-    async function joinListingTalk(){
-      if(!active) return;
-      if(profile.role === 'guest'){ alert('Only approved members can join listing talks.'); openM('authModal'); return; }
-      activeListingRoomId = 'listing:' + active.id;
-      if(db){
-        await db.from('chats').insert([{
-          sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '',
-          text: profile.name + ' joined the listing offer talk.',
-          time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-          room: activeListingRoomId, participants: [active.seller, profile.name], listing_title: active.title
-        }]);
-      }
-      openListingTalkRoom(false);
-    }
-
-    async function inviteMemberToTalk(){
-      var inviteName = prompt('Enter the exact name of the member to add to this listing talk:');
-      if(!inviteName || !activeListingRoomId) return;
-      if(db){
-        await db.from('chats').insert([{
-          sender: profile.name, text: profile.name + ' invited ' + inviteName.trim() + ' to this private offer talk.',
-          time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-          room: activeListingRoomId, participants: [profile.name, inviteName.trim(), active ? active.seller : 'Admin']
-        }]);
-      }
-      loadChats();
-    }
-
-    function renderChats(){
-      var box = document.getElementById('chatMessages'); box.innerHTML = '';
-      if(activeChatMode === 'group' && profile.inGroup === false){
-        box.innerHTML = '<div style="text-align:center;color:#64748b;font-size:12px;margin-top:60px;">You left the Group Chat. Tap <strong>Rejoin Group Chat</strong> above anytime.</div>';
+    function renderGroupChat(){
+      var box = document.getElementById('groupChatMessages');
+      if(!box) return;
+      box.innerHTML = '';
+      var msgs = chatLog.filter(function(m){
+        return !m.is_notice && !(m.room || '').startsWith('support:') && !(m.room || '').startsWith('dm:') && (m.room || 'group') === 'group';
+      });
+      if(!msgs.length){
+        box.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;margin-top:60px;">No group messages yet. Start the conversation!</div>';
         return;
       }
-      var filtered = chatLog.filter(function(m){
-        if(m.is_notice || (m.room || '').startsWith('support:')) return false;
-        var r = m.room || 'group';
-        if(activeChatMode === 'group') return r === 'group';
-        if(activeChatMode === 'private'){
-          if(profile.role === 'owner' && !activePrivatePartner) return r.startsWith('dm:');
-          if(!activePrivatePartner) return false;
-          return r === getPrivateRoomKey(profile.name, activePrivatePartner);
-        }
-        if(activeChatMode === 'listing'){
-          if(activeListingRoomId) return r === activeListingRoomId;
-          if(profile.role === 'owner') return r.startsWith('listing:');
-          var parts = Array.isArray(m.participants) ? m.participants : [];
-          return r.startsWith('listing:') && parts.includes(profile.name);
-        }
-        return false;
-      });
-      if(!filtered.length){ box.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;margin-top:60px;">No messages in this thread yet.</div>'; return; }
-
-      filtered.forEach(function(m){
+      msgs.forEach(function(m){
         var isMe = (m.sender === profile.name);
         var row = document.createElement('div'); row.className = 'chat-row';
         var avHtml = m.sender_avatar ? '<img src="'+m.sender_avatar+'" alt="Avatar">' : (m.sender ? m.sender[0].toUpperCase() : '?');
         var controls = '';
         if(isMe) controls += ' <button type="button" style="border:none;background:none;color:#fee2e2;font-size:10px;cursor:pointer;text-decoration:underline;" onclick="deleteChatMsg('+m.id+', false)">Delete</button>';
         else if(profile.role === 'owner'){
-          controls += ' <button type="button" style="border:none;background:none;color:#0284c7;font-size:10px;cursor:pointer;" onclick="founderSilentEditMsg('+m.id+')"><i class="fa-solid fa-pen"></i></button>';
           controls += ' <button type="button" style="border:none;background:none;color:#dc2626;font-size:10px;cursor:pointer;" onclick="deleteChatMsg('+m.id+', true)"><i class="fa-solid fa-trash"></i></button>';
         }
-        row.innerHTML = (!isMe ? '<div class="chat-av" onclick="openMemberProfileByName(\''+m.sender.replace(/'/g,"")+'\')">'+avHtml+'</div>' : '') +
+        row.innerHTML = (!isMe ? '<div class="chat-av" onclick="openMemberProfileByName(\''+(m.sender||'').replace(/'/g,"")+'\')">'+avHtml+'</div>' : '') +
           '<div class="chat-bubble '+(isMe?'chat-me':'chat-them')+'">' +
-          '<div style="font-size:11px;font-weight:800;margin-bottom:2px;cursor:pointer;" onclick="openMemberProfileByName(\''+m.sender.replace(/'/g,"")+'\')">'+m.sender+'</div>' +
+          '<div style="font-size:11px;font-weight:800;margin-bottom:2px;cursor:pointer;" onclick="openMemberProfileByName(\''+(m.sender||'').replace(/'/g,"")+'\')">'+m.sender+'</div>' +
           '<div>'+m.text+'</div><div style="font-size:9px;opacity:0.8;margin-top:3px;">'+m.time + controls + '</div></div>';
         box.appendChild(row);
       });
       box.scrollTop = box.scrollHeight;
     }
 
-    async function founderSilentEditMsg(msgId){
-      var target = chatLog.find(function(x){ return x.id === msgId; });
-      if(!target) return;
-      var updated = prompt('Admin Stealth Edit:', target.text);
-      if(updated === null || !updated.trim()) return;
-      if(db) await db.from('chats').update({ text: updated.trim() }).eq('id', msgId);
-      loadChats();
-    }
-
-    async function deleteChatMsg(msgId, isFounderModeration){
-      var target = chatLog.find(function(x){ return x.id === msgId; });
-      if(!target || !confirm('Delete this message?')) return;
-      if(db) await db.from('chats').delete().eq('id', msgId);
-      if(isFounderModeration && target.sender !== profile.name) await sendModerationNotice(target.sender);
-      loadChats();
-    }
-
-    async function sendChatMessage(){
-      var inp = document.getElementById('chatInput');
-      if(!inp.value.trim()) return;
-      if(profile.role === 'guest'){ alert('Join and get approved by Admin to send chat messages.'); openM('authModal'); return; }
-      var roomVal = 'group', parts = [];
-      if(activeChatMode === 'private'){
-        if(!activePrivatePartner){ alert('Select a member first.'); return; }
-        roomVal = getPrivateRoomKey(profile.name, activePrivatePartner);
-        parts = [profile.name, activePrivatePartner];
-      } else if(activeChatMode === 'listing'){
-        if(!activeListingRoomId){ alert('Open a listing and tap Private Talk or Join Talks first.'); return; }
-        roomVal = activeListingRoomId;
-        parts = [profile.name, active ? active.seller : 'Admin'];
-      }
-      var msg = { sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: inp.value.trim(), time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: roomVal, participants: parts };
+    async function sendGroupMessage(){
+      var inp = document.getElementById('groupChatInput');
+      if(!inp || !inp.value.trim()) return;
+      if(profile.role === 'guest'){ alert('Join and get approved by Admin to send group chat messages.'); openM('authModal'); return; }
+      var msg = {
+        sender: profile.name,
+        sender_id: profile.id || 0,
+        sender_avatar: profile.avatar || '',
+        text: inp.value.trim(),
+        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+        room: 'group',
+        participants: []
+      };
       inp.value = '';
+      chatLog.push(msg);
+      renderGroupChat();
       if(db) await db.from('chats').insert([msg]);
       await loadChats();
       lastSeenChatCount = getMyVisibleChats().length;
@@ -1583,19 +1243,94 @@ button[onclick*="openMenuModal"],
       updateAllBadges();
     }
 
-    async function sendQuickPrivateAsk(){
-      if(!active) return;
-      if(profile.role === 'guest'){ alert('Please request member access first to message sellers.'); openM('authModal'); return; }
-      var txt = document.getElementById('quickAskInput').value.trim();
-      if(!txt) return;
-      activeListingRoomId = 'listing:' + active.id;
-      if(db){
-        await db.from('chats').insert([{ sender: profile.name, sender_id: profile.id || 0, sender_avatar: profile.avatar || '', text: '[' + active.title + '] ' + txt, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
+    function getPrivateRoomKey(a, b){
+      var pair = [a, b].sort();
+      return 'dm:' + pair[0] + '__' + pair[1];
+    }
+
+    function openPrivateChatWithPartner(partnerName){
+      if(profile.role === 'guest'){ alert('Join and get approved by Admin to send private 1-on-1 messages.'); openM('authModal'); return; }
+      var target = (partnerName === 'Dustin Stacks') ? 'Admin' : partnerName;
+      if(!target || target === profile.name) return;
+      activePrivatePartner = target;
+      document.getElementById('privateChatHeaderTitle').innerText = 'Chat with ' + target;
+      loadChats().then(function(){
+        renderPrivateChat();
+        openM('privateChatModal');
+      });
+    }
+
+    function renderPrivateChat(){
+      var box = document.getElementById('privateChatMessages');
+      if(!box || !activePrivatePartner) return;
+      box.innerHTML = '';
+      var roomKey = getPrivateRoomKey(profile.name, activePrivatePartner);
+      var msgs = chatLog.filter(function(m){ return m.room === roomKey; });
+      if(!msgs.length){
+        box.innerHTML = '<div style="text-align:center;color:#94a3b8;font-size:12px;margin-top:60px;">Start your private 1-on-1 chat with ' + activePrivatePartner + '.</div>';
+        return;
       }
-      openListingTalkRoom(false);
+      msgs.forEach(function(m){
+        var isMe = (m.sender === profile.name);
+        var row = document.createElement('div'); row.className = 'chat-row';
+        var avHtml = m.sender_avatar ? '<img src="'+m.sender_avatar+'" alt="Avatar">' : (m.sender ? m.sender[0].toUpperCase() : '?');
+        var controls = '';
+        if(isMe) controls += ' <button type="button" style="border:none;background:none;color:#fee2e2;font-size:10px;cursor:pointer;text-decoration:underline;" onclick="deleteChatMsg('+m.id+', false)">Delete</button>';
+        else if(profile.role === 'owner'){
+          controls += ' <button type="button" style="border:none;background:none;color:#0284c7;font-size:10px;cursor:pointer;" onclick="adminEditPrivateMsg('+m.id+')"><i class="fa-solid fa-pen"></i></button>';
+          controls += ' <button type="button" style="border:none;background:none;color:#dc2626;font-size:10px;cursor:pointer;" onclick="deleteChatMsg('+m.id+', true)"><i class="fa-solid fa-trash"></i></button>';
+        }
+        row.innerHTML = (!isMe ? '<div class="chat-av">'+avHtml+'</div>' : '') +
+          '<div class="chat-bubble '+(isMe?'chat-me':'chat-them')+'">' +
+          '<div style="font-size:11px;font-weight:800;margin-bottom:2px;">'+m.sender+'</div>' +
+          '<div>'+m.text+'</div><div style="font-size:9px;opacity:0.8;margin-top:3px;">'+m.time + controls + '</div></div>';
+        box.appendChild(row);
+      });
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function sendPrivateMessage(){
+      var inp = document.getElementById('privateChatInput');
+      if(!inp || !inp.value.trim() || !activePrivatePartner) return;
+      if(profile.role === 'guest'){ alert('Join and get approved by Admin to send private messages.'); openM('authModal'); return; }
+      var roomVal = getPrivateRoomKey(profile.name, activePrivatePartner);
+      var msg = {
+        sender: profile.name,
+        sender_id: profile.id || 0,
+        sender_avatar: profile.avatar || '',
+        text: inp.value.trim(),
+        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+        room: roomVal,
+        participants: [profile.name, activePrivatePartner]
+      };
+      inp.value = '';
+      chatLog.push(msg);
+      renderPrivateChat();
+      if(db) await db.from('chats').insert([msg]);
+      await loadChats();
+    }
+
+    async function deleteChatMsg(msgId, isAdminModeration){
+      var target = chatLog.find(function(x){ return x.id === msgId; });
+      if(!target || !confirm('Delete this message?')) return;
+      if(db) await db.from('chats').delete().eq('id', msgId);
+      if(isAdminModeration && target.sender !== profile.name) await sendModerationNotice(target.sender);
+      await loadChats();
+    }
+
+    function openSellerChatFromItem(){
+      if(!active) return;
+      var targetSeller = (active.seller === 'Dustin Stacks' || !active.seller) ? 'Admin' : active.seller;
+      if(targetSeller === profile.name){ openGroupChat(); return; }
+      openPrivateChatWithPartner(targetSeller);
     }
 
     function openMyProfileHub(){ openMemberProfileByName(profile.name); }
+
+    function openOwnProfileEditMenu(){
+      if(viewedMemberName !== profile.name) return;
+      openM('profileModal');
+    }
 
     function openMySellingHub(){
       var myItems = items.filter(function(x){ return isSameOwner(x.seller, profile.name); });
@@ -1674,6 +1409,7 @@ button[onclick*="openMenuModal"],
     }
 
     function handleMemberCover(inp){
+          if(viewedMemberName !== profile.name) return;
       if(inp.files && inp.files[0]){
         var r = new FileReader();
         r.onload = function(e){
@@ -1685,6 +1421,7 @@ button[onclick*="openMenuModal"],
             saveLocalProfile();
             if(db && profile.id) await db.from('members').update({ cover_photo: profile.cover_photo }).eq('id', profile.id);
             if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
+            alert('Profile wallpaper updated!');
           };
           img.src = e.target.result;
         };
@@ -1693,7 +1430,7 @@ button[onclick*="openMenuModal"],
     }
 
     function openMemberProfileByName(memberName){
-      var displayTarget = (memberName === 'Dustin Stacks') ? 'Admin' : memberName;
+      var displayTarget = (memberName === 'Dustin Stacks' || !memberName) ? 'Admin' : memberName;
       viewedMemberName = displayTarget;
       var isOwnProfile = (displayTarget === profile.name);
       var isAdminCard = (displayTarget === 'Admin');
@@ -1721,10 +1458,8 @@ button[onclick*="openMenuModal"],
       if(isOwnProfile){ thoughtEl.style.display = 'block'; thoughtEl.innerText = thoughtText || 'Drop a thought...'; }
       else { thoughtEl.style.display = thoughtText ? 'block' : 'none'; thoughtEl.innerText = thoughtText; }
 
-      document.getElementById('mpEditCoverBtn').style.display = isOwnProfile ? 'flex' : 'none';
-      document.getElementById('mpEditAvBtn').style.display = isOwnProfile ? 'flex' : 'none';
-      document.getElementById('mpInlineEditIcon').style.display = isOwnProfile ? 'inline-block' : 'none';
       document.getElementById('mpOwnButtons').style.display = isOwnProfile ? 'grid' : 'none';
+      document.getElementById('mpAdminMenuBar').style.display = (isAdminCard && profile.role === 'owner') ? 'block' : 'none';
       document.getElementById('mpVisitorButtons').style.display = isOwnProfile ? 'none' : 'grid';
 
       setProfileTab('all');
@@ -1733,8 +1468,7 @@ button[onclick*="openMenuModal"],
 
     function startPrivateChatWithViewedMember(){
       if(!viewedMemberName || viewedMemberName === profile.name) return;
-      activePrivatePartner = viewedMemberName;
-      openChatHub('private'); switchChatTab('private');
+      openPrivateChatWithPartner(viewedMemberName);
     }
 
     function filterByMember(name){ closeAllModals(); memberFilter = name; curCat = 'All'; render(); }
@@ -1747,7 +1481,11 @@ button[onclick*="openMenuModal"],
       });
       box.innerHTML = '';
       list.forEach(function(m){
-        box.innerHTML += '<div class="member-req-card" style="cursor:pointer;" onclick="openMemberProfileByName(\''+m.name.replace(/'/g,"")+'\')"><div><div style="font-size:13px;font-weight:800;">'+m.name+'</div><div style="font-size:11px;color:#64748b;">'+m.city+' &bull; '+m.roleLabel+'</div></div><span style="font-size:11px;color:#0284c7;font-weight:700;">View Profile &rarr;</span></div>';
+        var safeName = m.name.replace(/'/g, "");
+        box.innerHTML += '<div class="member-req-card">' +
+          '<div style="cursor:pointer;flex:1;" onclick="openMemberProfileByName(\''+safeName+'\')"><div style="font-size:13px;font-weight:800;">'+m.name+'</div><div style="font-size:11px;color:#64748b;">'+m.city+' &bull; '+m.roleLabel+'</div></div>' +
+          (m.name !== profile.name ? '<button type="button" class="pill" style="background:#0284c7;color:#fff;border:none;padding:5px 10px;font-size:11px;" onclick="openPrivateChatWithPartner(\''+safeName+'\')"><i class="fa-solid fa-comments"></i> Chats</button>' : '<span style="font-size:11px;color:#64748b;font-weight:700;">You</span>') +
+          '</div>';
       });
     }
 
@@ -1817,7 +1555,6 @@ button[onclick*="openMenuModal"],
     function updateProfileDisplay(){
       var badge = document.getElementById('roleBadge'), adminBtn = document.getElementById('adminMenuBtn');
       var isAdm = (profile.role === 'owner');
-      document.querySelectorAll('.admin-edit-chip').forEach(function(el){ el.style.display = isAdm ? 'inline-flex' : 'none'; });
 
       if(isAdm){ badge.innerText = 'ADMIN'; badge.style.background = '#fee2e2'; badge.style.color = '#dc2626'; adminBtn.style.display = 'flex'; }
       else if(profile.role === 'member'){ badge.innerText = 'APPROVED'; badge.style.background = '#dcfce7'; badge.style.color = '#166534'; adminBtn.style.display = 'none'; }
@@ -1871,6 +1608,7 @@ button[onclick*="openMenuModal"],
     }
 
     function handleProfileAvatar(inp){
+      if(viewedMemberName !== profile.name) return;
       if(inp.files && inp.files[0]){
         var r = new FileReader();
         r.onload = function(e){
@@ -1897,7 +1635,7 @@ button[onclick*="openMenuModal"],
       profile.bio = document.getElementById('pBio').value;
       profile.contact = document.getElementById('pContact').value;
       saveLocalProfile(); updateProfileDisplay();
-      if(db && profile.id) await db.from('members').update({ name: profile.name, city: profile.city, specialty: profile.specialty, bio: profile.bio, contact: profile.contact, avatar: profile.avatar }).eq('id', profile.id);
+      if(db && profile.id) await db.from('members').update({ name: profile.name, city: profile.city, specialty: profile.specialty, bio: profile.bio, contact: profile.contact, avatar: profile.avatar, cover_photo: profile.cover_photo }).eq('id', profile.id);
       alert('Profile saved!'); goBackStep();
       if(viewedMemberName === profile.name) openMemberProfileByName(profile.name);
     }
@@ -1950,11 +1688,10 @@ button[onclick*="openMenuModal"],
         var isNew = (daysText === 'Listed today');
         var topTag = item.sold ? '<div class="sold-badge">SOLD</div>' : (isNew ? '<div class="just-listed">Just listed</div>' : '');
         var shipTag = item.shipping ? '<div class="ship-tag"><i class="fa-solid fa-truck"></i> Ships</div>' : '';
-        var adminTag = (profile.role === 'owner') ? '<div style="position:absolute;top:8px;right:8px;background:#fbbf24;color:#0f172a;font-size:9px;font-weight:900;padding:2px 6px;border-radius:6px;"><i class="fa-solid fa-pen"></i> Edit</div>' : '';
         var cardShareBtn = '<button type="button" onclick="openShareSheet(\'item\', '+item.id+', event)" style="position:absolute;bottom:7px;right:7px;background:rgba(255,255,255,0.95);color:#0f172a;border:none;padding:4px 8px;border-radius:14px;display:flex;align-items:center;gap:4px;font-size:10px;font-weight:800;box-shadow:0 1px 4px rgba(0,0,0,0.28);cursor:pointer;"><i class="fa-solid fa-share-nodes" style="color:#0284c7;"></i> Share</button>';
         var origHtml = (item.orig_price && item.orig_price > item.price) ? '<span style="font-size:11px;color:#94a3b8;text-decoration:line-through;margin-left:4px;">$'+item.orig_price+'</span>' : '';
         var sellerDisplay = (item.seller === 'Dustin Stacks' || !item.seller) ? 'Admin' : item.seller;
-        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'" alt="Item">'+topTag+adminTag+shipTag+cardShareBtn+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
+        c.innerHTML = '<div style="position:relative;"><img src="'+firstImg+'" alt="Item">'+topTag+shipTag+cardShareBtn+'</div><div class="card-body"><div class="price">$'+item.price + origHtml +'</div><div style="font-size:12px;font-weight:700;margin:3px 0;line-height:1.25;">'+item.title+'</div><div style="font-size:11px;color:#64748b;">'+sellerDisplay+' &bull; '+daysText+'</div></div>';
         g.appendChild(c);
       });
     }
@@ -1967,7 +1704,7 @@ button[onclick*="openMenuModal"],
       });
       document.getElementById('itemPrice').innerText = '$' + item.price;
       var origEl = document.getElementById('itemOrigPrice');
-      if(item.orig_price && item.orig_price > item.price){ origEl.innerText = '$' + item.orig_price; origEl.style.display = 'inline'; } else { origEl.style.display = 'none'; }
+          if(item.orig_price && item.orig_price > item.price){ origEl.innerText = '$' + item.orig_price; origEl.style.display = 'inline'; } else { origEl.style.display = 'none'; }
       document.getElementById('itemTitle').innerText = item.title;
       document.getElementById('itemMeta').innerText = getDaysListedText(item) + ' • ' + (item.condition || 'Like New') + (item.shipping ? ' • Shipping Available' : ' • Local Pickup (Tempe, AZ)');
       document.getElementById('itemDesc').innerText = item.desc || 'Verified listing.';
@@ -1981,7 +1718,6 @@ button[onclick*="openMenuModal"],
       var isFounder = (profile.role === 'owner');
       document.getElementById('sellerControlBox').style.display = (isOwnPost || isFounder) ? 'block' : 'none';
       document.getElementById('controlBoxTitle').innerHTML = isFounder ? '<i class="fa-solid fa-shield-halved"></i> Admin Listing Controls' : '<i class="fa-solid fa-pen-to-square"></i> Manage Your Listing';
-      document.getElementById('founderIncognitoBar').style.display = isFounder ? 'block' : 'none';
 
       var soldBtn = document.getElementById('markSoldBtn');
       if(soldBtn){
@@ -2006,7 +1742,7 @@ button[onclick*="openMenuModal"],
 
     function renderComments(){
       var box = document.getElementById('itemCommentsList'); box.innerHTML = '';
-      if(!active.comments || !active.comments.length){ box.innerHTML = '<p style="font-size:11px;color:#94a3b8;">No public questions yet.</p>'; return; }
+      if(!active || !active.comments || !active.comments.length){ box.innerHTML = '<p style="font-size:11px;color:#94a3b8;">No comments or offers yet.</p>'; return; }
       active.comments.forEach(function(c, idx){
         var delBtn = (profile.role === 'owner') ? '<button type="button" style="border:none;background:none;color:#dc2626;font-size:11px;cursor:pointer;" onclick="deleteCommentAt('+idx+')"><i class="fa-solid fa-trash"></i></button>' : '';
         box.innerHTML += '<div class="comment-bubble"><span>'+c+'</span>'+delBtn+'</div>';
@@ -2014,20 +1750,22 @@ button[onclick*="openMenuModal"],
     }
 
     async function deleteCommentAt(idx){
-      if(!active || !confirm('Delete this comment and notify user?')) return;
+      if(!active || !confirm('Delete this comment/offer and notify user?')) return;
       var removed = active.comments.splice(idx, 1)[0] || '';
       var author = removed.split(':')[0];
+      renderComments();
       if(db) await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
       if(author && author !== profile.name) await sendModerationNotice(author);
-      renderComments();
     }
 
     async function submitComment(){
       var inp = document.getElementById('newCommentInput');
       if(!inp.value.trim() || !active) return;
       if(!active.comments) active.comments = [];
-      active.comments.push(profile.name + ': ' + inp.value.trim());
-      inp.value = ''; renderComments();
+      var authorLabel = (profile.role === 'guest') ? 'Guest' : profile.name;
+      active.comments.push(authorLabel + ': ' + inp.value.trim());
+      inp.value = '';
+      renderComments();
       if(db) await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
     }
 
@@ -2083,15 +1821,18 @@ button[onclick*="openMenuModal"],
     function openOffer(){ var b = document.getElementById('offerBox'); b.style.display = b.style.display === 'block' ? 'none' : 'block'; }
 
     async function sendOffer(){
-      var a = document.getElementById('offerAmt').value;
-      if(!a || !active) return;
-      if(profile.role === 'guest'){ alert('Request membership first to send offers.'); openM('authModal'); return; }
-      activeListingRoomId = 'listing:' + active.id;
-      if(db){
-        await db.from('chats').insert([{ sender: profile.name, sender_avatar: profile.avatar || '', text: 'PRIVATE CASH OFFER: $' + a + ' on ' + active.title, time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), room: activeListingRoomId, participants: [profile.name, active.seller], listing_title: active.title }]);
-      }
+      var amt = document.getElementById('offerAmt').value.trim();
+      var note = (document.getElementById('offerNote') ? document.getElementById('offerNote').value.trim() : '');
+      if(!amt || !active) return;
+      if(!active.comments) active.comments = [];
+      var authorLabel = (profile.role === 'guest') ? 'Guest' : profile.name;
+      var offerLine = authorLabel + ': OFFER $' + amt + (note ? ' — "' + note + '"' : '');
+      active.comments.push(offerLine);
+      document.getElementById('offerAmt').value = '';
+      if(document.getElementById('offerNote')) document.getElementById('offerNote').value = '';
       document.getElementById('offerBox').style.display = 'none';
-      openListingTalkRoom(false);
+      renderComments();
+      if(db) await db.from('listings').update({ comments: active.comments }).eq('id', active.id);
     }
 
     function toggleSave(){
@@ -2193,275 +1934,9 @@ button[onclick*="openMenuModal"],
 
     loadSiteSettings(); updateProfileDisplay(); loadCloudItems(); loadChats(); loadMembers();
     setInterval(function(){
-  if (typeof loadChats === "function") loadChats();
-  if (typeof loadMembers === "function") loadMembers();
-}, 15000);
-
-(function () {
-  const STORAGE_KEY = "stacks_wallpaper_settings_v2";
-  const defaults = {
-    fit: "contain",
-    boxHeight: 210,
-    zoom: 1,
-    x: 0,
-    y: 0,
-    locked: false,
-    open: false
-  };
-
-  function isAdminUser() {
-    try {
-      if (typeof profile !== "undefined" && profile && (profile.role === "owner" || profile.role === "admin")) {
-        return true;
-      }
-      const badge = document.getElementById("roleBadge");
-      if (badge && /admin/i.test(badge.textContent || "")) {
-        return true;
-      }
-    } catch (_) {}
-    return false;
-  }
-
-  function getSettings() {
-    try {
-      return { ...defaults, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") };
-    } catch (_) {
-      return { ...defaults };
-    }
-  }
-
-  function saveSettings(cfg) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
-    } catch (_) {}
-  }
-
-  function getBoxes() {
-    return Array.from(
-      document.querySelectorAll(
-        "#heroBannerBox, .hero-banner, .banner-wallpaper, .wallpaper-box, .home-banner"
-      )
-    );
-  }
-
-  function getImgs() {
-    return Array.from(
-      document.querySelectorAll(
-        '#homeWallpaperImg, .hero-banner img, .banner-wallpaper img, .wallpaper-box img, [class*="banner"] img, [class*="wallpaper"] img'
-      )
-    );
-  }
-
-  function applySettings(cfg) {
-    const admin = isAdminUser();
-
-    getBoxes().forEach((box) => {
-      if (!box) return;
-      box.style.setProperty("height", `${cfg.boxHeight}px`, "important");
-      box.style.setProperty("min-height", "160px", "important");
-      box.style.setProperty("max-height", "320px", "important");
-      box.style.setProperty("background", "#0f172a", "important");
-      box.style.setProperty("overflow", "hidden", "important");
-    });
-
-    getImgs().forEach((img) => {
-      if (!img) return;
-      img.style.setProperty("width", "100%", "important");
-      img.style.setProperty("height", "100%", "important");
-      img.style.setProperty("max-width", "100%", "important");
-      img.style.setProperty("max-height", "100%", "important");
-      img.style.setProperty("object-fit", cfg.fit, "important");
-      img.style.setProperty(
-        "transform",
-        `translate(${cfg.x}%, ${cfg.y}%) scale(${cfg.zoom})`,
-        "important"
-      );
-      img.style.transformOrigin = "center center";
-    });
-
-    const btn = document.getElementById("stacksAdjustBtn");
-    const panel = document.getElementById("stacksWallpaperAdjuster");
-
-    if (!admin) {
-      if (btn) btn.style.setProperty("display", "none", "important");
-      if (panel) panel.style.setProperty("display", "none", "important");
-      return;
-    }
-
-    if (btn) btn.style.setProperty("display", "inline-flex", "important");
-    if (panel) panel.style.setProperty("display", cfg.open ? "block" : "none", "important");
-
-    const lockBtn = document.getElementById("waLockSize");
-    if (lockBtn) {
-      lockBtn.textContent = cfg.locked ? "Size Locked (Tap to Unlock)" : "Lock Size";
-    }
-  }
-    function buildUI() {
-    if (!document.body) return;
-    const cfg = getSettings();
-
-    if (!isAdminUser()) {
-      const existingBtn = document.getElementById("stacksAdjustBtn");
-      const existingPanel = document.getElementById("stacksWallpaperAdjuster");
-      if (existingBtn) existingBtn.remove();
-      if (existingPanel) existingPanel.remove();
-      applySettings(cfg);
-      return;
-    }
-
-    if (!document.getElementById("stacksAdjustBtn")) {
-      const btn = document.createElement("button");
-      btn.id = "stacksAdjustBtn";
-      btn.type = "button";
-      btn.textContent = "Adjust Wallpaper";
-      btn.addEventListener("click", () => {
-        if (!isAdminUser()) return;
-        const cur = getSettings();
-        cur.open = !cur.open;
-        saveSettings(cur);
-        applySettings(cur);
-      });
-      document.body.appendChild(btn);
-    }
-
-    if (!document.getElementById("stacksWallpaperAdjuster")) {
-      const panel = document.createElement("div");
-      panel.id = "stacksWallpaperAdjuster";
-      panel.innerHTML = `
-        <div class="wa-row">
-          <label>Fit Mode</label>
-          <div class="wa-actions" style="margin:0;">
-            <button type="button" id="waFullFit">Full Fit</button>
-            <button type="button" id="waFillBox">Fill Box</button>
-          </div>
-        </div>
-        <div class="wa-row">
-          <label for="waHeight">Box (<span id="waHeightVal">${cfg.boxHeight}px</span>)</label>
-          <input id="waHeight" type="range" min="150" max="320" step="5" value="${cfg.boxHeight}" />
-        </div>
-        <div class="wa-row">
-          <label for="waZoom">Zoom (<span id="waZoomVal">${cfg.zoom.toFixed(2)}x</span>)</label>
-          <input id="waZoom" type="range" min="0.6" max="2" step="0.05" value="${cfg.zoom}" />
-        </div>
-        <div class="wa-row">
-          <label for="waX">Left / Right</label>
-          <input id="waX" type="range" min="-40" max="40" step="1" value="${cfg.x}" />
-        </div>
-        <div class="wa-row">
-          <label for="waY">Up / Down</label>
-          <input id="waY" type="range" min="-40" max="40" step="1" value="${cfg.y}" />
-        </div>
-        <div class="wa-actions">
-          <button type="button" id="waLockSize">Lock Size</button>
-          <button type="button" id="waReset">Reset</button>
-          <button type="button" id="waSave" class="primary">Save & Close</button>
-        </div>
-      `;
-      document.body.appendChild(panel);
-
-      const hInput = document.getElementById("waHeight");
-      const zInput = document.getElementById("waZoom");
-      const xInput = document.getElementById("waX");
-      const yInput = document.getElementById("waY");
-      const hVal = document.getElementById("waHeightVal");
-      const zVal = document.getElementById("waZoomVal");
-
-      const updateFromSliders = () => {
-        if (!isAdminUser()) return;
-        const cur = getSettings();
-        const next = {
-          ...cur,
-          boxHeight: cur.locked ? cur.boxHeight : parseFloat(hInput.value),
-          zoom: cur.locked ? cur.zoom : parseFloat(zInput.value),
-          x: parseFloat(xInput.value),
-          y: parseFloat(yInput.value)
-        };
-        if (hInput) hInput.value = String(next.boxHeight);
-        if (zInput) zInput.value = String(next.zoom);
-        if (hVal) hVal.textContent = `${next.boxHeight}px`;
-        if (zVal) zVal.textContent = `${next.zoom.toFixed(2)}x`;
-        saveSettings(next);
-        applySettings(next);
-      };
-
-      [hInput, zInput, xInput, yInput].forEach((el) => {
-        if (el) el.addEventListener("input", updateFromSliders);
-      });
-
-      const fullFitBtn = document.getElementById("waFullFit");
-      if (fullFitBtn) {
-        fullFitBtn.addEventListener("click", () => {
-          if (!isAdminUser()) return;
-          const cur = getSettings();
-          const next = { ...cur, fit: "contain", zoom: cur.locked ? cur.zoom : 1, x: 0, y: 0 };
-          saveSettings(next);
-          applySettings(next);
-        });
-      }
-
-      const fillBoxBtn = document.getElementById("waFillBox");
-      if (fillBoxBtn) {
-        fillBoxBtn.addEventListener("click", () => {
-          if (!isAdminUser()) return;
-          const cur = getSettings();
-          const next = { ...cur, fit: "cover" };
-          saveSettings(next);
-          applySettings(next);
-        });
-      }
-
-      const lockBtn = document.getElementById("waLockSize");
-      if (lockBtn) {
-        lockBtn.addEventListener("click", () => {
-          if (!isAdminUser()) return;
-          const cur = getSettings();
-          const next = { ...cur, locked: !cur.locked };
-          saveSettings(next);
-          applySettings(next);
-        });
-      }
-
-      const resetBtn = document.getElementById("waReset");
-      if (resetBtn) {
-        resetBtn.addEventListener("click", () => {
-          if (!isAdminUser()) return;
-          const next = { ...defaults, open: true };
-          if (hInput) hInput.value = String(next.boxHeight);
-          if (zInput) zInput.value = String(next.zoom);
-          if (xInput) xInput.value = "0";
-          if (yInput) yInput.value = "0";
-          if (hVal) hVal.textContent = `${next.boxHeight}px`;
-          if (zVal) zVal.textContent = "1.00x";
-          saveSettings(next);
-          applySettings(next);
-        });
-      }
-
-      const saveBtn = document.getElementById("waSave");
-      if (saveBtn) {
-        saveBtn.addEventListener("click", () => {
-          const next = { ...getSettings(), open: false };
-          saveSettings(next);
-          applySettings(next);
-        });
-      }
-    }
-
-    applySettings(cfg);
-  }
-
-  function syncAdminAccess() {
-    buildUI();
-  }
-
-  if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", syncAdminAccess);
-  } else {
-    syncAdminAccess();
-  }
-
-  setInterval(syncAdminAccess, 2000);
-})();
-</script>
+      if(typeof loadChats === 'function') loadChats();
+      if(typeof loadMembers === 'function') loadMembers();
+    }, 15000);
+  </script>
 </body>
 </html>
